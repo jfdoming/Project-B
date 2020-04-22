@@ -15,9 +15,14 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Platformer"
-run/main_scene="res://Main.tscn"
+config/name="Sidescroller"
+run/main_scene="res://Start.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Root="*res://Root.gd"
+Loading="*res://Loading.tscn"
 
 [display]
 

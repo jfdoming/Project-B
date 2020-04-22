@@ -4,13 +4,14 @@ signal smash_land
 
 export (PackedScene) var Bullet
 
-export (int) var max_run_speed = 60
-export (float) var run_speed_increment_fraction = 1.0 / 3.0
+export (bool) var may_move = true
+export (int) var max_run_speed = 700
+export (float) var run_speed_increment_fraction = 1.0 / 20.0
 export (int) var jump_speed = 800
 export (int) var smash_speed = 1200
-export (float) var jump_bonus = 0.08
+export (float) var jump_bonus = 0.15
 export (float) var gravity = 2
-export (float) var friction = 0.15
+export (float) var friction = 0.2
 export (float) var air_resistance = 0.05
 
 var velocity = Vector2()
@@ -19,12 +20,12 @@ var just_jumped = false
 var smashing = false
 var alive = true
 
-func get_input():
-	var right = Input.is_action_pressed('ui_right')
-	var left = Input.is_action_pressed('ui_left')
-	var jump = Input.is_action_just_pressed('ui_select') or Input.is_action_just_pressed('ui_up')
-	var smash = Input.is_action_just_pressed('ui_down')
-	var fire = Input.is_action_just_pressed("fire")
+func get_input(delta):
+	var right = may_move and Input.is_action_pressed('ui_right')
+	var left = may_move and Input.is_action_pressed('ui_left')
+	var jump = may_move and (Input.is_action_just_pressed('ui_select') or Input.is_action_just_pressed('ui_up'))
+	var smash = may_move and Input.is_action_just_pressed('ui_down')
+	var fire = may_move and Input.is_action_just_pressed("fire")
 
 	if fire:
 		var instance = Bullet.instance()
@@ -40,16 +41,16 @@ func get_input():
 		just_jumped = true
 		velocity.y = -jump_speed - jump_bonus * abs(velocity.x)
 	if right:
-		velocity.x += run_speed_increment_fraction * max_run_speed
-		clamp(velocity.x, -max_run_speed, max_run_speed)
+		velocity.x += run_speed_increment_fraction * max_run_speed * delta * 60
+		velocity.x = clamp(velocity.x, -max_run_speed, max_run_speed)
 	if left:
-		velocity.x -= run_speed_increment_fraction * max_run_speed
-		clamp(velocity.x, -max_run_speed, max_run_speed)
+		velocity.x -= run_speed_increment_fraction * max_run_speed * delta * 60
+		velocity.x = clamp(velocity.x, -max_run_speed, max_run_speed)
 	if not right and not left:
-		velocity.x *= (1 - (friction if is_on_floor() else air_resistance))
+		velocity.x *= (1 - (friction if is_on_floor() else air_resistance)) * delta * 60
 
 func _physics_process(delta):
-	get_input()
+	get_input(delta)
 	velocity.y += gravity * delta * 1000
 	if smashing and is_on_floor():
 		smashing = false
