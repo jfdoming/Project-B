@@ -19,6 +19,8 @@ var jumping = false
 var just_jumped = false
 var smashing = false
 var alive = true
+
+var should_persist = false
 var checkpoint = -1
 var spawn_location = Vector2()
 
@@ -67,6 +69,10 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2(0, -1))
 
 func obtain_checkpoint(id, new_spawn_location):
+	# Mark if we have something to save.
+	if checkpoint != id or spawn_location != new_spawn_location:
+		should_persist = true
+	
 	checkpoint = id
 	spawn_location = new_spawn_location
 
@@ -80,7 +86,12 @@ func respawn():
 	velocity.x = 0
 	velocity.y = 0
 
+func should_persist():
+	return should_persist
+
 func persist():
+	should_persist = false
+	
 	return {
 		"checkpoint": checkpoint,
 		"spawn_x": spawn_location.x,

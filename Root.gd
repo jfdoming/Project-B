@@ -15,13 +15,25 @@ func _ready():
 	current_scene = root.get_child(root.get_child_count() - 1)
 
 func save_game(filename = "default"):
-	print("Saving...")
-	
 	var save_game = File.new()
-	save_game.open("user://saves/" + filename + ".save", File.WRITE)
 	var persisted_nodes = get_tree().get_nodes_in_group("Persist")
+	
+	var should_persist = false
+	for persisted_node in persisted_nodes:
+		if not persisted_node.has_method("should_persist") or persisted_node.should_persist():
+			should_persist = true
+	
+	if not should_persist:
+		return
+	
+	print("Saving...")
+	var path = "user://saves/" + filename + ".save"
+	var flags = File.READ_WRITE if save_game.file_exists(path) else File.WRITE
+	save_game.open(path, flags)
+	
 	for persisted_node in persisted_nodes:
 		if !persisted_node.has_method("persist"):
+			save_game.get_line() # Skip this line
 			print("Persisted node '%s' is missing a persist() function, skipping..." % persisted_node.name)
 			continue
 		
