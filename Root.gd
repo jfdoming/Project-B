@@ -13,6 +13,9 @@ var current_scene
 func _ready():
 	var root = get_tree().get_root()
 	current_scene = root.get_child(root.get_child_count() - 1)
+	
+	# Don't stop responding to requests, even when paused.
+	self.set_pause_mode(PAUSE_MODE_PROCESS)
 
 func save_game(filename = "default"):
 	var save_game = File.new()
@@ -86,6 +89,7 @@ func _deferred_goto_scene(path):
 	set_process(true)
 
 	current_scene.queue_free()
+	get_tree().paused = false
 
 	wait_frames = 1
 	emit_signal("load_progress", 0)

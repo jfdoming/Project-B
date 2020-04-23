@@ -4,6 +4,10 @@ func _ready():
 	$HUD/CrosshairAnimation.play("Crosshair")
 	Root.load_game()
 
+func _process(delta):
+	if Input.is_action_pressed("pause"):
+		$Pause.pause()
+
 func _on_Layout_win():
 	$Player.may_move = false
 	$WinTimer.start()

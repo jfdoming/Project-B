@@ -2,8 +2,8 @@
 
 [ext_resource path="res://scenes/Loading.gd" type="Script" id=1]
 
-
 [node name="Loading" type="CanvasLayer"]
+pause_mode = 2
 layer = 2
 script = ExtResource( 1 )
 
