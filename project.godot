@@ -16,13 +16,13 @@ _global_script_class_icons={
 [application]
 
 config/name="Sidescroller"
-run/main_scene="res://Start.tscn"
+run/main_scene="res://scenes/Start.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Root="*res://Root.gd"
-Loading="*res://Loading.tscn"
+Loading="*res://scenes/Loading.tscn"
 
 [display]
 

@@ -67,7 +67,7 @@ func goto_scene(path):
 	call_deferred("_deferred_goto_scene", path)
 
 func _deferred_goto_scene(path):
-	loader = ResourceLoader.load_interactive("res://" + path + ".tscn")
+	loader = ResourceLoader.load_interactive("res://scenes/" + path + ".tscn")
 	if loader == null:
 		printerr("Failed to load scene: ", path)
 		return
