@@ -1,10 +1,8 @@
 extends Node2D
 
 func _ready():
-	$Crosshair/CrosshairAnimation.play("Crosshair")
-
-func _on_Layout_death():
-	$Player.respawn()
+	$HUD/CrosshairAnimation.play("Crosshair")
+	Root.load_game()
 
 func _on_Layout_win():
 	$Player.may_move = false

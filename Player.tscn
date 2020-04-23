@@ -18,7 +18,9 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 24, 40 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"Persist",
+]]
 collision_mask = 3
 script = ExtResource( 1 )
 

@@ -19,6 +19,11 @@ var jumping = false
 var just_jumped = false
 var smashing = false
 var alive = true
+var checkpoint = -1
+var spawn_location = Vector2()
+
+func _ready():
+	spawn_location = position
 
 func get_input(delta):
 	var right = may_move and Input.is_action_pressed('ui_right')
@@ -61,10 +66,31 @@ func _physics_process(delta):
 		just_jumped = false
 	velocity = move_and_slide(velocity, Vector2(0, -1))
 
+func obtain_checkpoint(id, new_spawn_location):
+	checkpoint = id
+	spawn_location = new_spawn_location
+
+func die():
+	respawn()
 
 func respawn():
 	alive = false
-	position.x = 536
-	position.y = 240
+	position.x = spawn_location.x
+	position.y = spawn_location.y
 	velocity.x = 0
 	velocity.y = 0
+
+func persist():
+	return {
+		"checkpoint": checkpoint,
+		"spawn_x": spawn_location.x,
+		"spawn_y": spawn_location.y,
+	}
+
+func restore(data):
+	checkpoint = data.checkpoint
+	spawn_location.x = data.spawn_x
+	spawn_location.y = data.spawn_y
+	position.x = spawn_location.x
+	position.y = spawn_location.y
+	

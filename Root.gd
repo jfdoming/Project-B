@@ -1,3 +1,6 @@
+# Many thanks to the Godot step-by-step documentation for the ideas behind
+# the code below.
+
 extends Node
 
 signal load_progress
@@ -10,6 +13,46 @@ var current_scene
 func _ready():
 	var root = get_tree().get_root()
 	current_scene = root.get_child(root.get_child_count() - 1)
+
+func save_game(filename = "default"):
+	print("Saving...")
+	
+	var save_game = File.new()
+	save_game.open("user://saves/" + filename + ".save", File.WRITE)
+	var persisted_nodes = get_tree().get_nodes_in_group("Persist")
+	for persisted_node in persisted_nodes:
+		if !persisted_node.has_method("persist"):
+			print("Persisted node '%s' is missing a persist() function, skipping..." % persisted_node.name)
+			continue
+		
+		var data = persisted_node.call("persist")
+		save_game.store_line(to_json(data))
+	save_game.close()
+
+func load_game(filename = "default"):
+	var save_game = File.new()
+	if not save_game.file_exists("user://saves/" + filename + ".save"):
+		return
+	
+	var persisted_nodes = get_tree().get_nodes_in_group("Persist")
+	var index = 0
+	
+	save_game.open("user://saves/" + filename + ".save", File.READ)
+	while save_game.get_position() < save_game.get_len():
+		var persisted_node = persisted_nodes[index]
+		index += 1
+		
+		var node_data = parse_json(save_game.get_line())
+		if !persisted_node.has_method("restore"):
+			print("Persisted node '%s' is missing a restore() function, skipping..." % persisted_node.name)
+			continue
+
+		persisted_node.restore(node_data)
+	save_game.close()
+
+func delete_game(filename = "default"):
+	var save_game = Directory.new()
+	save_game.remove("user://saves/" + filename + ".save")
 
 func goto_scene(path):
 	# This function will usually be called from a signal callback,
