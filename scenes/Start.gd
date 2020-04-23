@@ -6,3 +6,7 @@ func _on_StartButton_pressed():
 
 func _on_ResetButton_pressed():
 	Root.delete_game()
+
+
+func _on_QuitButton_pressed():
+	get_tree().quit()
