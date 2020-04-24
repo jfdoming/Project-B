@@ -92,6 +92,7 @@ func obtain_checkpoint(id, new_spawn_location):
 	spawn_location = new_spawn_location
 	
 	health = max_health
+	spawn_xp = xp
 
 func begin_damage(damage):
 	if smashing:
