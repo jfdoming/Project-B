@@ -21,6 +21,7 @@ extents = Vector2( 24, 40 )
 [node name="Player" type="KinematicBody2D" groups=[
 "Persist",
 ]]
+collision_layer = 9
 collision_mask = 3
 script = ExtResource( 1 )
 
@@ -52,5 +53,14 @@ drag_margin_v_enabled = true
 smoothing_enabled = true
 drag_margin_top = 0.0
 drag_margin_bottom = 0.0
+
+[node name="InvulnTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="InvulnFlickerTimer" type="Timer" parent="."]
+wait_time = 0.1
 [connection signal="smash_land" from="." to="Smash" method="_on_Player_smash_land"]
 [connection signal="animation_finished" from="Smash" to="Smash" method="_on_Smash_animation_finished"]
+[connection signal="timeout" from="InvulnTimer" to="." method="_on_InvulnTimer_timeout"]
+[connection signal="timeout" from="InvulnFlickerTimer" to="." method="_on_InvulnFlickerTimer_timeout"]

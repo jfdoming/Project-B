@@ -4,6 +4,10 @@ signal smash_land
 
 export (PackedScene) var Bullet
 
+# Cosmetic-related options.
+export (int) var invuln_flicker_time = 0.1
+
+# Physics-related options.
 export (bool) var may_move = true
 export (int) var max_run_speed = 700
 export (float) var run_speed_increment_fraction = 1.0 / 20.0
@@ -14,13 +18,20 @@ export (float) var gravity = 2
 export (float) var friction = 0.2
 export (float) var air_resistance = 0.05
 
+# Gameplay-related options.
+export (int) var max_health = 100
+export (int) var invuln_time = 1
+
 var velocity = Vector2()
 var jumping = false
 var just_jumped = false
 var smashing = false
-var alive = true
+var health = max_health
+var active_damage = 0
+var invulnerable = false
 
 var should_persist = false
+var xp = 0
 var checkpoint = -1
 var spawn_location = Vector2()
 
@@ -75,12 +86,50 @@ func obtain_checkpoint(id, new_spawn_location):
 	
 	checkpoint = id
 	spawn_location = new_spawn_location
+	
+	health = max_health
+
+func begin_damage(amt):
+	active_damage += amt
+	take_damage(active_damage)
+
+func end_damage(amt):
+	if active_damage <= 0:
+		return
+	
+	active_damage -= amt
+
+func take_damage(amt):
+	if invulnerable or amt == 0:
+		return
+	
+	health = max(health - amt, 0)
+	if health == 0:
+		die()
+		return
+	
+	invulnerable = true
+	$InvulnTimer.start(invuln_time)
+	$InvulnFlickerTimer.start(invuln_flicker_time)
+	
+func _on_InvulnTimer_timeout():
+	$InvulnFlickerTimer.stop()
+	invulnerable = false
+	show()
+	take_damage(active_damage)
+
+func _on_InvulnFlickerTimer_timeout():
+	if visible:
+		hide()
+	else:
+		show()
 
 func die():
 	respawn()
 
 func respawn():
-	alive = false
+	health = max_health
+	
 	position.x = spawn_location.x
 	position.y = spawn_location.y
 	velocity.x = 0
@@ -96,12 +145,15 @@ func persist():
 		"checkpoint": checkpoint,
 		"spawn_x": spawn_location.x,
 		"spawn_y": spawn_location.y,
+		"xp": xp,
+		"max_health": max_health
 	}
 
 func restore(data):
 	checkpoint = data.checkpoint
 	spawn_location.x = data.spawn_x
 	spawn_location.y = data.spawn_y
-	position.x = spawn_location.x
-	position.y = spawn_location.y
+	xp = data.xp
+	max_health = data.max_health
 	
+	respawn()
