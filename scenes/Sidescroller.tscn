@@ -41,6 +41,9 @@ tracks/1/keys = {
 
 [node name="Sidescroller" type="Node2D"]
 script = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Layout" parent="." instance=ExtResource( 3 )]
 

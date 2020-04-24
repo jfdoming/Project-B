@@ -7,6 +7,9 @@
 [ext_resource path="res://layout_elements/DeathArea.tscn" type="PackedScene" id=5]
 
 [node name="Layout" type="Node2D"]
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Goal" parent="." instance=ExtResource( 4 )]
 position = Vector2( -1728, 320 )

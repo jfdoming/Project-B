@@ -17,6 +17,9 @@ func _ready():
 	# Don't stop responding to requests, even when paused.
 	self.set_pause_mode(PAUSE_MODE_PROCESS)
 
+func reset_layout():
+	get_tree().call_group("ResetOnRespawn", "reset")
+
 func save_game(filename = "default"):
 	var save_game = File.new()
 	var persisted_nodes = get_tree().get_nodes_in_group("Persist")

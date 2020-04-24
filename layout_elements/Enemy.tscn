@@ -5,7 +5,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
 
-[node name="Enemy" type="Area2D"]
+[node name="Enemy" type="Area2D" groups=[
+"ResetOnRespawn",
+]]
 collision_mask = 8
 script = ExtResource( 1 )
 __meta__ = {
@@ -24,5 +26,12 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="NoAttackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="NoAttackFlickerTimer" type="Timer" parent="."]
 [connection signal="body_entered" from="." to="." method="_on_Node2D_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Enemy_body_exited"]
+[connection signal="timeout" from="NoAttackTimer" to="." method="_on_NoAttackTimer_timeout"]
+[connection signal="timeout" from="NoAttackFlickerTimer" to="." method="_on_NoAttackFlickerTimer_timeout"]

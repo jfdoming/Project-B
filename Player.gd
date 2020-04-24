@@ -20,7 +20,8 @@ export (float) var air_resistance = 0.05
 
 # Gameplay-related options.
 export (int) var max_health = 100
-export (int) var invuln_time = 1
+export (float) var invuln_time = 1
+export (int) var smash_damage = 50
 
 var velocity = Vector2()
 var jumping = false
@@ -30,8 +31,11 @@ var health = max_health
 var active_damage = 0
 var invulnerable = false
 
+# If the list of persisted props continues to grow, perhaps we can store it in
+# an inner class instead, as a way of containing all persisted values.
 var did_persisted_props_change = false
 var xp = 0
+var spawn_xp = 0
 var checkpoint = -1
 var spawn_location = Vector2()
 
@@ -89,21 +93,25 @@ func obtain_checkpoint(id, new_spawn_location):
 	
 	health = max_health
 
-func begin_damage(amt):
-	active_damage += amt
+func begin_damage(damage):
+	if smashing:
+		return smash_damage
+	
+	active_damage += damage
 	take_damage(active_damage)
+	return 0
 
-func end_damage(amt):
+func end_damage(damage):
 	if active_damage <= 0:
 		return
 	
-	active_damage -= amt
+	active_damage -= damage
 
-func take_damage(amt):
-	if invulnerable or amt == 0:
+func take_damage(damage):
+	if invulnerable or damage == 0:
 		return
 	
-	health = max(health - amt, 0)
+	health = max(health - damage, 0)
 	if health == 0:
 		die()
 		return
@@ -111,6 +119,12 @@ func take_damage(amt):
 	invulnerable = true
 	$InvulnTimer.start(invuln_time)
 	$InvulnFlickerTimer.start(invuln_flicker_time)
+
+func on_kill(reward):
+	if reward == 0:
+		return
+	xp += reward
+	did_persisted_props_change = true
 	
 func _on_InvulnTimer_timeout():
 	$InvulnFlickerTimer.stop()
@@ -128,7 +142,10 @@ func die():
 	respawn()
 
 func respawn():
+	Root.reset_layout()
+	
 	health = max_health
+	xp = spawn_xp
 	
 	position.x = spawn_location.x
 	position.y = spawn_location.y
@@ -145,7 +162,7 @@ func persist():
 		"checkpoint": checkpoint,
 		"spawn_x": spawn_location.x,
 		"spawn_y": spawn_location.y,
-		"xp": xp,
+		"spawn_xp": xp,
 		"max_health": max_health
 	}
 
@@ -153,7 +170,7 @@ func restore(data):
 	checkpoint = data.checkpoint
 	spawn_location.x = data.spawn_x
 	spawn_location.y = data.spawn_y
-	xp = data.xp
+	spawn_xp = data.spawn_xp
 	max_health = data.max_health
 	
 	respawn()
