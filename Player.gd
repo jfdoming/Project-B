@@ -30,7 +30,7 @@ var health = max_health
 var active_damage = 0
 var invulnerable = false
 
-var should_persist = false
+var did_persisted_props_change = false
 var xp = 0
 var checkpoint = -1
 var spawn_location = Vector2()
@@ -82,7 +82,7 @@ func _physics_process(delta):
 func obtain_checkpoint(id, new_spawn_location):
 	# Mark if we have something to save.
 	if checkpoint != id or spawn_location != new_spawn_location:
-		should_persist = true
+		did_persisted_props_change = true
 	
 	checkpoint = id
 	spawn_location = new_spawn_location
@@ -136,10 +136,10 @@ func respawn():
 	velocity.y = 0
 
 func should_persist():
-	return should_persist
+	return did_persisted_props_change
 
 func persist():
-	should_persist = false
+	did_persisted_props_change = false
 	
 	return {
 		"checkpoint": checkpoint,
