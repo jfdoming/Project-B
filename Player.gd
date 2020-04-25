@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal smash_land
+signal win
 
 export (PackedScene) var Bullet
 
@@ -9,6 +10,7 @@ export (int) var invuln_flicker_time = 0.1
 
 # Physics-related options.
 export (bool) var may_move = true
+export (bool) var obey_physics = true
 export (int) var max_run_speed = 700
 export (float) var run_speed_increment_fraction = 1.0 / 20.0
 export (int) var jump_speed = 800
@@ -42,7 +44,7 @@ var spawn_location = Vector2()
 func _ready():
 	spawn_location = position
 
-func get_input(delta):
+func calculate_velocity(delta):
 	var right = may_move and Input.is_action_pressed('ui_right')
 	var left = may_move and Input.is_action_pressed('ui_left')
 	var jump = may_move and (Input.is_action_just_pressed('ui_select') or Input.is_action_just_pressed('ui_up'))
@@ -68,12 +70,18 @@ func get_input(delta):
 	if left:
 		velocity.x -= run_speed_increment_fraction * max_run_speed * delta * 60
 		velocity.x = clamp(velocity.x, -max_run_speed, max_run_speed)
-	if not right and not left:
-		velocity.x *= (1 - (friction if is_on_floor() else air_resistance)) * delta * 60
+	
+	if obey_physics:
+		if not right and not left:
+			velocity.x *= (1 - (friction if is_on_floor() else air_resistance)) * delta * 60
+		
+		velocity.y += gravity * delta * 1000
+	else:
+		velocity.x = 0
+		velocity.y = 0
 
 func _physics_process(delta):
-	get_input(delta)
-	velocity.y += gravity * delta * 1000
+	calculate_velocity(delta)
 	if smashing and is_on_floor():
 		smashing = false
 		emit_signal("smash_land")
@@ -93,6 +101,12 @@ func obtain_checkpoint(id, new_spawn_location):
 	
 	health = max_health
 	spawn_xp = xp
+
+func obtain_goal(next_map, freeze = false):
+	invulnerable = true
+	may_move = false
+	obey_physics = not freeze
+	emit_signal("win", next_map)
 
 func begin_damage(damage):
 	if smashing:

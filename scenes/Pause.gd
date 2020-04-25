@@ -15,4 +15,4 @@ func _on_ResumeButton_pressed():
 	get_tree().paused = false
 
 func _on_QuitButton_pressed():
-	Root.goto_scene("Start")
+	Root.goto_scene("scenes/Start")

@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 func _on_StartButton_pressed():
-	Root.goto_scene("Sidescroller")
+	Root.goto_scene("layouts/Layout1")
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func _on_ResetButton_pressed():
