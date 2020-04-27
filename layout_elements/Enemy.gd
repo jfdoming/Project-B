@@ -20,10 +20,12 @@ func reset():
 	show()
 
 func die():
+	$NoAttackTimer.stop()
+	$NoAttackFlickerTimer.stop()
 	hide()
 
 func take_damage(amt):
-	if amt == 0:
+	if health == 0 or amt == 0:
 		return
 	
 	health = max(health - amt, 0)
@@ -39,7 +41,7 @@ func _on_NoAttackTimer_timeout():
 	show()
 	
 	for body in get_overlapping_bodies():
-		_on_Node2D_body_entered(body)
+		_on_Enemy_body_entered(body)
 
 func _on_NoAttackFlickerTimer_timeout():
 	if visible:
@@ -47,18 +49,22 @@ func _on_NoAttackFlickerTimer_timeout():
 	else:
 		show()
 
-func _on_Node2D_body_entered(body):
+func _on_Enemy_body_entered(body):
 	if health == 0:
 		return
-	if not body.get_collision_layer_bit(PLAYER_ENEMY_COLLISION_LAYER):
-		return
+	if body.get_collision_layer_bit(PLAYER_ENEMY_COLLISION_LAYER):
+		var counter_attack = body.begin_damage(attack)
+		attacks[body.get_instance_id()] = attack
+		take_damage(counter_attack)
+	else:
+		if not body.has_method("on_enemy_entered"):
+			return
+		body.on_enemy_entered(self)
 	
-	var counter_attack = body.begin_damage(attack)
-	attacks[body.get_instance_id()] = attack
-	take_damage(counter_attack)
 	if health == 0:
 		# We were killed by the body which entered us!
-		body.on_kill(reward)
+		if body.has_method("on_kill"):
+			body.on_kill(reward)
 
 func _on_Enemy_body_exited(body):
 	if health == 0:

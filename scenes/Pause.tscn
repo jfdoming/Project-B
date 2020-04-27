@@ -1,14 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/Pause.gd" type="Script" id=1]
 
 [sub_resource type="StyleBoxFlat" id=1]
-
-[sub_resource type="InputEventAction" id=2]
-action = "ui_select"
-
-[sub_resource type="ShortCut" id=3]
-shortcut = SubResource( 2 )
 
 [node name="Pause" type="CanvasLayer"]
 pause_mode = 2
@@ -58,8 +52,11 @@ margin_bottom = 49.0
 [node name="ResumeButton" type="Button" parent="Buttons/MarginContainer/VBoxContainer"]
 margin_right = 90.0
 margin_bottom = 20.0
+focus_neighbour_top = NodePath("../QuitButton")
+focus_neighbour_bottom = NodePath("../QuitButton")
+focus_next = NodePath("../QuitButton")
+focus_previous = NodePath("../QuitButton")
 size_flags_horizontal = 3
-shortcut = SubResource( 3 )
 text = "Resume"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -69,6 +66,10 @@ __meta__ = {
 margin_top = 24.0
 margin_right = 90.0
 margin_bottom = 44.0
+focus_neighbour_top = NodePath("../ResumeButton")
+focus_neighbour_bottom = NodePath("../ResumeButton")
+focus_next = NodePath("../ResumeButton")
+focus_previous = NodePath("../ResumeButton")
 size_flags_horizontal = 3
 text = "Quit"
 __meta__ = {

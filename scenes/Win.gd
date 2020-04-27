@@ -1,14 +1,20 @@
 extends CanvasLayer
 
-var next_map
+var next_scene
+var hide_mouse
+
+func _ready():
+	$Content/MarginContainer/VBoxContainer/ContinueButton.grab_focus()
 
 func receive_params(params):
-	next_map = params.next_map
+	next_scene = params.next_scene
+	hide_mouse = params.hide_mouse
 	$Content/MarginContainer/VBoxContainer/XPLabel.text = "XP: " + str(params.xp)
 
 func _on_ContinueButton_pressed():
-	if ResourceLoader.exists("res://layouts/" + next_map + ".tscn"):
-		Root.goto_scene("layouts/" + next_map)
-		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	if ResourceLoader.exists("res://" + next_scene + ".tscn"):
+		Root.goto_scene(next_scene)
+		if hide_mouse:
+			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	else:
 		Root.goto_scene("scenes/Start")

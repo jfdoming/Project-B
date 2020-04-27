@@ -24,6 +24,7 @@ export (float) var air_resistance = 0.05
 export (int) var max_health = 100
 export (float) var invuln_time = 1
 export (int) var smash_damage = 50
+export (int) var bullet_damage = 10
 
 var velocity = Vector2()
 var jumping = false
@@ -57,6 +58,9 @@ func calculate_velocity(delta):
 		
 		instance.look_at(get_global_mouse_position())
 		instance.linear_velocity = Vector2(100, 0).rotated(instance.rotation)
+		instance.damage = bullet_damage
+		
+		instance.connect("kill_obtained", self, "on_kill")
 	if smash and jumping and not smashing:
 		smashing = true
 		velocity.y = smash_speed
@@ -102,11 +106,11 @@ func obtain_checkpoint(id, new_spawn_location):
 	health = max_health
 	spawn_xp = xp
 
-func obtain_goal(next_map, freeze = false):
+func obtain_goal(next_scene, freeze = false, hide_mouse = true):
 	invulnerable = true
 	may_move = false
 	obey_physics = not freeze
-	emit_signal("win", next_map)
+	emit_signal("win", next_scene, hide_mouse)
 
 func begin_damage(damage):
 	if smashing:

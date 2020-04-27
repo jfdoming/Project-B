@@ -1,5 +1,8 @@
 extends CanvasLayer
 
+func _ready():
+	$Buttons/MarginContainer/VBoxContainer/StartButton.grab_focus()
+
 func _on_StartButton_pressed():
 	Root.goto_scene("layouts/Layout1")
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
