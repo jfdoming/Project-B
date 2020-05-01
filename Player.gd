@@ -58,8 +58,11 @@ func _show_stand_anim():
 	$StandAnimation.visible = true
 	$StandAnimation.frame = 0
 	$StandAnimation.play()
+	
 	$WalkAnimation.visible = false
 	$WalkAnimation.stop()
+	$JumpAnimation.visible = false
+	$JumpAnimation.stop()
 
 func _show_walk_anim():
 	if $WalkAnimation.visible:
@@ -69,8 +72,25 @@ func _show_walk_anim():
 	$WalkAnimation.visible = true
 	$WalkAnimation.frame = 0
 	$WalkAnimation.play()
+	
 	$StandAnimation.visible = false
 	$StandAnimation.stop()
+	$JumpAnimation.visible = false
+	$JumpAnimation.stop()
+
+func _show_jump_anim():
+	if $JumpAnimation.visible:
+		# No need to show it again.
+		return
+	
+	$JumpAnimation.visible = true
+	$JumpAnimation.frame = 0
+	$JumpAnimation.play()
+	
+	$StandAnimation.visible = false
+	$StandAnimation.stop()
+	$WalkAnimation.visible = false
+	$WalkAnimation.stop()
 
 func calculate_velocity(delta):
 	var right = may_move and Input.is_action_pressed('ui_right')
@@ -118,7 +138,9 @@ func calculate_velocity(delta):
 		velocity.x = 0
 		velocity.y = 0
 	
-	if walking and not jumping:
+	if jumping:
+		_show_jump_anim()
+	elif walking:
 		_show_walk_anim()
 	else:
 		_show_stand_anim()
