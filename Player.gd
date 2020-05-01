@@ -11,8 +11,8 @@ export (int) var invuln_flicker_time = 0.1
 # Physics-related options.
 export (bool) var may_move = true
 export (bool) var obey_physics = true
-export (int) var max_run_speed = 700
-export (float) var run_speed_increment_fraction = 1.0 / 20.0
+export (int) var max_run_speed = 250
+export (float) var run_speed_increment_fraction = 1.0 / 10.0
 export (int) var jump_speed = 800
 export (int) var smash_speed = 1200
 export (float) var jump_bonus = 0.15
@@ -26,7 +26,11 @@ export (float) var invuln_time = 1
 export (int) var smash_damage = 50
 export (int) var bullet_damage = 10
 
+const LEFT = 0
+const RIGHT = 1
+
 var velocity = Vector2()
+var direction = RIGHT
 var jumping = false
 var just_jumped = false
 var smashing = false
@@ -44,6 +48,29 @@ var spawn_location = Vector2()
 
 func _ready():
 	spawn_location = position
+	_show_stand_anim()
+
+func _show_stand_anim():
+	if $StandAnimation.visible:
+		# No need to show it again.
+		return
+	
+	$StandAnimation.visible = true
+	$StandAnimation.frame = 0
+	$StandAnimation.play()
+	$WalkAnimation.visible = false
+	$WalkAnimation.stop()
+
+func _show_walk_anim():
+	if $WalkAnimation.visible:
+		# No need to show it again.
+		return
+	
+	$WalkAnimation.visible = true
+	$WalkAnimation.frame = 0
+	$WalkAnimation.play()
+	$StandAnimation.visible = false
+	$StandAnimation.stop()
 
 func calculate_velocity(delta):
 	var right = may_move and Input.is_action_pressed('ui_right')
@@ -51,6 +78,7 @@ func calculate_velocity(delta):
 	var jump = may_move and (Input.is_action_just_pressed('ui_select') or Input.is_action_just_pressed('ui_up'))
 	var smash = may_move and Input.is_action_just_pressed('ui_down')
 	var fire = may_move and Input.is_action_just_pressed("fire")
+	var walking = left != right
 
 	if fire:
 		var instance = Bullet.instance()
@@ -68,21 +96,32 @@ func calculate_velocity(delta):
 		jumping = true
 		just_jumped = true
 		velocity.y = -jump_speed - jump_bonus * abs(velocity.x)
-	if right:
+	if right and not left:
 		velocity.x += run_speed_increment_fraction * max_run_speed * delta * 60
 		velocity.x = clamp(velocity.x, -max_run_speed, max_run_speed)
-	if left:
+		if direction != RIGHT:
+			direction = RIGHT
+			scale.x = -1
+	if left and not right:
 		velocity.x -= run_speed_increment_fraction * max_run_speed * delta * 60
 		velocity.x = clamp(velocity.x, -max_run_speed, max_run_speed)
+		if direction != LEFT:
+			direction = LEFT
+			scale.x = -1
 	
 	if obey_physics:
-		if not right and not left:
+		if not walking:
 			velocity.x *= (1 - (friction if is_on_floor() else air_resistance)) * delta * 60
 		
 		velocity.y += gravity * delta * 1000
 	else:
 		velocity.x = 0
 		velocity.y = 0
+	
+	if walking and not jumping:
+		_show_walk_anim()
+	else:
+		_show_stand_anim()
 
 func _physics_process(delta):
 	calculate_velocity(delta)

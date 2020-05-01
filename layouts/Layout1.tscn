@@ -45,30 +45,30 @@ position = Vector2( 960, 368 )
 position = Vector2( 1056, 208 )
 
 [node name="Wall5" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1280, 48 )
+position = Vector2( 1216, 48 )
+
+[node name="Wall10" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1280, -112 )
+
+[node name="Wall21" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1344, -272 )
 
 [node name="Wall6" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1024, -80 )
+position = Vector2( 960, -160 )
 
 [node name="Wall7" parent="." instance=ExtResource( 2 )]
 position = Vector2( 816, -192 )
 rotation = 1.5708
 
 [node name="Wall8" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1104, -320 )
+position = Vector2( 656, -320 )
 rotation = 1.5708
 
 [node name="Wall9" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1216, -464 )
-
-[node name="Wall10" parent="." instance=ExtResource( 2 )]
-position = Vector2( 960, -592 )
+position = Vector2( 512, -464 )
 
 [node name="Wall12" parent="." instance=ExtResource( 2 )]
 position = Vector2( 384, -592 )
-
-[node name="Wall13" parent="." instance=ExtResource( 2 )]
-position = Vector2( 256, -848 )
 
 [node name="Wall14" parent="." instance=ExtResource( 2 )]
 position = Vector2( 128, -560 )
