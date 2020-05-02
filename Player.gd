@@ -34,6 +34,7 @@ var direction = RIGHT
 var jumping = false
 var just_jumped = false
 var smashing = false
+var firing_chest = false
 var health = max_health
 var active_damage = 0
 var invulnerable = false
@@ -74,12 +75,15 @@ func _show_anim(anim):
 	anim.play()
 
 func calculate_velocity(delta):
-	var right = may_move and Input.is_action_pressed('ui_right')
-	var left = may_move and Input.is_action_pressed('ui_left')
-	var jump = may_move and (Input.is_action_just_pressed('ui_select') or Input.is_action_just_pressed('ui_up'))
-	var crouch = may_move and Input.is_action_pressed('ui_down')
-	var fire = may_move and Input.is_action_just_pressed("fire")
-	var chest_fire = may_move and Input.is_action_just_pressed("fire_chest")
+	var fire_chest = may_move and Input.is_action_just_pressed("fire_chest")
+	firing_chest = firing_chest or fire_chest
+	
+	var freeze = (not may_move) or firing_chest
+	var right = not freeze and Input.is_action_pressed('ui_right')
+	var left = not freeze and Input.is_action_pressed('ui_left')
+	var jump = not freeze and (Input.is_action_just_pressed('ui_select') or Input.is_action_just_pressed('ui_up'))
+	var crouch = not freeze and Input.is_action_pressed('ui_down')
+	var fire = not freeze and Input.is_action_just_pressed("fire")
 	var walking = left != right
 
 	if fire:
@@ -121,16 +125,17 @@ func calculate_velocity(delta):
 		velocity.x = 0
 		velocity.y = 0
 	
-	if chest_fire:
+	if fire_chest:
 		_show_anim($FireChestAnimation)
-	elif crouch:
-		_show_anim($CrouchAnimation)
-	elif jumping:
-		_show_anim($JumpAnimation)
-	elif walking:
-		_show_anim($WalkAnimation)
-	else:
-		_show_anim($StandAnimation)
+	elif not freeze:
+		if crouch:
+			_show_anim($CrouchAnimation)
+		elif jumping:
+			_show_anim($JumpAnimation)
+		elif walking:
+			_show_anim($WalkAnimation)
+		else:
+			_show_anim($StandAnimation)
 
 func _physics_process(delta):
 	calculate_velocity(delta)
@@ -241,3 +246,7 @@ func restore(data):
 	max_health = data.max_health
 	
 	respawn()
+
+
+func _on_FireChestAnimation_animation_finished():
+	firing_chest = false

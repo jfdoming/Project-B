@@ -237,7 +237,7 @@ region = Rect2( 2800, 0, 100, 120 )
 [sub_resource type="SpriteFrames" id=52]
 animations = [ {
 "frames": [ SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ) ],
-"loop": true,
+"loop": false,
 "name": "default",
 "speed": 15.0
 } ]
@@ -279,6 +279,7 @@ one_shot = true
 wait_time = 0.1
 
 [node name="StandAnimation" type="AnimatedSprite" parent="."]
+visible = false
 position = Vector2( 0, -8 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 4 )
@@ -302,6 +303,7 @@ scale = Vector2( 2, 2 )
 frames = SubResource( 22 )
 
 [node name="FireChestAnimation" type="AnimatedSprite" parent="."]
+visible = false
 position = Vector2( 0, -27 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 52 )
@@ -319,3 +321,4 @@ shape = SubResource( 11 )
 [connection signal="animation_finished" from="Smash" to="Smash" method="_on_Smash_animation_finished"]
 [connection signal="timeout" from="InvulnTimer" to="." method="_on_InvulnTimer_timeout"]
 [connection signal="timeout" from="InvulnFlickerTimer" to="." method="_on_InvulnFlickerTimer_timeout"]
+[connection signal="animation_finished" from="FireChestAnimation" to="." method="_on_FireChestAnimation_animation_finished"]
