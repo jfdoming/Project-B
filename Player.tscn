@@ -16,56 +16,56 @@ animations = [ {
 "speed": 30.0
 } ]
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=2]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 100, 100 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=3]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 100, 0, 100, 100 )
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ SubResource( 3 ), SubResource( 4 ) ],
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
 "name": "default",
 "speed": 4.0
 } ]
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=5]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 200, 0, 100, 100 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=6]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 300, 0, 100, 100 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=7]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 400, 0, 100, 100 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=8]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 500, 0, 100, 100 )
 
-[sub_resource type="SpriteFrames" id=10]
+[sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
 "name": "default",
 "speed": 6.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 10.9741, 9.35257 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 24, 40.9254 )
 
 [node name="Player" type="KinematicBody2D" groups=[
@@ -101,23 +101,23 @@ wait_time = 0.1
 [node name="StandAnimation" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -8 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 5 )
+frames = SubResource( 4 )
 
 [node name="WalkAnimation" type="AnimatedSprite" parent="."]
 visible = false
 position = Vector2( 0, -8 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 10 )
+frames = SubResource( 9 )
 
 [node name="HeadCollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2( 2.59303, -89.4856 )
 scale = Vector2( 2, 2 )
-shape = SubResource( 11 )
+shape = SubResource( 10 )
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2( -3.99033, 10.8089 )
+position = Vector2( -1, 7 )
 scale = Vector2( 2, 2 )
-shape = SubResource( 2 )
+shape = SubResource( 11 )
 [connection signal="smash_land" from="." to="Smash" method="_on_Player_smash_land"]
 [connection signal="animation_finished" from="Smash" to="Smash" method="_on_Smash_animation_finished"]
 [connection signal="timeout" from="InvulnTimer" to="." method="_on_InvulnTimer_timeout"]
