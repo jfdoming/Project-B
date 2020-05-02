@@ -71,6 +71,7 @@ func _show_walk_anim():
 	$WalkAnimation.play()
 	$StandAnimation.visible = false
 	$StandAnimation.stop()
+	
 
 func calculate_velocity(delta):
 	var right = may_move and Input.is_action_pressed('ui_right')
@@ -80,26 +81,11 @@ func calculate_velocity(delta):
 	var fire = may_move and Input.is_action_just_pressed("fire")
 	var walking = left != right
 
-	if fire and right:
-		var instance = Bullet.instance()
-		add_child(instance)
-		instance.look_at(get_global_mouse_position())
-		instance.linear_velocity = Vector2(1000, 0).rotated(instance.rotation)
-		instance.damage = bullet_damage		
-		instance.connect("kill_obtained", self, "on_kill")
-	if fire and left:
-		var instance = Bullet.instance()
-		add_child(instance)
-		instance.look_at(get_global_mouse_position())
-		instance.linear_velocity = Vector2(-1000,0).rotated(-instance.rotation)
-		#print(instance.rotation) For debugging purposes
-		instance.damage = bullet_damage		
-		instance.connect("kill_obtained", self, "on_kill")
 	if fire:
 		var instance = Bullet.instance()
 		add_child(instance)
 		instance.look_at(get_global_mouse_position())
-		print(get_global_mouse_position())
+		#print(get_global_mouse_position()) For debugging purposes
 		if get_global_mouse_position()[0] < 0 or (get_global_mouse_position()[0] > 0 and get_global_mouse_position()[0] < 700):
 			instance.linear_velocity = Vector2(-1000, 0).rotated(-instance.rotation)
 			instance.damage = bullet_damage		
