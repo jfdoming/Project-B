@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/smash3.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Smash.gd" type="Script" id=5]
 [ext_resource path="res://assets/smash4.png" type="Texture" id=6]
 [ext_resource path="res://assets/Stroheim-Sheet.png" type="Texture" id=7]
+[ext_resource path="res://assets/Stroheim-Sheet-gun.png" type="Texture" id=8]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -16,50 +17,229 @@ animations = [ {
 "speed": 30.0
 } ]
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=12]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 100, 100 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=13]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 100, 0, 100, 100 )
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"frames": [ SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
 "name": "default",
 "speed": 4.0
 } ]
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=16]
 flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 200, 0, 100, 100 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=17]
 flags = 4
 atlas = ExtResource( 7 )
-region = Rect2( 300, 0, 100, 100 )
+region = Rect2( 0, 100, 100, 100 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=18]
 flags = 4
 atlas = ExtResource( 7 )
-region = Rect2( 400, 0, 100, 100 )
+region = Rect2( 100, 100, 100, 100 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=19]
 flags = 4
 atlas = ExtResource( 7 )
-region = Rect2( 500, 0, 100, 100 )
+region = Rect2( 200, 100, 100, 100 )
+
+[sub_resource type="SpriteFrames" id=20]
+animations = [ {
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="AtlasTexture" id=15]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 100, 200, 100, 100 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
-"loop": true,
+"frames": [ SubResource( 15 ) ],
+"loop": false,
 "name": "default",
-"speed": 6.0
+"speed": 2.0
+} ]
+
+[sub_resource type="AtlasTexture" id=21]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 0, 200, 100, 100 )
+
+[sub_resource type="SpriteFrames" id=22]
+animations = [ {
+"frames": [ SubResource( 21 ) ],
+"loop": false,
+"name": "default",
+"speed": 2.0
+} ]
+
+[sub_resource type="AtlasTexture" id=23]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=24]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 100, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=25]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 200, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=26]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 300, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=27]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 400, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=28]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 500, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=29]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 600, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=30]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 700, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=31]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 800, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=32]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 900, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=33]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1000, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=34]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1100, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=35]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1200, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=36]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1300, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=37]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1400, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=38]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1500, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=39]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1600, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=40]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1700, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=41]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1800, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=42]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1900, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=43]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2000, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=44]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2100, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=45]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2200, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=46]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2300, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=47]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2400, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=48]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2500, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=49]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2600, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=50]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2700, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=51]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2800, 0, 100, 120 )
+
+[sub_resource type="SpriteFrames" id=52]
+animations = [ {
+"frames": [ SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ) ],
+"loop": false,
+"name": "default",
+"speed": 15.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=10]
@@ -99,6 +279,7 @@ one_shot = true
 wait_time = 0.1
 
 [node name="StandAnimation" type="AnimatedSprite" parent="."]
+visible = false
 position = Vector2( 0, -8 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 4 )
@@ -107,7 +288,25 @@ frames = SubResource( 4 )
 visible = false
 position = Vector2( 0, -8 )
 scale = Vector2( 2, 2 )
+frames = SubResource( 20 )
+
+[node name="JumpAnimation" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -8 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 9 )
+
+[node name="CrouchAnimation" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -8 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 22 )
+
+[node name="FireChestAnimation" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -27 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 52 )
 
 [node name="HeadCollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2( 2.59303, -89.4856 )
@@ -122,3 +321,4 @@ shape = SubResource( 11 )
 [connection signal="animation_finished" from="Smash" to="Smash" method="_on_Smash_animation_finished"]
 [connection signal="timeout" from="InvulnTimer" to="." method="_on_InvulnTimer_timeout"]
 [connection signal="timeout" from="InvulnFlickerTimer" to="." method="_on_InvulnFlickerTimer_timeout"]
+[connection signal="animation_finished" from="FireChestAnimation" to="." method="_on_FireChestAnimation_animation_finished"]

@@ -34,6 +34,7 @@ var direction = RIGHT
 var jumping = false
 var just_jumped = false
 var smashing = false
+var firing_chest = false
 var health = max_health
 var active_damage = 0
 var invulnerable = false
@@ -48,37 +49,41 @@ var spawn_location = Vector2()
 
 func _ready():
 	spawn_location = position
-	_show_stand_anim()
+	_show_anim($StandAnimation)
 
-func _show_stand_anim():
-	if $StandAnimation.visible:
-		# No need to show it again.
-		return
-	
-	$StandAnimation.visible = true
-	$StandAnimation.frame = 0
-	$StandAnimation.play()
-	$WalkAnimation.visible = false
-	$WalkAnimation.stop()
-
-func _show_walk_anim():
-	if $WalkAnimation.visible:
-		# No need to show it again.
-		return
-	
-	$WalkAnimation.visible = true
-	$WalkAnimation.frame = 0
-	$WalkAnimation.play()
+func _stop_all_anim():
 	$StandAnimation.visible = false
 	$StandAnimation.stop()
+	$WalkAnimation.visible = false
+	$WalkAnimation.stop()
+	$JumpAnimation.visible = false
+	$JumpAnimation.stop()
+	$CrouchAnimation.visible = false
+	$CrouchAnimation.stop()
+	$FireChestAnimation.visible = false
+	$FireChestAnimation.stop()
+
+func _show_anim(anim):
+	if anim.visible:
+		# No need to show it again.
+		return
 	
+	_stop_all_anim()
+	
+	anim.visible = true
+	anim.frame = 0
+	anim.play()
 
 func calculate_velocity(delta):
-	var right = may_move and Input.is_action_pressed('ui_right')
-	var left = may_move and Input.is_action_pressed('ui_left')
-	var jump = may_move and (Input.is_action_just_pressed('ui_select') or Input.is_action_just_pressed('ui_up'))
-	var smash = may_move and Input.is_action_just_pressed('ui_down')
-	var fire = may_move and Input.is_action_just_pressed("fire")
+	var fire_chest = may_move and Input.is_action_just_pressed("fire_chest")
+	firing_chest = firing_chest or fire_chest
+	
+	var freeze = (not may_move) or firing_chest
+	var right = not freeze and Input.is_action_pressed('ui_right')
+	var left = not freeze and Input.is_action_pressed('ui_left')
+	var jump = not freeze and (Input.is_action_just_pressed('ui_select') or Input.is_action_just_pressed('ui_up'))
+	var crouch = not freeze and Input.is_action_pressed('ui_down')
+	var fire = not freeze and Input.is_action_just_pressed("fire")
 	var walking = left != right
 
 	if fire:
@@ -94,10 +99,10 @@ func calculate_velocity(delta):
 			instance.linear_velocity = Vector2(1000, 0).rotated(instance.rotation)
 			instance.damage = bullet_damage		
 			instance.connect("kill_obtained", self, "on_kill")
-			
-	if smash and jumping and not smashing:
-		smashing = true
-		velocity.y = smash_speed
+	if crouch:
+		if jumping and not smashing:
+			smashing = true
+			velocity.y = smash_speed
 	if jump and is_on_floor():
 		jumping = true
 		just_jumped = true
@@ -124,10 +129,17 @@ func calculate_velocity(delta):
 		velocity.x = 0
 		velocity.y = 0
 	
-	if walking and not jumping:
-		_show_walk_anim()
-	else:
-		_show_stand_anim()
+	if fire_chest:
+		_show_anim($FireChestAnimation)
+	elif not freeze:
+		if crouch:
+			_show_anim($CrouchAnimation)
+		elif jumping:
+			_show_anim($JumpAnimation)
+		elif walking:
+			_show_anim($WalkAnimation)
+		else:
+			_show_anim($StandAnimation)
 
 func _physics_process(delta):
 	calculate_velocity(delta)
@@ -238,3 +250,7 @@ func restore(data):
 	max_health = data.max_health
 	
 	respawn()
+
+
+func _on_FireChestAnimation_animation_finished():
+	firing_chest = false

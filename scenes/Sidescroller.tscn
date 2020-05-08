@@ -15,7 +15,7 @@ resource_name = "Crosshair"
 length = 2.0
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("CanvasLayer/Crosshair/Image:rotation_degrees")
+tracks/0/path = NodePath("CrosshairAnimation/Image:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -27,7 +27,7 @@ tracks/0/keys = {
 "values": [ 0.0, 360.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("CanvasLayer/Crosshair/Image:scale")
+tracks/1/path = NodePath("CrosshairAnimation/Image:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -56,6 +56,7 @@ anims/Crosshair = SubResource( 1 )
 
 [node name="Image" type="Sprite" parent="HUD/CrosshairAnimation"]
 position = Vector2( 408, 216 )
+rotation = 6.28319
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 4 )
 script = ExtResource( 6 )
