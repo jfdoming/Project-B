@@ -90,15 +90,16 @@ func calculate_velocity(delta):
 		var instance = Bullet.instance()
 		add_child(instance)
 		instance.look_at(get_global_mouse_position())
-		#print(get_global_mouse_position()) For debugging purposes
-		if get_global_mouse_position()[0] < 0 or (get_global_mouse_position()[0] > 0 and get_global_mouse_position()[0] < 700):
-			instance.linear_velocity = Vector2(-1000, 0).rotated(-instance.rotation)
-			instance.damage = bullet_damage		
-			instance.connect("kill_obtained", self, "on_kill")
-		else:
+			
+		if direction == RIGHT:
 			instance.linear_velocity = Vector2(1000, 0).rotated(instance.rotation)
 			instance.damage = bullet_damage		
 			instance.connect("kill_obtained", self, "on_kill")
+		else:
+			instance.linear_velocity = Vector2(-1000, 0).rotated(-instance.rotation)
+			instance.damage = bullet_damage		
+			instance.connect("kill_obtained", self, "on_kill")
+			
 	if crouch:
 		if jumping and not smashing:
 			smashing = true
