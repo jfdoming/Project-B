@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 signal smash_land
 signal win
+signal health
 
 export (PackedScene) var Bullet
 
@@ -22,7 +23,7 @@ export (float) var air_resistance = 0.05
 
 # Gameplay-related options.
 export (int) var max_health = 100
-export (float) var invuln_time = 1
+export (float) var invuln_time = 2
 export (int) var smash_damage = 50
 export (int) var bullet_damage = 10
 
@@ -47,9 +48,13 @@ var spawn_xp = 0
 var checkpoint = -1
 var spawn_location = Vector2()
 
+#How much damage enemies do to do player
+export var basic_enemy_damage = 15
+
 func _ready():
 	spawn_location = position
 	_show_anim($StandAnimation)
+	emit_signal("health",max_health,max_health)
 
 func _stop_all_anim():
 	$StandAnimation.visible = false
@@ -138,6 +143,7 @@ func calculate_velocity(delta):
 			_show_anim($StandAnimation)
 
 func _physics_process(delta):
+		
 	calculate_velocity(delta)
 	if smashing and is_on_floor():
 		smashing = false
@@ -147,7 +153,8 @@ func _physics_process(delta):
 	if just_jumped:
 		just_jumped = false
 	velocity = move_and_slide(velocity, Vector2(0, -1))
-
+	
+	
 func obtain_checkpoint(id, new_spawn_location):
 	# Mark if we have something to save.
 	if checkpoint != id or spawn_location != new_spawn_location:
@@ -184,6 +191,9 @@ func take_damage(damage):
 		return
 	
 	health = max(health - damage, 0)
+	
+	emit_signal("health",health,max_health)
+	
 	if health == 0:
 		die()
 		return
@@ -217,6 +227,8 @@ func respawn():
 	Root.reset_layout()
 	
 	health = max_health
+	emit_signal("health",health,max_health)
+	
 	xp = spawn_xp
 	
 	position.x = spawn_location.x
@@ -250,3 +262,8 @@ func restore(data):
 
 func _on_FireChestAnimation_animation_finished():
 	firing_chest = false
+	
+#This happens when an object of type enemy touches the player
+func _on_EnemyDetector_body_entered(body):
+	if "BasicEnemy" in body.name and body.isDead == false:
+		take_damage(basic_enemy_damage)

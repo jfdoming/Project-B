@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://layout_elements/Ground.tscn" type="PackedScene" id=1]
 [ext_resource path="res://layout_elements/Wall.tscn" type="PackedScene" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://layout_elements/DeathArea.tscn" type="PackedScene" id=5]
 [ext_resource path="res://layout_elements/Goal.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scenes/Sidescroller.tscn" type="PackedScene" id=7]
-[ext_resource path="res://layout_elements/BasicEnemy.tscn" type="PackedScene" id=8]
 
 [node name="Layout1" type="Node2D"]
 
@@ -87,10 +86,6 @@ position = Vector2( -640, -368 )
 position = Vector2( 1088, 368 )
 
 [node name="DeathArea" parent="." instance=ExtResource( 5 )]
-
-[node name="BasicEnemy" parent="." instance=ExtResource( 8 )]
-position = Vector2( 741.13, 408.221 )
-collision_mask = 12
 
 [node name="Enemy" parent="." instance=ExtResource( 3 )]
 position = Vector2( 272, 432 )
