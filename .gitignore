@@ -12,5 +12,5 @@ export_presets.cfg
 .mono/
 data_*/
 
-# Export File Types
+# Export Directory
 export/
