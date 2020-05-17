@@ -293,11 +293,6 @@ one_shot = true
 [node name="InvulnFlickerTimer" type="Timer" parent="."]
 wait_time = 0.1
 
-[node name="ChestShootTimer1" type="Timer" parent="."]
-
-[node name="ChestShootTimer2" type="Timer" parent="."]
-wait_time = 0.3
-
 [node name="StandAnimation" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -7.30167 )
 scale = Vector2( 2, 2 )

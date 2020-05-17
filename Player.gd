@@ -118,8 +118,6 @@ func calculate_velocity(delta):
 				chest_bullet.scale.x = -1
 			chest_bullet.damage = bullet_damage
 			chest_bullet.connect("kill_obtained", self, "on_kill")	
-			$ChestShootTimer2.start()
-			#yield($ChestShootTimer2, "timeout")
 	if crouch:
 		if jumping and not smashing:
 			smashing = true
