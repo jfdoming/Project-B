@@ -13,3 +13,6 @@ func on_enemy_entered(body):
 
 func on_kill(reward):
 	emit_signal("kill_obtained", reward)
+
+
+	

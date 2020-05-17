@@ -81,7 +81,7 @@ func _show_anim(anim):
 
 func calculate_velocity(delta):
 	var fire_chest = may_move and Input.is_action_just_pressed("fire_chest")
-	firing_chest = firing_chest or fire_chest
+	#firing_chest = firing_chest or fire_chest
 	
 	var freeze = (not may_move) or firing_chest
 	var right = not freeze and Input.is_action_pressed('ui_right')
@@ -103,16 +103,31 @@ func calculate_velocity(delta):
 		else:
 			instance.linear_velocity = Vector2(-1000, 0).rotated(-instance.rotation)
 			instance.damage = bullet_damage		
-			instance.connect("kill_obtained", self, "on_kill")
+			instance.connect("kill_obtained", self, "on_kill")	
+	if fire_chest and firing_chest == false:
+		firing_chest = true
+		for i in range(8):
+			var chest_bullet = Bullet.instance()
+			get_parent().add_child(chest_bullet)
+			chest_bullet.position = $ChestFirePoint.global_position
 			
+			if direction == RIGHT:
+				chest_bullet.linear_velocity = Vector2(1000, 0)
+			else:
+				chest_bullet.linear_velocity = Vector2(-1000, 0)
+				chest_bullet.scale.x = -1
+			chest_bullet.damage = bullet_damage
+			chest_bullet.connect("kill_obtained", self, "on_kill")	
+			$ChestShootTimer2.start()
+			#yield($ChestShootTimer2, "timeout")
 	if crouch:
 		if jumping and not smashing:
 			smashing = true
-			velocity.y = smash_speed
+			velocity.y = smash_speed		
 	if jump and is_on_floor():
 		jumping = true
 		just_jumped = true
-		velocity.y = -jump_speed - jump_bonus * abs(velocity.x)
+		velocity.y = -jump_speed - jump_bonus * abs(velocity.x)	
 	if right and not left:
 		velocity.x += run_speed_increment_fraction * max_run_speed * delta * 60
 		velocity.x = clamp(velocity.x, -max_run_speed, max_run_speed)
@@ -224,7 +239,7 @@ func _on_InvulnFlickerTimer_timeout():
 		hide()
 	else:
 		show()
-
+		
 func die():
 	respawn()
 
