@@ -259,8 +259,8 @@ extents = Vector2( 49.6902, 84.6758 )
 "Persist",
 ]]
 z_index = 1000
-collision_layer = 9
-collision_mask = 3
+collision_layer = 0
+collision_mask = 11
 script = ExtResource( 1 )
 jump_speed = 900
 
