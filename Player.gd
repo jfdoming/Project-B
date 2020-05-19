@@ -26,7 +26,7 @@ export (int) var max_health = 100
 export (float) var invuln_time = 2
 export (int) var smash_damage = 50
 export (int) var bullet_damage = 10
-
+export (float) var bullet_speed = 1000
 const LEFT = 0
 const RIGHT = 1
 
@@ -93,17 +93,14 @@ func calculate_velocity(delta):
 
 	if fire:
 		var instance = Bullet.instance()
-		add_child(instance)
-		instance.look_at(get_global_mouse_position())
+		get_parent().add_child(instance)
+		instance.position = $RegularFirePoint.global_position
+		instance.look_at(get_global_mouse_position())	
+		instance.linear_velocity = Vector2(bullet_speed, 0).rotated(instance.rotation)
+		instance.damage = bullet_damage		
+		instance.connect("kill_obtained", self, "on_kill")	
 			
-		if direction == RIGHT:
-			instance.linear_velocity = Vector2(1000, 0).rotated(instance.rotation)
-			instance.damage = bullet_damage		
-			instance.connect("kill_obtained", self, "on_kill")
-		else:
-			instance.linear_velocity = Vector2(-1000, 0).rotated(-instance.rotation)
-			instance.damage = bullet_damage		
-			instance.connect("kill_obtained", self, "on_kill")	
+
 	if crouch:
 		if jumping and not smashing:
 			smashing = true
