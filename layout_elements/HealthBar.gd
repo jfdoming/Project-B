@@ -29,3 +29,10 @@ func health_bar_color_Update():
 		health_over.set_tint_progress("e1be32") #orange
 	else:
 		health_over.set_tint_progress("e11e1e") #red	
+
+
+func _on_Player_flip_health_bar(direction):
+	if direction=="RIGHT":
+		set_scale(Vector2(1,1))
+	else:
+		set_scale(Vector2(-1,1))
