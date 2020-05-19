@@ -350,6 +350,9 @@ shape = SubResource( 47 )
 
 [node name="RegularFirePoint" type="Position2D" parent="."]
 position = Vector2( 0, -55 )
+
+[node name="ChestFirePoint" type="Position2D" parent="."]
+position = Vector2( 56.8788, -27.3068 )
 [connection signal="flip_health_bar" from="." to="HealthBar" method="_on_Player_flip_health_bar"]
 [connection signal="health" from="." to="HealthBar" method="_on_Player_health"]
 [connection signal="smash_land" from="." to="Smash" method="_on_Player_smash_land"]
