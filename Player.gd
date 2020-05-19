@@ -3,6 +3,7 @@ extends KinematicBody2D
 signal smash_land
 signal win
 signal health
+signal flip_health_bar
 
 export (PackedScene) var Bullet
 
@@ -115,12 +116,17 @@ func calculate_velocity(delta):
 		if direction != RIGHT:
 			direction = RIGHT
 			scale.x = -1
+			
+		emit_signal("flip_health_bar","RIGHT")
+		
 	if left and not right:
 		velocity.x -= run_speed_increment_fraction * max_run_speed * delta * 60
 		velocity.x = clamp(velocity.x, -max_run_speed, max_run_speed)
 		if direction != LEFT:
 			direction = LEFT
 			scale.x = -1
+		
+		emit_signal("flip_health_bar","LEFT")
 	
 	if obey_physics:
 		if not walking:
