@@ -14,7 +14,7 @@ export (bool) var may_move = true
 export (bool) var obey_physics = true
 export (int) var max_run_speed = 250
 export (float) var run_speed_increment_fraction = 1.0 / 10.0
-export (int) var jump_speed = 800
+export (int) var jump_speed = 900
 export (int) var smash_speed = 1200
 export (float) var jump_bonus = 0.15
 export (float) var gravity = 2
@@ -50,7 +50,13 @@ var spawn_location = Vector2()
 
 #How much damage enemies do to do player
 export var basic_enemy_damage = 15
-
+	
+func _process(delta):
+	if direction == RIGHT:
+		$HealthBar.set_scale(Vector2(1,1))
+	else :
+		$HealthBar.set_scale(Vector2(-1,1))
+		
 func _ready():
 	spawn_location = position
 	_show_anim($StandAnimation)
