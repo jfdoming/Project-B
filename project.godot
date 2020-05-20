@@ -28,6 +28,10 @@ Loading="*res://scenes/Loading.tscn"
 
 window/size/resizable=false
 
+[editor_plugins]
+
+enabled=PoolStringArray( "codeandweb.texturepacker" )
+
 [input]
 
 ui_select={

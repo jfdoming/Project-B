@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/Tiles-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://scenes/Sidescroller.tscn" type="PackedScene" id=2]
 [ext_resource path="res://layout_elements/BasicEnemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://layout_elements/Goal.tscn" type="PackedScene" id=4]
+[ext_resource path="res://layout_elements/Gregory.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ConcavePolygonShape2D" id=1]
 segments = PoolVector2Array( 0, 0, 64, 0, 64, 0, 64, 64, 64, 64, 0, 64, 0, 64, 0, 0 )
@@ -229,6 +230,9 @@ __meta__ = {
 "_edit_vertical_guides_": [ 2094.19 ]
 }
 
+[node name="Gregory" parent="." instance=ExtResource( 5 )]
+position = Vector2( 851.963, 392.227 )
+
 [node name="Sidescroller" parent="." instance=ExtResource( 2 )]
 position = Vector2( -373.596, 177.384 )
 
@@ -266,6 +270,8 @@ tile_data = PoolIntArray( 65535, 4, 0, 131071, 4, 0, 196607, 4, 0, 262143, 4, 0,
 
 [node name="Goal" parent="TileMap" instance=ExtResource( 4 )]
 position = Vector2( 1483.56, 356.044 )
+
+[editable path="Gregory"]
 
 [editable path="Sidescroller"]
 

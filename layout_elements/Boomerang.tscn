@@ -1,0 +1,65 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://layout_elements/Boomerang.gd" type="Script" id=1]
+[ext_resource path="res://assets/Gregory/axe.png" type="Texture" id=2]
+
+[node name="Boomerang" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -0.258731, 0.476766 )
+scale = Vector2( 3.07194, 2.78967 )
+texture = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="visibilityNode4" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -42.409, 44.8943 )
+rotation = 0.785398
+scale = Vector2( 0.312819, 0.306097 )
+
+[node name="visibilityNode7" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -10.6588, 25.7858 )
+rotation = 0.785398
+scale = Vector2( 0.312819, 0.306097 )
+
+[node name="visibilityNode8" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 43.8958, 3.42958 )
+rotation = 0.785398
+scale = Vector2( 0.312819, 0.306097 )
+
+[node name="visibilityNode9" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 14.0829, -41.0762 )
+rotation = 0.785398
+scale = Vector2( 0.312819, 0.306097 )
+
+[node name="visibilityNode10" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 34.2171, -21.234 )
+rotation = 0.785398
+scale = Vector2( 0.312819, 0.306097 )
+
+[node name="visibilityNode11" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -11.6063, -40.3499 )
+rotation = 0.785398
+scale = Vector2( 0.312819, 0.306097 )
+
+[node name="visibilityNode5" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -16.8694, -20.5362 )
+rotation = 0.785398
+scale = Vector2( 0.312819, 0.306097 )
+
+[node name="visibilityNode6" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -21.8405, 15.1311 )
+rotation = 0.785398
+scale = Vector2( 0.312819, 0.306097 )
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="screen_exited" from="visibilityNode4" to="." method="_on_visibilityNode_screen_exited"]
+[connection signal="screen_exited" from="visibilityNode7" to="." method="_on_visibilityNode_screen_exited"]
+[connection signal="screen_exited" from="visibilityNode8" to="." method="_on_visibilityNode_screen_exited"]
+[connection signal="screen_exited" from="visibilityNode9" to="." method="_on_visibilityNode_screen_exited"]
+[connection signal="screen_exited" from="visibilityNode10" to="." method="_on_visibilityNode_screen_exited"]
+[connection signal="screen_exited" from="visibilityNode11" to="." method="_on_visibilityNode_screen_exited"]
+[connection signal="screen_exited" from="visibilityNode5" to="." method="_on_visibilityNode_screen_exited"]
+[connection signal="screen_exited" from="visibilityNode6" to="." method="_on_visibilityNode_screen_exited"]
