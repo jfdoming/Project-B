@@ -323,12 +323,12 @@ func _on_FireChestAnimation_frame_changed():
 	for i in range(9, 24, 2):
 		if $FireChestAnimation.get_frame() == i:
 			chest_shoot()
-			
+
 # MARK: - Punch
 
 func _on_PunchAnimation_animation_finished():
 	self.punching = false
-	
+
 # MARK: - Hamon Punch
 
 func _on_HamonPunchAnimation_animation_finished():
@@ -339,6 +339,7 @@ func _on_HamonPunchAnimation_animation_finished():
 func _on_DoublePunchAnimation_animation_finished():
 	self.double_punching = false
 
+# MARK: - Knee Attack
 
 func _on_KneeAttackAnimation_animation_finished():
 	self.knee_attacking = false
