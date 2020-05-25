@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/smash3.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/Stroheim-Sheet.png" type="Texture" id=7]
 [ext_resource path="res://assets/Stroheim-Sheet-gun.png" type="Texture" id=8]
 [ext_resource path="res://layout_elements/HealthBar.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/Stroheim-Regular-Punch.png" type="Texture" id=10]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -243,16 +244,64 @@ animations = [ {
 "speed": 15.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=44]
+[sub_resource type="AtlasTexture" id=44]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=45]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 100, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=46]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 200, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=47]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 300, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=48]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 400, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=49]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 500, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=50]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 600, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=51]
+flags = 4
+atlas = ExtResource( 10 )
+region = Rect2( 700, 0, 100, 120 )
+
+[sub_resource type="SpriteFrames" id=52]
+animations = [ {
+"frames": [ SubResource( 44 ), SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=53]
 extents = Vector2( 10.9741, 9.35257 )
 
-[sub_resource type="RectangleShape2D" id=45]
+[sub_resource type="RectangleShape2D" id=54]
 extents = Vector2( 24, 40.9254 )
 
-[sub_resource type="RectangleShape2D" id=46]
+[sub_resource type="RectangleShape2D" id=55]
 extents = Vector2( 22.4718, 17.4706 )
 
-[sub_resource type="RectangleShape2D" id=47]
+[sub_resource type="RectangleShape2D" id=56]
 extents = Vector2( 49.6902, 84.6758 )
 
 [node name="Player" type="KinematicBody2D" groups=[
@@ -325,15 +374,22 @@ scale = Vector2( 2, 2 )
 frames = SubResource( 43 )
 frame = 1
 
+[node name="PunchAnimation" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -25 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 52 )
+speed_scale = 2.0
+
 [node name="HeadCollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2( 2.59303, -89.4856 )
 scale = Vector2( 2, 2 )
-shape = SubResource( 44 )
+shape = SubResource( 53 )
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2( -1, 7 )
 scale = Vector2( 2, 2 )
-shape = SubResource( 45 )
+shape = SubResource( 54 )
 
 [node name="EnemyDetector" type="Area2D" parent="."]
 position = Vector2( -127.925, 125.434 )
@@ -341,12 +397,12 @@ position = Vector2( -127.925, 125.434 )
 [node name="HeadCollisionShape" type="CollisionShape2D" parent="EnemyDetector"]
 modulate = Color( 0.0862745, 0.368627, 0.121569, 1 )
 position = Vector2( 130.811, -217.685 )
-shape = SubResource( 46 )
+shape = SubResource( 55 )
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="EnemyDetector"]
 modulate = Color( 0.0509804, 0.372549, 0.0509804, 1 )
 position = Vector2( 125.92, -115.619 )
-shape = SubResource( 47 )
+shape = SubResource( 56 )
 
 [node name="RegularFirePoint" type="Position2D" parent="."]
 position = Vector2( 0, -55 )
@@ -361,4 +417,5 @@ position = Vector2( 56.8788, -27.3068 )
 [connection signal="timeout" from="InvulnFlickerTimer" to="." method="_on_InvulnFlickerTimer_timeout"]
 [connection signal="animation_finished" from="FireChestAnimation" to="." method="_on_FireChestAnimation_animation_finished"]
 [connection signal="frame_changed" from="FireChestAnimation" to="." method="_on_FireChestAnimation_frame_changed"]
+[connection signal="animation_finished" from="PunchAnimation" to="." method="_on_PunchAnimation_animation_finished"]
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_EnemyDetector_body_entered"]

@@ -31,12 +31,24 @@ export (float) var bullet_speed = 1000
 const LEFT = 0
 const RIGHT = 1
 
+# Animations
+var ANIMATIONS = [
+	$StandAnimation, 
+	$WalkAnimation, 
+	$JumpAnimation, 
+	$CrouchAnimation, 
+	$FireChestAnimation, 
+	$PunchAnimation
+]
+
+# State
 var velocity = Vector2()
 var direction = RIGHT
 var jumping = false
 var just_jumped = false
 var smashing = false
 var firing_chest = false
+var punching = false
 var health = max_health
 var active_damage = 0
 var invulnerable = false
@@ -58,16 +70,12 @@ func _ready():
 	emit_signal("health",max_health,max_health)
 
 func _stop_all_anim():
-	$StandAnimation.visible = false
-	$StandAnimation.stop()
-	$WalkAnimation.visible = false
-	$WalkAnimation.stop()
-	$JumpAnimation.visible = false
-	$JumpAnimation.stop()
-	$CrouchAnimation.visible = false
-	$CrouchAnimation.stop()
-	$FireChestAnimation.visible = false
-	$FireChestAnimation.stop()
+	for anim in ANIMATIONS:
+		self._stop_anim(anim)
+	
+func _stop_anim(anim):
+	anim.visible = false
+	anim.stop()
 
 func _show_anim(anim):
 	if anim.visible:
@@ -83,8 +91,10 @@ func _show_anim(anim):
 func calculate_velocity(delta):
 	var fire_chest = may_move and Input.is_action_just_pressed("fire_chest")
 	firing_chest = firing_chest or fire_chest
+	var punch = may_move and Input.is_action_just_pressed("punch")
+	punching = (punching or punch) and !fire_chest
 	
-	var freeze = (not may_move) or firing_chest
+	var freeze = (not may_move) or firing_chest or punching
 	var right = not freeze and Input.is_action_pressed('ui_right')
 	var left = not freeze and Input.is_action_pressed('ui_left')
 	var jump = not freeze and (Input.is_action_just_pressed('ui_select') or Input.is_action_just_pressed('ui_up'))
@@ -139,6 +149,8 @@ func calculate_velocity(delta):
 	
 	if fire_chest:
 		_show_anim($FireChestAnimation)
+	elif punch:
+		_show_anim($PunchAnimation)
 	elif not freeze:
 		if crouch:
 			_show_anim($CrouchAnimation)
@@ -292,3 +304,8 @@ func _on_FireChestAnimation_frame_changed():
 	for i in range(9, 24, 2):
 		if $FireChestAnimation.get_frame() == i:
 			chest_shoot()
+			
+# MARK: - Punch Animation
+
+func _on_PunchAnimation_animation_finished():
+	punching = false
