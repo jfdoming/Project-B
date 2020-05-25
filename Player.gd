@@ -69,6 +69,7 @@ func _stop_all_anim():
 		$FireChestAnimation, 
 		$PunchAnimation,
 		$HamonPunchAnimation,
+		$LaserEyeAnimation,
 	]
 	for anim in animations:
 		self._stop_anim(anim)
@@ -309,12 +310,12 @@ func _on_FireChestAnimation_frame_changed():
 		if $FireChestAnimation.get_frame() == i:
 			chest_shoot()
 			
-# MARK: - Punch Animation
+# MARK: - Punch
 
 func _on_PunchAnimation_animation_finished():
 	self.punching = false
 	
-# MARK: - Hamon Punch Animation
+# MARK: - Hamon Punch
 
 func _on_HamonPunchAnimation_animation_finished():
 	self.hamon_punching = false

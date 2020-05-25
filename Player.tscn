@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/smash3.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://layout_elements/HealthBar.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/Stroheim-Regular-Punch.png" type="Texture" id=10]
 [ext_resource path="res://assets/Stroheim-Hamon-Punch.png" type="Texture" id=11]
+[ext_resource path="res://assets/Stroheim-LaserEye-Movement.png" type="Texture" id=12]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -338,6 +339,49 @@ animations = [ {
 "frames": [ SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ), SubResource( 64 ) ],
 "loop": false,
 "name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="AtlasTexture" id=66]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=67]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 100, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=68]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 200, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=69]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 300, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=70]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 400, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=71]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 500, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=72]
+flags = 4
+atlas = ExtResource( 12 )
+region = Rect2( 600, 0, 100, 120 )
+
+[sub_resource type="SpriteFrames" id=73]
+animations = [ {
+"frames": [ SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ), SubResource( 70 ), SubResource( 71 ), SubResource( 72 ) ],
+"loop": true,
+"name": "default",
 "speed": 5.0
 } ]
 
@@ -434,6 +478,12 @@ visible = false
 position = Vector2( 0, -25 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 65 )
+
+[node name="LaserEyeAnimation" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -26 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 73 )
 
 [node name="HeadCollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2( 2.59303, -89.4856 )
