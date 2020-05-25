@@ -70,6 +70,8 @@ func _stop_all_anim():
 		$PunchAnimation,
 		$HamonPunchAnimation,
 		$LaserEyeAnimation,
+		$SprintAnimation,
+		$SlideAnimation,
 	]
 	for anim in animations:
 		self._stop_anim(anim)
