@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=2]
+[gd_scene load_steps=116 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/smash3.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://assets/Stroheim-Sprint.png" type="Texture" id=13]
 [ext_resource path="res://assets/Stroheim-Sliding.png" type="Texture" id=14]
 [ext_resource path="res://assets/Stroheim-Double-Punch.png" type="Texture" id=15]
+[ext_resource path="res://assets/Stroheim-Knee-Attack.png" type="Texture" id=16]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -492,6 +493,44 @@ animations = [ {
 "speed": 10.0
 } ]
 
+[sub_resource type="AtlasTexture" id=93]
+flags = 4
+atlas = ExtResource( 16 )
+region = Rect2( 0, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=94]
+flags = 4
+atlas = ExtResource( 16 )
+region = Rect2( 100, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=95]
+flags = 4
+atlas = ExtResource( 16 )
+region = Rect2( 200, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=96]
+flags = 4
+atlas = ExtResource( 16 )
+region = Rect2( 300, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=97]
+flags = 4
+atlas = ExtResource( 16 )
+region = Rect2( 400, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=98]
+flags = 4
+atlas = ExtResource( 16 )
+region = Rect2( 500, 0, 100, 120 )
+
+[sub_resource type="SpriteFrames" id=99]
+animations = [ {
+"frames": [ SubResource( 93 ), SubResource( 94 ), SubResource( 95 ), SubResource( 96 ), SubResource( 97 ), SubResource( 98 ) ],
+"loop": false,
+"name": "default",
+"speed": 8.0
+} ]
+
 [sub_resource type="RectangleShape2D" id=53]
 extents = Vector2( 10.9741, 9.35257 )
 
@@ -610,6 +649,12 @@ position = Vector2( 0.999995, -26.7853 )
 scale = Vector2( 2.22018, 2.22018 )
 frames = SubResource( 92 )
 
+[node name="KneeAttackAnimation" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -25 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 99 )
+
 [node name="HeadCollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2( 2.59303, -89.4856 )
 scale = Vector2( 2, 2 )
@@ -649,4 +694,5 @@ position = Vector2( 56.8788, -27.3068 )
 [connection signal="animation_finished" from="PunchAnimation" to="." method="_on_PunchAnimation_animation_finished"]
 [connection signal="animation_finished" from="HamonPunchAnimation" to="." method="_on_HamonPunchAnimation_animation_finished"]
 [connection signal="animation_finished" from="DoublePunchAnimation" to="." method="_on_DoublePunchAnimation_animation_finished"]
+[connection signal="animation_finished" from="KneeAttackAnimation" to="." method="_on_KneeAttackAnimation_animation_finished"]
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_EnemyDetector_body_entered"]
