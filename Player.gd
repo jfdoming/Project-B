@@ -40,6 +40,7 @@ var smashing = false
 var firing_chest = false
 var punching = false
 var hamon_punching = false
+var double_punching = false
 var health = max_health
 var active_damage = 0
 var invulnerable = false
@@ -72,6 +73,7 @@ func _stop_all_anim():
 		$LaserEyeAnimation,
 		$SprintAnimation,
 		$SlideAnimation,
+		$DoublePunchAnimation,
 	]
 	for anim in animations:
 		self._stop_anim(anim)
@@ -98,6 +100,8 @@ func calculate_velocity(delta):
 	self.punching = (self.punching or punch) and !self.firing_chest
 	var hamon_punch = may_move and Input.is_action_just_pressed("hamon_punch")
 	self.hamon_punching = (self.hamon_punching or hamon_punch) and !self.firing_chest and !self.punching
+	var double_punch = may_move and Input.is_action_just_pressed("double_punch")
+	self.double_punching = (self.double_punching or double_punch) and !self.firing_chest and !self.punching and !self.hamon_punching
 	
 	var freeze = (not may_move) or firing_chest or self.punching or self.hamon_punching
 	var right = not freeze and Input.is_action_pressed('ui_right')
@@ -155,9 +159,11 @@ func calculate_velocity(delta):
 	if fire_chest:
 		_show_anim($FireChestAnimation)
 	elif self.punching:
-		_show_anim($PunchAnimation)
+		self._show_anim($PunchAnimation)
 	elif self.hamon_punching:
-		_show_anim($HamonPunchAnimation)
+		self._show_anim($HamonPunchAnimation)
+	elif self.double_punching:
+		self._show_anim($DoublePunchAnimation)
 	elif not freeze:
 		if crouch:
 			_show_anim($CrouchAnimation)
@@ -321,3 +327,8 @@ func _on_PunchAnimation_animation_finished():
 
 func _on_HamonPunchAnimation_animation_finished():
 	self.hamon_punching = false
+
+# MARK: - Double Punch
+
+func _on_DoublePunchAnimation_animation_finished():
+	self.double_punching = false
