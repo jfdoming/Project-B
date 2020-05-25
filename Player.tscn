@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=2]
+[gd_scene load_steps=94 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/smash3.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/Stroheim-Regular-Punch.png" type="Texture" id=10]
 [ext_resource path="res://assets/Stroheim-Hamon-Punch.png" type="Texture" id=11]
 [ext_resource path="res://assets/Stroheim-LaserEye-Movement.png" type="Texture" id=12]
+[ext_resource path="res://assets/Stroheim-Sprint.png" type="Texture" id=13]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -385,6 +386,44 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="AtlasTexture" id=74]
+flags = 4
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=75]
+flags = 4
+atlas = ExtResource( 13 )
+region = Rect2( 100, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=76]
+flags = 4
+atlas = ExtResource( 13 )
+region = Rect2( 200, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=77]
+flags = 4
+atlas = ExtResource( 13 )
+region = Rect2( 300, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=78]
+flags = 4
+atlas = ExtResource( 13 )
+region = Rect2( 400, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=79]
+flags = 4
+atlas = ExtResource( 13 )
+region = Rect2( 500, 0, 100, 120 )
+
+[sub_resource type="SpriteFrames" id=80]
+animations = [ {
+"frames": [ SubResource( 74 ), SubResource( 75 ), SubResource( 76 ), SubResource( 77 ), SubResource( 78 ), SubResource( 79 ) ],
+"loop": false,
+"name": "default",
+"speed": 10.0
+} ]
+
 [sub_resource type="RectangleShape2D" id=53]
 extents = Vector2( 10.9741, 9.35257 )
 
@@ -484,6 +523,11 @@ visible = false
 position = Vector2( 0, -26 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 73 )
+
+[node name="SprintAnimation" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -27 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 80 )
 
 [node name="HeadCollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2( 2.59303, -89.4856 )
