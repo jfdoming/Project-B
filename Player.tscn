@@ -259,8 +259,8 @@ extents = Vector2( 49.6902, 84.6758 )
 "Persist",
 ]]
 z_index = 1000
-collision_layer = 9
-collision_mask = 3
+collision_layer = 0
+collision_mask = 11
 script = ExtResource( 1 )
 jump_speed = 900
 
@@ -350,6 +350,9 @@ shape = SubResource( 47 )
 
 [node name="RegularFirePoint" type="Position2D" parent="."]
 position = Vector2( 0, -55 )
+
+[node name="ChestFirePoint" type="Position2D" parent="."]
+position = Vector2( 56.8788, -27.3068 )
 [connection signal="flip_health_bar" from="." to="HealthBar" method="_on_Player_flip_health_bar"]
 [connection signal="health" from="." to="HealthBar" method="_on_Player_health"]
 [connection signal="smash_land" from="." to="Smash" method="_on_Player_smash_land"]
