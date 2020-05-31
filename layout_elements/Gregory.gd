@@ -1,9 +1,8 @@
-extends KinematicBody2D
+extends "res://layout_elements/kinematicBody.gd"
 
 signal health
 
-export (int) var max_health = 100
-var health = max_health
+export var killExp = 100
 
 onready var player_path = get_parent().get_node("Sidescroller/Player")
 
@@ -19,17 +18,26 @@ export var speed: = Vector2(100.0,100.0)
 export var gravity: = 2000.0
 
 var isDead = false
+var isOnScreen = false
+
+#Damage that the player causes when jumping on Gregory
+export var jumpDamage = 20 
 
 func _ready():
+	max_health = 100
+	health = max_health
+	
 	emit_signal("health",max_health,max_health)
 	set_physics_process(false)
 	_velocity.x = -speed.x
-	$StandAnimation.play()
+	$Animation.play("stand")
 	
 	#This function executes in a loop all the time, updating the enemy's position & movements
 func _physics_process(delta):
-	rotate_gregory()
+	
 	if isDead == false:
+		rotate_gregory()
+		
 		_velocity.y += gravity * delta
 		_velocity.y = min(_velocity.y,speed.y) # smooth falling, speed won't increase max speed
 	
@@ -51,22 +59,11 @@ func rotate_gregory():
 		flip_right()
 		
 func flip_right():
-	$StandAnimation.flip_h = true
+	$Animation.flip_h = true
 
 func flip_left():
-	$StandAnimation.flip_h = false
+	$Animation.flip_h = false
 
-func take_damage(damage):
-	if damage == 0:
-		return
-	
-	health = max(health - damage, 0)
-	
-	emit_signal("health",health,max_health)
-	
-	if health == 0:
-		die()
-		return
 	
 func _on_VisibilityEnabler2D_screen_entered():
 	set_physics_process(true)
@@ -74,11 +71,25 @@ func _on_VisibilityEnabler2D_screen_entered():
 func _on_StompDetector_body_entered(body):
 	if isDead == false:
 		if "Player" in body.name:
-			if body.global_position.y < get_node("StompDetector").global_position.y:
-				take_damage(20)
+			var bodyHeight = body.get_node("BodyCollisionShape").shape.get_extents().y + body.get_node("HeadCollisionShape").shape.get_extents().y
 			
-		
+			print(bodyHeight)
+			if (body.global_position.y + bodyHeight) < get_node("StompDetector").global_position.y:
+				take_damage(jumpDamage)
+	else:
+		body.on_kill(killExp)
+		$StompDetector/CollisionShape2D.disabled = true
 
 func die():
 	isDead = true
+	$HealthBar.queue_free()
+	$Boomerang.queue_free()
+	$Animation.play("die")
+	$Timer.start()
+
+func _on_VisibilityEnabler2D_screen_exited():
+	if isDead == false && has_node("Boomerang"):
+		$Boomerang.set_stick()
+
+func _on_Timer_timeout():
 	queue_free()

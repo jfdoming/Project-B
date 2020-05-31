@@ -10,13 +10,14 @@ var state: int = IDLE
 var velocity: = Vector2.ZERO
 var pos: = Vector2.ZERO
 var spin_speed: float = 4*220
-var timer_active = false
-var timer_disabled = false
 onready var player_path = get_parent().get_parent().get_node("Sidescroller/Player")
 var isDead = false
+var isOnScreen = false
+var timerActive = false
+#var timerDisabled = false
 
 func _ready()->void:
-	set_physics_process(false)
+	#set_physics_process(false)
 	idle_position()
 
 func _physics_process(delta):
@@ -30,10 +31,9 @@ func _physics_process(delta):
 
 func idle()->void:
 	rotate_axe()
-	
-	if timer_active == false && timer_disabled == false:	
+	if timerActive == false:# && timerDisabled == false:
 		$Timer.start()
-		timer_active = true
+		timerActive = true
 	
 func rotate_axe():
 	rotation_degrees = 0
@@ -64,15 +64,14 @@ func stick(delta:float)->void:
 		idle_position()
 	else:
 		pos = pos.linear_interpolate(target, (throw_speed * delta)/dist)
-	global_position = pos
-	#spin
-	rotation_degrees += spin_speed*delta
+		global_position = pos
+		#spin
+		rotation_degrees += spin_speed*delta
 
 func throw()->void:
 	state = FLY
 	#$Timer.start()
 	velocity = (player_path.global_position - global_position).normalized()*throw_speed
-	#velocity = (get_global_mouse_position() - global_position).normalized() * throw_speed
 	pos = global_position #variable for disconnecting from parent movement
 
 #Position of axe in the hands of Gregory
@@ -84,19 +83,11 @@ func idle_position()->void:
 func get_target()->Vector2:
 	return parent.global_position + Vector2(0,-2)
 
-func stick_and_stop():
-	state = STICK
-	timer_disabled = true
-	
-func enable_timer():
-	timer_disabled = false
-
 #When timeout happens, axe flies back to Gregory
 func _on_Timer_timeout()->void:
-	if state == IDLE: 
+	timerActive = false
+	if state == IDLE && isOnScreen:
 		throw()
-		
-	timer_active = false
 
 #when axe comes outside of the screen, come back to Gregory
 func _on_visibilityNode_screen_exited():
@@ -107,4 +98,15 @@ func _on_CollisionDetection_body_entered(body):
 		state = STICK
 
 func _on_VisibilityEnabler2D_screen_entered():
-	set_physics_process(true)
+	isOnScreen = true
+	#timerDisabled = false
+	
+func _on_VisibilityEnabler2D_screen_exited():
+	state = STICK
+	isOnScreen = false
+	#timerDisabled = true
+
+func set_stick():
+	state=STICK
+
+

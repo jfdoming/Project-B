@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends "res://layout_elements/kinematicBody.gd"
 
 signal smash_land
 signal win
@@ -6,9 +6,6 @@ signal health
 signal flip_health_bar
 
 export (PackedScene) var Bullet
-
-# Cosmetic-related options.
-export (int) var invuln_flicker_time = 0.1
 
 # Physics-related options.
 export (bool) var may_move = true
@@ -23,8 +20,7 @@ export (float) var friction = 0.2
 export (float) var air_resistance = 0.05
 
 # Gameplay-related options.
-export (int) var max_health = 100
-export (float) var invuln_time = 2
+
 export (int) var smash_damage = 50
 export (int) var bullet_damage = 10
 export (float) var bullet_speed = 1000
@@ -37,9 +33,6 @@ var jumping = false
 var just_jumped = false
 var smashing = false
 var firing_chest = false
-var health = max_health
-var active_damage = 0
-var invulnerable = false
 
 # If the list of persisted props continues to grow, perhaps we can store it in
 # an inner class instead, as a way of containing all persisted values.
@@ -54,6 +47,9 @@ export var basic_enemy_damage = 15
 export var boomerang_enemy_damage = 10
 
 func _ready():
+	max_health = 100
+	health = max_health
+	
 	spawn_location = position
 	_show_anim($StandAnimation)
 	emit_signal("health",max_health,max_health)
@@ -206,22 +202,7 @@ func end_damage(damage):
 		return
 	
 	active_damage -= damage
-
-func take_damage(damage):
-	if invulnerable or damage == 0:
-		return
 	
-	health = max(health - damage, 0)
-	
-	emit_signal("health",health,max_health)
-	
-	if health == 0:
-		die()
-		return
-	
-	invulnerable = true
-	$InvulnTimer.start(invuln_time)
-	$InvulnFlickerTimer.start(invuln_flicker_time)
 
 func on_kill(reward):
 	if reward == 0:
@@ -229,19 +210,6 @@ func on_kill(reward):
 	xp += reward
 	did_persisted_props_change = true
 	
-func _on_InvulnTimer_timeout():
-	$InvulnFlickerTimer.stop()
-	invulnerable = false
-	#$EnemyDetector/HeadCollisionShape.disabled = false
-	#$EnemyDetector/BodyCollisionShape.disabled = false
-	show()
-	take_damage(active_damage)
-
-func _on_InvulnFlickerTimer_timeout():
-	if visible:
-		hide()
-	else:
-		show()
 		
 func die():
 	respawn()

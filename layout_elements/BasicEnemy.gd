@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+export var killExp = 10
+
 const FLOOR_NORMAL: = Vector2.UP
 #Starting velocity - value will fluctuate
 var _velocity: = Vector2.ZERO
@@ -21,7 +23,7 @@ func _on_StompDetector_body_entered(body):
 				get_node("CollisionShape2D").disabled = true
 				$AnimatedSprite.play("dead")
 				$Timer.start() #After this time, enemy vanishes
-				body.on_kill(5)
+				body.on_kill(killExp)
 				
 #This function executes in a loop all the time, updating the enemy's position & movements
 func _physics_process(delta):

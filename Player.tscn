@@ -244,13 +244,13 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=44]
-extents = Vector2( 10.9741, 9.35257 )
+extents = Vector2( 9.81671, 8.85004 )
 
 [sub_resource type="RectangleShape2D" id=45]
-extents = Vector2( 18.979, 39.7154 )
+extents = Vector2( 18.046, 38.5551 )
 
 [sub_resource type="RectangleShape2D" id=46]
-extents = Vector2( 22.4718, 19.7617 )
+extents = Vector2( 25.643, 20.7162 )
 
 [sub_resource type="RectangleShape2D" id=47]
 extents = Vector2( 41.6438, 81.7096 )
@@ -287,15 +287,8 @@ smoothing_enabled = true
 drag_margin_top = 0.0
 drag_margin_bottom = 0.0
 
-[node name="InvulnTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
-[node name="InvulnFlickerTimer" type="Timer" parent="."]
-wait_time = 0.1
-
 [node name="StandAnimation" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -7.30167 )
+position = Vector2( 0.59303, -7.30167 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 4 )
 frame = 1
@@ -331,7 +324,7 @@ scale = Vector2( 2, 2 )
 shape = SubResource( 44 )
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2( -2, 14 )
+position = Vector2( -3, 13 )
 scale = Vector2( 2, 2 )
 shape = SubResource( 45 )
 
@@ -342,12 +335,12 @@ collision_mask = 37
 
 [node name="HeadCollisionShape" type="CollisionShape2D" parent="EnemyDetector"]
 modulate = Color( 0.0862745, 0.368627, 0.121569, 1 )
-position = Vector2( 127.811, -210.685 )
+position = Vector2( 128.811, -210.685 )
 shape = SubResource( 46 )
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="EnemyDetector"]
 modulate = Color( 0.0509804, 0.372549, 0.0509804, 1 )
-position = Vector2( 125.92, -111.619 )
+position = Vector2( 124.92, -111.619 )
 shape = SubResource( 47 )
 
 [node name="RegularFirePoint" type="Position2D" parent="."]
@@ -359,8 +352,6 @@ position = Vector2( 56.8788, -27.3068 )
 [connection signal="health" from="." to="HealthBar" method="_on_Player_health"]
 [connection signal="smash_land" from="." to="Smash" method="_on_Player_smash_land"]
 [connection signal="animation_finished" from="Smash" to="Smash" method="_on_Smash_animation_finished"]
-[connection signal="timeout" from="InvulnTimer" to="." method="_on_InvulnTimer_timeout"]
-[connection signal="timeout" from="InvulnFlickerTimer" to="." method="_on_InvulnFlickerTimer_timeout"]
 [connection signal="animation_finished" from="FireChestAnimation" to="." method="_on_FireChestAnimation_animation_finished"]
 [connection signal="frame_changed" from="FireChestAnimation" to="." method="_on_FireChestAnimation_frame_changed"]
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_EnemyDetector_body_entered"]
