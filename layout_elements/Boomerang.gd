@@ -11,9 +11,12 @@ var velocity: = Vector2.ZERO
 var pos: = Vector2.ZERO
 var spin_speed: float = 4*220
 var timer_active = false
+var timer_disabled = false
 onready var player_path = get_parent().get_parent().get_node("Sidescroller/Player")
+var isDead = false
 
 func _ready()->void:
+	set_physics_process(false)
 	idle_position()
 
 func _physics_process(delta):
@@ -26,11 +29,26 @@ func _physics_process(delta):
 			stick(delta)
 
 func idle()->void:
-	rotation_degrees = 0
-
-	if timer_active == false:	
+	rotate_axe()
+	
+	if timer_active == false && timer_disabled == false:	
 		$Timer.start()
 		timer_active = true
+	
+func rotate_axe():
+	rotation_degrees = 0
+	if (player_path.global_position.x - global_position.x) > 0 :
+		#Player is on right side
+		flip_right()
+	else:
+		#Player is on left side
+		flip_left()
+		
+func flip_right():
+	$Sprite.flip_h = true
+
+func flip_left():
+	$Sprite.flip_h = false
 	
 func fly(delta:float)->void:
 	pos += velocity*delta #variable for disconnecting from parent movement
@@ -66,6 +84,13 @@ func idle_position()->void:
 func get_target()->Vector2:
 	return parent.global_position + Vector2(0,-2)
 
+func stick_and_stop():
+	state = STICK
+	timer_disabled = true
+	
+func enable_timer():
+	timer_disabled = false
+
 #When timeout happens, axe flies back to Gregory
 func _on_Timer_timeout()->void:
 	if state == IDLE: 
@@ -76,3 +101,10 @@ func _on_Timer_timeout()->void:
 #when axe comes outside of the screen, come back to Gregory
 func _on_visibilityNode_screen_exited():
 	state = STICK
+
+func _on_CollisionDetection_body_entered(body):
+	if body.name == "Player":
+		state = STICK
+
+func _on_VisibilityEnabler2D_screen_entered():
+	set_physics_process(true)

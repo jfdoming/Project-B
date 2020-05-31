@@ -40,6 +40,7 @@ tracks/1/keys = {
 }
 
 [node name="Sidescroller" type="Node2D"]
+z_index = 4096
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_group_": true
@@ -61,7 +62,6 @@ texture = ExtResource( 4 )
 script = ExtResource( 6 )
 
 [node name="CheckpointLabel" type="Label" parent="HUD"]
-visible = false
 margin_right = 40.0
 margin_bottom = 14.0
 text = "Checkpoint:"
@@ -71,7 +71,6 @@ __meta__ = {
 }
 
 [node name="HealthLabel" type="Label" parent="HUD"]
-visible = false
 margin_top = 14.0
 margin_right = 46.0
 margin_bottom = 28.0
@@ -82,7 +81,6 @@ __meta__ = {
 }
 
 [node name="XPLabel" type="Label" parent="HUD"]
-visible = false
 margin_top = 28.0
 margin_right = 46.0
 margin_bottom = 42.0

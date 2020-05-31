@@ -93,6 +93,7 @@ pause={
 2d_physics/layer_3="Damage enemies"
 2d_physics/layer_4="Damage player"
 2d_physics/layer_5="No collision"
+2d_physics/layer_6="Enemy Weapons"
 
 [rendering]
 

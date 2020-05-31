@@ -247,20 +247,20 @@ animations = [ {
 extents = Vector2( 10.9741, 9.35257 )
 
 [sub_resource type="RectangleShape2D" id=45]
-extents = Vector2( 24, 40.9254 )
+extents = Vector2( 18.979, 39.7154 )
 
 [sub_resource type="RectangleShape2D" id=46]
-extents = Vector2( 22.4718, 17.4706 )
+extents = Vector2( 22.4718, 19.7617 )
 
 [sub_resource type="RectangleShape2D" id=47]
-extents = Vector2( 49.6902, 84.6758 )
+extents = Vector2( 41.6438, 81.7096 )
 
 [node name="Player" type="KinematicBody2D" groups=[
 "Persist",
 ]]
 z_index = 1000
-collision_layer = 0
-collision_mask = 11
+collision_layer = 8
+collision_mask = 39
 script = ExtResource( 1 )
 jump_speed = 900
 
@@ -326,26 +326,28 @@ frames = SubResource( 43 )
 frame = 1
 
 [node name="HeadCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2( 2.59303, -89.4856 )
+position = Vector2( 0.59303, -84.4856 )
 scale = Vector2( 2, 2 )
 shape = SubResource( 44 )
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2( -1, 7 )
+position = Vector2( -2, 14 )
 scale = Vector2( 2, 2 )
 shape = SubResource( 45 )
 
 [node name="EnemyDetector" type="Area2D" parent="."]
 position = Vector2( -127.925, 125.434 )
+collision_layer = 8
+collision_mask = 37
 
 [node name="HeadCollisionShape" type="CollisionShape2D" parent="EnemyDetector"]
 modulate = Color( 0.0862745, 0.368627, 0.121569, 1 )
-position = Vector2( 130.811, -217.685 )
+position = Vector2( 127.811, -210.685 )
 shape = SubResource( 46 )
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="EnemyDetector"]
 modulate = Color( 0.0509804, 0.372549, 0.0509804, 1 )
-position = Vector2( 125.92, -115.619 )
+position = Vector2( 125.92, -111.619 )
 shape = SubResource( 47 )
 
 [node name="RegularFirePoint" type="Position2D" parent="."]

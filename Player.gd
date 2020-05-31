@@ -51,6 +51,7 @@ var spawn_location = Vector2()
 
 #How much damage enemies do to do player
 export var basic_enemy_damage = 15
+export var boomerang_enemy_damage = 10
 
 func _ready():
 	spawn_location = position
@@ -231,6 +232,8 @@ func on_kill(reward):
 func _on_InvulnTimer_timeout():
 	$InvulnFlickerTimer.stop()
 	invulnerable = false
+	#$EnemyDetector/HeadCollisionShape.disabled = false
+	#$EnemyDetector/BodyCollisionShape.disabled = false
 	show()
 	take_damage(active_damage)
 
@@ -284,9 +287,11 @@ func _on_FireChestAnimation_animation_finished():
 	
 #This happens when an object of type enemy touches the player
 func _on_EnemyDetector_body_entered(body):
+	print(body.name)
 	if "BasicEnemy" in body.name and body.isDead == false:
 		take_damage(basic_enemy_damage)
-
+	if "Boomerang" in body.name and body.isDead == false:
+		take_damage(boomerang_enemy_damage)
 
 func _on_FireChestAnimation_frame_changed():
 	for i in range(9, 24, 2):
