@@ -18,7 +18,7 @@ func _ready():
 func _on_StompDetector_body_entered(body):
 	if isDead == false:
 		if "Player" in body.name:
-			if body.global_position.y < get_node("StompDetector").global_position.y:
+			if body.jumping &&  body.global_position.y < get_node("StompDetector").global_position.y:
 				isDead = true
 				get_node("CollisionShape2D").disabled = true
 				$AnimatedSprite.play("dead")

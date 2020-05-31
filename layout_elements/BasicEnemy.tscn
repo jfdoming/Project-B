@@ -64,7 +64,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 37.1691, 11.7584 )
+extents = Vector2( 38.603, 18.0036 )
 
 [node name="BasicEnemy" type="KinematicBody2D"]
 position = Vector2( 1.13205, -2.64147 )
@@ -100,7 +100,7 @@ collision_mask = 8
 
 [node name="StompCollisionShape" type="CollisionShape2D" parent="StompDetector"]
 modulate = Color( 0.0745098, 0.0352941, 0.733333, 1 )
-position = Vector2( 55.3828, -64.1315 )
+position = Vector2( 56.0998, -69.5088 )
 z_index = 1
 shape = SubResource( 10 )
 [connection signal="screen_entered" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_entered"]

@@ -234,7 +234,7 @@ __meta__ = {
 position = Vector2( 2510.28, 429.705 )
 
 [node name="Gregory" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1896.96, 409.205 )
+position = Vector2( 1893.27, 409.205 )
 
 [node name="Sidescroller" parent="." instance=ExtResource( 2 )]
 position = Vector2( -290.196, 176.148 )

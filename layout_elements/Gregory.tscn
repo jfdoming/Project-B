@@ -72,13 +72,6 @@ one_way_collision = true
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.322
 one_shot = true
-
-[node name="InvulnTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
-[node name="InvulnFlickerTime" type="Timer" parent="."]
-wait_time = 0.1
 [connection signal="health" from="." to="HealthBar" method="_on_Player_health"]
 [connection signal="screen_entered" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_entered"]
 [connection signal="screen_exited" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_exited"]
