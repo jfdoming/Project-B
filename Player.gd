@@ -47,7 +47,6 @@ export var basic_enemy_damage = 15
 export var boomerang_enemy_damage = 10
 
 func _ready():
-	max_health = 100
 	health = max_health
 	
 	spawn_location = position
@@ -215,13 +214,15 @@ func die():
 	respawn()
 
 func respawn():
-	Root.reset_layout()
+	#get_tree().reload_current_scene() - possibly use this line instead?
 	
+	Root.reset_layout()
+
 	health = max_health
 	emit_signal("health",health,max_health)
-	
+
 	xp = spawn_xp
-	
+
 	position.x = spawn_location.x
 	position.y = spawn_location.y
 	velocity.x = 0
@@ -265,3 +266,4 @@ func _on_FireChestAnimation_frame_changed():
 	for i in range(9, 24, 2):
 		if $FireChestAnimation.get_frame() == i:
 			chest_shoot()
+

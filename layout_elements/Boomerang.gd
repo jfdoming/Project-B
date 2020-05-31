@@ -99,12 +99,10 @@ func _on_CollisionDetection_body_entered(body):
 
 func _on_VisibilityEnabler2D_screen_entered():
 	isOnScreen = true
-	#timerDisabled = false
 	
 func _on_VisibilityEnabler2D_screen_exited():
 	state = STICK
 	isOnScreen = false
-	#timerDisabled = true
 
 func set_stick():
 	state=STICK
