@@ -4,20 +4,16 @@ signal health
 
 export var killExp = 100
 
-onready var parent_node = get_parent()
-onready var player_path = "Sidescroller/Player"
-onready var player_node = get_parent().get_node(player_path)
-
 const FLOOR_NORMAL: = Vector2.UP
 
 #Starting velocity - value will fluctuate
 var _velocity: = Vector2.ZERO
 
 #Max and Min speed for velocity
-export var speed: = Vector2(100.0,100.0)
+export var speed: = Vector2(100.0,800.0)
 
 #Vector increases by this factor 
-export var gravity: = 2000.0
+export var gravity: = 2
 
 var isDead = false
 var isOnScreen = false
@@ -25,12 +21,12 @@ var isOnScreen = false
 #Damage that the player causes when jumping on Gregory
 export var jumpDamage = 20 
 
-var jumping = false
-var just_jumped = false
-export (int) var jump_speed = 800
 export (float) var jump_bonus = 0.15
 
+var JumpTimerActive = false
+
 func _ready():
+	randomize() #Pick seed for random nums
 	health = max_health
 	
 	emit_signal("health",max_health,max_health)
@@ -49,17 +45,23 @@ func _physics_process(delta):
 	
 		if is_on_wall():
 			_velocity.x *= -1.0 #change vertical direction
+			
+		if is_on_floor():
+			if !JumpTimerActive:
+				var randomNum = rand_range(0.0,5.0)
+				$JumpTimer.wait_time = randomNum
+				print(randomNum)
+				$JumpTimer.start()
+				JumpTimerActive = true
 		
 		# We dont do _velocity = move_and_slide(..) , because _velocity.x
 		# would restart to 0, and we don't want that. We want to be able to
 		# control _velocity.x manually.
+		_velocity.y += gravity * delta * 1000
 		_velocity.y = move_and_slide(_velocity,FLOOR_NORMAL).y
 		
-		#if is_on_floor():
-			#jumping = true
-			#just_jumped = true
-			#_velocity.y = -jump_speed - jump_bonus * abs(_velocity.x)	
-	
+					
+		
 func rotate_gregory():
 	rotation_degrees = 0
 	if (player_node.global_position.x - global_position.x) > 0 :
@@ -77,6 +79,7 @@ func flip_left():
 
 	
 func _on_VisibilityEnabler2D_screen_entered():
+	isOnScreen = true
 	set_physics_process(true)
 
 func _on_StompDetector_body_entered(body):
@@ -84,23 +87,32 @@ func _on_StompDetector_body_entered(body):
 		if "Player" in body.name:
 			var bodyHeight = body.get_node("BodyCollisionShape").shape.get_extents().y + body.get_node("HeadCollisionShape").shape.get_extents().y
 			
-			if body.jumping==true && ((body.global_position.y + bodyHeight) < get_node("StompDetector").global_position.y):
+			if ((body.global_position.y + bodyHeight) < get_node("StompDetector").global_position.y):
 				take_damage(jumpDamage)
-	else:
-		body.on_kill(killExp)
-		$StompDetector/CollisionShape2D.disabled = true
 
 func die():
+	player_node.on_kill(killExp)
 	isDead = true
 	$HealthBar.queue_free()
 	$Boomerang.queue_free()
+	$StompDetector.queue_free()
 	$Animation.play("die")
 	$Timer.start()
 
 func _on_VisibilityEnabler2D_screen_exited():
+	isOnScreen=false
 	if isDead == false && has_node("Boomerang"):
 		$Boomerang.set_stick()
 
 func _on_Timer_timeout():
 	queue_free()
 	
+func _on_BodyDamageDetector_body_entered(body):
+	if body.name == "Bullet" && isOnScreen: #We can only damage gregory if he is visible on screen
+		take_damage(body.damage)#Bullet has own damage variable
+
+
+func _on_JumpTimer_timeout():
+	#Jump!
+	JumpTimerActive = false
+	_velocity.y = -speed.y - jump_bonus * abs(_velocity.x)	

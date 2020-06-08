@@ -170,7 +170,6 @@ func _physics_process(delta):
 		just_jumped = false
 	velocity = move_and_slide(velocity, Vector2(0, -1))
 	
-	
 func obtain_checkpoint(id, new_spawn_location):
 	# Mark if we have something to save.
 	if checkpoint != id or spawn_location != new_spawn_location:
@@ -202,7 +201,6 @@ func end_damage(damage):
 	
 	active_damage -= damage
 	
-
 func on_kill(reward):
 	if reward == 0:
 		return
@@ -256,7 +254,6 @@ func _on_FireChestAnimation_animation_finished():
 	
 #This happens when an object of type enemy touches the player
 func _on_EnemyDetector_body_entered(body):
-	print(body.name)
 	if "BasicEnemy" in body.name and body.isDead == false:
 		take_damage(basic_enemy_damage)
 	if "Boomerang" in body.name and body.isDead == false:
@@ -267,3 +264,7 @@ func _on_FireChestAnimation_frame_changed():
 		if $FireChestAnimation.get_frame() == i:
 			chest_shoot()
 
+func take_damage(damage):
+	.take_damage(damage)
+	
+	
