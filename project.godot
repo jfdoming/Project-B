@@ -23,6 +23,7 @@ config/icon="res://icon.png"
 
 Root="*res://Root.gd"
 Loading="*res://scenes/Loading.tscn"
+CheckLevelUnlocked="*res://CheckLevelUnlocked.gd"
 
 [display]
 
