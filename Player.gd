@@ -227,7 +227,7 @@ func on_kill(reward):
 		return
 	xp += reward
 	did_persisted_props_change = true
-	
+
 func _on_InvulnTimer_timeout():
 	$InvulnFlickerTimer.stop()
 	invulnerable = false

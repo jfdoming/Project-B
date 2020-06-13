@@ -17,6 +17,7 @@ func enable_or_disable():
 		_set_enabled()
 	if is_completed == true:
 		get_parent().open_next_level(index)
+		
 func _set_disabled():
   $LevelButton.disabled = true
   $LevelButton.modulate = Color(0.5, 0.5, 0.5, 1)
