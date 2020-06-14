@@ -2,7 +2,7 @@ extends Control
 
 #set this to the scene name you want this button to go to  ex: Level2.tscn is Level2
 export var level_name = ""
-#set to name on button
+#set to text on button
 export var level_box_name = ""
 #set to cutscene scene name, same format as level_name
 export var cutscene_name = ""

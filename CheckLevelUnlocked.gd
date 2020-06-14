@@ -3,6 +3,7 @@ extends Node
 #the global singleton dealing with the stage engine 
 
 var are_levels_complete = {}
+var is_objective_complete = {}
 var indexes = {}
 var levels = []
 var level_num = 0

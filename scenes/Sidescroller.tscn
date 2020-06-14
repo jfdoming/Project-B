@@ -44,7 +44,10 @@ script/source = "extends Label
 
 func update_objective_text(won = false):
 	if won == false:
-		text = \"Current Objective: \" + str(get_node(\"../../\").current_objective)
+		var t = \"\"
+		for i in get_node(\"../../\").objectives:
+			t += \"\\n\" + i
+		text = \"Objectives: \" + t
 	else:
 		text = \"Level Complete!\"
 func _ready():
@@ -105,21 +108,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ObjectiveLabel" type="Label" parent="HUD"]
-anchor_right = 1.0
-margin_bottom = 14.0
-text = "Current Objective:"
-align = 1
-script = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="WinTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
 
 [node name="Pause" parent="." instance=ExtResource( 8 )]
-[connection signal="objective_complete" from="Player" to="." method="_on_Player_objective_complete"]
+
+[node name="ObjectiveLabel" type="Label" parent="Pause"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -388.0
+margin_right = -20.0
+margin_bottom = 14.0
+text = "Objectives:"
+align = 2
+script = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="win" from="Player" to="." method="_on_Player_win"]
 [connection signal="timeout" from="WinTimer" to="." method="_on_WinTimer_timeout"]

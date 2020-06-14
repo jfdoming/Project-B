@@ -1,19 +1,21 @@
 extends Node2D
 
-#set objective names inside list in order from first to last
+#set objective names inside list in order from first completed to last
 export var objectives = []
-#set this to the scene name, for example if stage file is Level2.tscn name it Level2
-export var stage_name = ""
-var current_objective
-var objective_index = 0
+#set this to the scene name, for example if level file is Level2.tscn name it Level2
+export var level_name = ""
 var objectives_count 
 var level_complete = false
 
 func _enter_tree():
 	if objectives.empty() == true:
 		objectives.append("None")
-	current_objective = objectives[objective_index]
-	CheckLevelUnlocked.are_levels_complete[stage_name] = level_complete
+	if CheckLevelUnlocked.is_objective_complete.has(level_name) == false:
+		var temp = {}
+		for i in objectives:
+			temp[i] = false
+		CheckLevelUnlocked.is_objective_complete[level_name] = temp
+	CheckLevelUnlocked.are_levels_complete[level_name] = level_complete
 
 func _ready():
 	$HUD/CrosshairAnimation.play("Crosshair")
@@ -37,15 +39,21 @@ func _on_WinTimer_timeout():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	Root.goto_scene("scenes/Win", win_params)
 	
-
-func _on_Player_objective_complete():
-	objective_index += 1
-	if objective_index < objectives_count: 
-		current_objective = objectives[objective_index]
-		$HUD/ObjectiveLabel.update_objective_text()
+#call with objective name to complete that objective
+func objective_complete(objective_name):	
+	CheckLevelUnlocked.is_objective_complete[level_name][objective_name] = true
+	objectives.erase(objective_name)
+	var temp = true
+	for i in CheckLevelUnlocked.is_objective_complete[level_name].values():
+		print(CheckLevelUnlocked.is_objective_complete[level_name].values())
+		if i == false:
+			temp = false
+			break
+	if temp == false: 
+		$Pause/ObjectiveLabel.update_objective_text()
 	else:
-		$HUD/ObjectiveLabel.update_objective_text(true)
+		$Pause/ObjectiveLabel.update_objective_text(true)
 		level_complete = true
-		CheckLevelUnlocked.are_levels_complete[stage_name] = level_complete
+		CheckLevelUnlocked.are_levels_complete[level_name] = level_complete
 		$Player.obtain_goal("scenes/LevelSelection")
 		
