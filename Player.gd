@@ -31,12 +31,17 @@ export (float) var bullet_speed = 1000
 const LEFT = 0
 const RIGHT = 1
 
+# State
 var velocity = Vector2()
 var direction = RIGHT
 var jumping = false
 var just_jumped = false
 var smashing = false
 var firing_chest = false
+var punching = false
+var hamon_punching = false
+var double_punching = false
+var knee_attacking = false
 var health = max_health
 var active_damage = 0
 var invulnerable = false
@@ -60,16 +65,26 @@ func _ready():
 	$MustCrouchCheck.get_node("CrouchCheckCollider").set_disabled(true)
 	
 func _stop_all_anim():
-	$StandAnimation.visible = false
-	$StandAnimation.stop()
-	$WalkAnimation.visible = false
-	$WalkAnimation.stop()
-	$JumpAnimation.visible = false
-	$JumpAnimation.stop()
-	$CrouchAnimation.visible = false
-	$CrouchAnimation.stop()
-	$FireChestAnimation.visible = false
-	$FireChestAnimation.stop()
+	var animations = [
+		$StandAnimation, 
+		$WalkAnimation, 
+		$JumpAnimation, 
+		$CrouchAnimation, 
+		$FireChestAnimation, 
+		$PunchAnimation,
+		$HamonPunchAnimation,
+		$LaserEyeAnimation,
+		$SprintAnimation,
+		$SlideAnimation,
+		$DoublePunchAnimation,
+		$KneeAttackAnimation,
+	]
+	for anim in animations:
+		self._stop_anim(anim)
+	
+func _stop_anim(anim):
+	anim.visible = false
+	anim.stop()
 
 func _show_anim(anim):
 	if anim.visible:
@@ -85,8 +100,16 @@ func _show_anim(anim):
 func calculate_velocity(delta):
 	var fire_chest = may_move and Input.is_action_just_pressed("fire_chest")
 	firing_chest = firing_chest or fire_chest
+	var punch = may_move and Input.is_action_just_pressed("punch")
+	self.punching = (self.punching or punch) and !self.firing_chest
+	var hamon_punch = may_move and Input.is_action_just_pressed("hamon_punch")
+	self.hamon_punching = (self.hamon_punching or hamon_punch) and !self.firing_chest and !self.punching
+	var double_punch = may_move and Input.is_action_just_pressed("double_punch")
+	self.double_punching = (self.double_punching or double_punch) and !self.firing_chest and !self.punching and !self.hamon_punching
+	var knee_attack = may_move and Input.is_action_just_pressed("knee_attack")
+	self.knee_attacking = (self.knee_attacking or knee_attack) and !self.firing_chest and !self.punching and !self.hamon_punching and !self.double_punching
 	
-	var freeze = (not may_move) or firing_chest
+	var freeze = (not may_move) or firing_chest or self.punching or self.hamon_punching or self.double_punching or self.knee_attacking
 	var right = not freeze and Input.is_action_pressed('ui_right')
 	var left = not freeze and Input.is_action_pressed('ui_left')
 	var jump = not freeze and (Input.is_action_just_pressed('ui_select') or Input.is_action_just_pressed('ui_up'))
@@ -146,6 +169,14 @@ func calculate_velocity(delta):
 	
 	if fire_chest:
 		_show_anim($FireChestAnimation)
+	elif self.punching:
+		self._show_anim($PunchAnimation)
+	elif self.hamon_punching:
+		self._show_anim($HamonPunchAnimation)
+	elif self.double_punching:
+		self._show_anim($DoublePunchAnimation)
+	elif self.knee_attacking:
+		self._show_anim($KneeAttackAnimation)
 	elif not freeze:
 		if crouch or must_crouch == true:
 			_show_anim($CrouchAnimation)
@@ -300,10 +331,28 @@ func _on_FireChestAnimation_frame_changed():
 		if $FireChestAnimation.get_frame() == i:
 			chest_shoot()
 
+# MARK: - Punch
+
+func _on_PunchAnimation_animation_finished():
+	self.punching = false
+
+# MARK: - Hamon Punch
+
+func _on_HamonPunchAnimation_animation_finished():
+	self.hamon_punching = false
+
+# MARK: - Double Punch
+
+func _on_DoublePunchAnimation_animation_finished():
+	self.double_punching = false
+
+# MARK: - Knee Attack
+
+func _on_KneeAttackAnimation_animation_finished():
+	self.knee_attacking = false
 
 func _on_MustCrouchCheck_body_entered(body):
 	must_crouch = true
-
 
 func _on_MustCrouchCheck_body_exited(body):
 	must_crouch = false
