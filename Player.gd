@@ -45,6 +45,7 @@ var knee_attacking = false
 var health = max_health
 var active_damage = 0
 var invulnerable = false
+var must_crouch = false
 
 # If the list of persisted props continues to grow, perhaps we can store it in
 # an inner class instead, as a way of containing all persisted values.
@@ -61,7 +62,8 @@ func _ready():
 	spawn_location = position
 	_show_anim($StandAnimation)
 	emit_signal("health",max_health,max_health)
-
+	$MustCrouchCheck.get_node("CrouchCheckCollider").set_disabled(true)
+	
 func _stop_all_anim():
 	var animations = [
 		$StandAnimation, 
@@ -128,7 +130,12 @@ func calculate_velocity(delta):
 	if crouch:
 		if jumping and not smashing:
 			smashing = true
-			velocity.y = smash_speed		
+			velocity.y = smash_speed	
+		$HeadCollisionShape.set_disabled(true)	
+		$MustCrouchCheck.get_node("CrouchCheckCollider").set_disabled(false)
+	elif must_crouch == false:
+		$HeadCollisionShape.set_disabled(false)	
+		$MustCrouchCheck.get_node("CrouchCheckCollider").set_disabled(true)
 	if jump and is_on_floor():
 		jumping = true
 		just_jumped = true
@@ -171,7 +178,7 @@ func calculate_velocity(delta):
 	elif self.knee_attacking:
 		self._show_anim($KneeAttackAnimation)
 	elif not freeze:
-		if crouch:
+		if crouch or must_crouch == true:
 			_show_anim($CrouchAnimation)
 		elif jumping:
 			_show_anim($JumpAnimation)
@@ -343,3 +350,9 @@ func _on_DoublePunchAnimation_animation_finished():
 
 func _on_KneeAttackAnimation_animation_finished():
 	self.knee_attacking = false
+
+func _on_MustCrouchCheck_body_entered(body):
+	must_crouch = true
+
+func _on_MustCrouchCheck_body_exited(body):
+	must_crouch = false
