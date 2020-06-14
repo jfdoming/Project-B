@@ -111,6 +111,8 @@ margin_right = 612.0
 margin_bottom = 232.0
 level_name = "Level2"
 level_box_name = "level 2"
+cutscene_name = "CutsceneTest"
+play_cutscene_at_start = true
 is_unlocked = true
 
 [node name="Control2" parent="MarginContainer/GridContainer" instance=ExtResource( 1 )]
@@ -138,5 +140,5 @@ margin_top = 472.0
 margin_right = 612.0
 margin_bottom = 704.0
 [connection signal="need_more_space" from="MarginContainer/GridContainer" to="Camera2D" method="_on_GridContainer_need_more_space"]
-[connection signal="need_more_space" from="MarginContainer/GridContainer" to="." method="_on_GridContainer_need_more_space"]
 [connection signal="need_more_space" from="MarginContainer/GridContainer" to="MarginContainer" method="_on_GridContainer_need_more_space"]
+[connection signal="need_more_space" from="MarginContainer/GridContainer" to="." method="_on_GridContainer_need_more_space"]

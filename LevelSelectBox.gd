@@ -4,6 +4,9 @@ extends Control
 export var level_name = ""
 #set to name on button
 export var level_box_name = ""
+#set to cutscene scene name, same format as level_name
+export var cutscene_name = ""
+export var play_cutscene_at_start = false
 export var is_unlocked = false
 export var is_completed = false
 
@@ -38,12 +41,14 @@ func _enter_tree():
 	else:
 		index = CheckLevelUnlocked.indexes[self.name]
 	
-	
-	
 func _ready():
 	enable_or_disable()
 	
 func _on_LevelButton_pressed():
 	#requires levels to be in the same folder
-	Root.goto_scene("scenes/" + level_name)
+	if play_cutscene_at_start == false:
+		Root.goto_scene("scenes/" + level_name)
+	else:
+		Root.goto_scene("scenes/" + cutscene_name, level_name)
+		
 	

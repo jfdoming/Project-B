@@ -9,7 +9,6 @@ var objective_index = 0
 var objectives_count 
 var level_complete = false
 
-
 func _enter_tree():
 	if objectives.empty() == true:
 		objectives.append("None")
