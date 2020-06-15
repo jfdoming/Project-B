@@ -125,7 +125,6 @@ func calculate_velocity(delta):
 		instance.linear_velocity = Vector2(bullet_speed, 0).rotated(instance.rotation)
 		instance.damage = bullet_damage		
 		instance.connect("kill_obtained", self, "on_kill")	
-			
 
 	if crouch:
 		if jumping and not smashing:
@@ -265,7 +264,7 @@ func on_kill(reward):
 		return
 	xp += reward
 	did_persisted_props_change = true
-	
+
 func _on_InvulnTimer_timeout():
 	$InvulnFlickerTimer.stop()
 	invulnerable = false
@@ -316,7 +315,7 @@ func restore(data):
 	max_health = data.max_health
 	
 	respawn()
-	
+
 func _on_FireChestAnimation_animation_finished():
 	firing_chest = false
 	
