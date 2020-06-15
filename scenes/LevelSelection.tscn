@@ -36,21 +36,24 @@ script/source = "extends GridContainer
 
 var level_buttons = {}
 var index = 0
+var level_count
 
 signal need_more_space(pages)
 
 export (PackedScene) var Space_Creator
 
 func _enter_tree():
-	CheckLevelUnlocked.level_num = get_child_count()
-	emit_signal(\"need_more_space\", CheckLevelUnlocked.level_num)
-	if(CheckLevelUnlocked.level_num % 4 != 0):
-		for _i in range(4 - (CheckLevelUnlocked.level_num % 4)):
+	level_count = get_child_count()
+	emit_signal(\"need_more_space\", level_count)
+	if(level_count % 4 != 0):
+		for _i in range(4 - (level_count % 4)):
 			var space_creator = Space_Creator.instance()
 			add_child(space_creator)
 	for i in get_children():
-		level_buttons[index] = i
-		index += 1
+		if i.is_in_group(\"LevelSelectBox\"):
+			level_buttons[index] = i
+			i.self_index = index
+			index += 1
 	
 func open_next_level(boxindex):
 	if boxindex + 1 in level_buttons:
@@ -154,7 +157,7 @@ script = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="need_more_space" from="MarginContainer/GridContainer" to="." method="_on_GridContainer_need_more_space"]
-[connection signal="need_more_space" from="MarginContainer/GridContainer" to="MarginContainer" method="_on_GridContainer_need_more_space"]
 [connection signal="need_more_space" from="MarginContainer/GridContainer" to="CanvasLayer/VSlider" method="_on_GridContainer_need_more_space"]
+[connection signal="need_more_space" from="MarginContainer/GridContainer" to="MarginContainer" method="_on_GridContainer_need_more_space"]
+[connection signal="need_more_space" from="MarginContainer/GridContainer" to="." method="_on_GridContainer_need_more_space"]
 [connection signal="value_changed" from="CanvasLayer/VSlider" to="Camera2D" method="_on_VSlider_value_changed"]

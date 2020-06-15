@@ -4,17 +4,15 @@ extends Node2D
 export var objectives = []
 #set this to the scene name, for example if level file is Level2.tscn name it Level2
 export var level_name = ""
+var is_objective_complete = {}
 var objectives_count 
 var level_complete = false
 
 func _enter_tree():
 	if objectives.empty() == true:
 		objectives.append("None")
-	if CheckLevelUnlocked.is_objective_complete.has(level_name) == false:
-		var temp = {}
-		for i in objectives:
-			temp[i] = false
-		CheckLevelUnlocked.is_objective_complete[level_name] = temp
+	for i in objectives:
+		is_objective_complete[i] = false
 	CheckLevelUnlocked.are_levels_complete[level_name] = level_complete
 
 func _ready():
@@ -41,11 +39,10 @@ func _on_WinTimer_timeout():
 	
 #call with objective name to complete that objective
 func objective_complete(objective_name):	
-	CheckLevelUnlocked.is_objective_complete[level_name][objective_name] = true
+	is_objective_complete[objective_name] = true
 	objectives.erase(objective_name)
 	var temp = true
-	for i in CheckLevelUnlocked.is_objective_complete[level_name].values():
-		print(CheckLevelUnlocked.is_objective_complete[level_name].values())
+	for i in is_objective_complete.values():
 		if i == false:
 			temp = false
 			break

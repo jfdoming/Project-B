@@ -23,7 +23,9 @@ corner_radius_top_right = 40
 corner_radius_bottom_right = 40
 corner_radius_bottom_left = 40
 
-[node name="MarginCreator" type="Control"]
+[node name="MarginCreator" type="Control" groups=[
+"LevelSelectBox",
+]]
 margin_right = 100.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 100, 50 )
@@ -34,9 +36,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LevelButton" type="Button" parent="." groups=[
-"LevelSelectBox",
-]]
+[node name="LevelButton" type="Button" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

@@ -100,7 +100,7 @@ func calculate_velocity(delta):
 		instance.linear_velocity = Vector2(bullet_speed, 0).rotated(instance.rotation)
 		instance.damage = bullet_damage		
 		instance.connect("kill_obtained", self, "on_kill")	
-		#get_parent().objective_complete("Shoot")
+
 	if crouch:
 		if jumping and not smashing:
 			smashing = true
@@ -226,7 +226,7 @@ func on_kill(reward):
 		return
 	xp += reward
 	did_persisted_props_change = true
-	#get_parent().objective_complete("Kill the Enemy")
+
 func _on_InvulnTimer_timeout():
 	$InvulnFlickerTimer.stop()
 	invulnerable = false

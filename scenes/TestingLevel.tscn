@@ -231,7 +231,8 @@ __meta__ = {
 
 [node name="Sidescroller" parent="." instance=ExtResource( 3 )]
 position = Vector2( -373.596, 177.384 )
-stage_name = "TestingLevel"
+objectives = [ "Shoot" ]
+level_name = "TestingLevel"
 
 [node name="Player" parent="Sidescroller" index="0"]
 collision_layer = 8

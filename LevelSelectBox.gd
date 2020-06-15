@@ -10,7 +10,7 @@ export var play_cutscene_at_start = false
 export var is_unlocked = false
 export var is_completed = false
 
-var index
+var self_index
 
 func enable_or_disable():
 	if level_name in CheckLevelUnlocked.are_levels_complete:
@@ -19,7 +19,7 @@ func enable_or_disable():
 	if is_unlocked == true:
 		_set_enabled()
 	if is_completed == true:
-		get_parent().open_next_level(index)
+		get_parent().open_next_level(self_index)
 		
 func _set_disabled():
   $LevelButton.disabled = true
@@ -32,15 +32,9 @@ func _set_enabled():
 func _enter_tree():
 	$LevelButton.set_text(level_box_name)
 	_set_disabled()
-	if CheckLevelUnlocked.already_ran == false:
+	if not CheckLevelUnlocked.levels.has(level_name):
 		CheckLevelUnlocked.levels.append(level_name)
-		index = CheckLevelUnlocked.index
-		CheckLevelUnlocked.indexes[self.name] = index
-		CheckLevelUnlocked.index += 1
-		CheckLevelUnlocked.run_once()	
-	else:
-		index = CheckLevelUnlocked.indexes[self.name]
-	
+		
 func _ready():
 	enable_or_disable()
 	
