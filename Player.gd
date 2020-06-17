@@ -112,7 +112,7 @@ func calculate_velocity(delta):
 	var freeze = (not may_move) or firing_chest or self.punching or self.hamon_punching or self.double_punching or self.knee_attacking
 	var right = not freeze and Input.is_action_pressed('ui_right')
 	var left = not freeze and Input.is_action_pressed('ui_left')
-	var jump = not freeze and (Input.is_action_just_pressed('ui_select') or Input.is_action_just_pressed('ui_up'))
+	var jump = not freeze and not must_crouch and (Input.is_action_just_pressed('ui_select') or Input.is_action_just_pressed('ui_up'))
 	var crouch = not freeze and Input.is_action_pressed('ui_down')
 	var fire = not freeze and Input.is_action_just_pressed("fire")
 	var walking = left != right
