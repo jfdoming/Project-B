@@ -119,11 +119,11 @@ func calculate_velocity(delta):
 
 	if fire:
 		var instance = Bullet.instance()
-		get_parent().add_child(instance)
 		instance.position = $RegularFirePoint.global_position
 		instance.look_at(get_global_mouse_position())	
 		instance.linear_velocity = Vector2(bullet_speed, 0).rotated(instance.rotation)
 		instance.damage = bullet_damage		
+		get_parent().add_child(instance)
 		instance.connect("kill_obtained", self, "on_kill")	
 
 	if crouch:
@@ -198,7 +198,7 @@ func chest_shoot():
 		chest_bullet.scale.x = -1
 	chest_bullet.damage = bullet_damage
 	chest_bullet.connect("kill_obtained", self, "on_kill")	
-	
+
 func _physics_process(delta):
 		
 	calculate_velocity(delta)
@@ -222,7 +222,9 @@ func obtain_checkpoint(id, new_spawn_location):
 	
 	health = max_health
 	spawn_xp = xp
-
+	
+	Root.save_game()
+	
 func obtain_goal(next_scene, freeze = false, hide_mouse = true):
 	invulnerable = true
 	may_move = false
@@ -258,7 +260,7 @@ func take_damage(damage):
 	invulnerable = true
 	$InvulnTimer.start(invuln_time)
 	$InvulnFlickerTimer.start(invuln_flicker_time)
-
+	
 func on_kill(reward):
 	if reward == 0:
 		return
