@@ -7,6 +7,7 @@ export var level_name = ""
 var is_objective_complete = {}
 var objectives_count 
 var level_complete = false
+var cutscene_index = 0
 
 func _enter_tree():
 	if objectives.empty() == true:
@@ -53,4 +54,5 @@ func objective_complete(objective_name):
 		level_complete = true
 		CheckLevelUnlocked.are_levels_complete[level_name] = level_complete
 		$Player.obtain_goal("scenes/LevelSelection")
-		
+	$Player.obtain_checkpoint(cutscene_index, $Player.position)
+	cutscene_index += 1
