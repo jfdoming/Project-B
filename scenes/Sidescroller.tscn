@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Bullet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -38,6 +38,22 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 0.1, 0.1 ), Vector2( 0.15, 0.15 ), Vector2( 0.1, 0.1 ) ]
 }
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Label
+
+func update_objective_text(won = false):
+	if won == false:
+		var t = \"\"
+		for i in get_node(\"../../\").objectives:
+			t += \"\\n\" + i
+		text = \"Objectives: \" + t
+	else:
+		text = \"Level Complete!\"
+func _ready():
+	update_objective_text()
+
+"
 
 [node name="Sidescroller" type="Node2D"]
 z_index = 4096
@@ -95,5 +111,19 @@ wait_time = 3.0
 one_shot = true
 
 [node name="Pause" parent="." instance=ExtResource( 8 )]
+
+[node name="ObjectiveLabel" type="Label" parent="Pause"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -388.0
+margin_right = -20.0
+margin_bottom = 14.0
+text = "Objectives:"
+align = 2
+script = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="win" from="Player" to="." method="_on_Player_win"]
 [connection signal="timeout" from="WinTimer" to="." method="_on_WinTimer_timeout"]
