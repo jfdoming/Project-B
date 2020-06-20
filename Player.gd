@@ -119,14 +119,12 @@ func calculate_velocity(delta):
 
 	if fire:
 		var instance = Bullet.instance()
-		
+		get_parent().add_child(instance)	
 		instance.position = $RegularFirePoint.global_position
 		instance.look_at(get_global_mouse_position())	
 		instance.linear_velocity = Vector2(bullet_speed, 0).rotated(instance.rotation)
-		instance.damage = bullet_damage	
-		get_parent().add_child(instance)		
+		instance.damage = bullet_damage			
 		instance.connect("kill_obtained", self, "on_kill")	
-
 	if crouch:
 		if jumping and not smashing:
 			smashing = true
