@@ -30,6 +30,7 @@ export (int) var bullet_damage = 10
 export (float) var bullet_speed = 1000
 const LEFT = 0
 const RIGHT = 1
+const PLAYER_ENEMY_COLLISION_LAYER = 3
 
 # State
 var velocity = Vector2()
@@ -59,6 +60,7 @@ var spawn_location = Vector2()
 export var basic_enemy_damage = 15
 
 func _ready():
+	set_collision_layer_bit(PLAYER_ENEMY_COLLISION_LAYER, true)
 	spawn_location = position
 	_show_anim($StandAnimation)
 	emit_signal("health",max_health,max_health)
