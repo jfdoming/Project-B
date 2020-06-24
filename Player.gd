@@ -38,9 +38,6 @@ var punching = false
 var hamon_punching = false
 var double_punching = false
 var knee_attacking = false
-var health = max_health
-var active_damage = 0
-var invulnerable = false
 var must_crouch = false
 
 # If the list of persisted props continues to grow, perhaps we can store it in
@@ -246,8 +243,8 @@ func end_damage(damage):
 	active_damage -= damage
 	
 	invulnerable = true
-	$InvulnTimer.start(invuln_time)
-	$InvulnFlickerTimer.start(invuln_flicker_time)
+	InvulnTimer.start(invuln_time)
+	InvulnFlickerTimer.start(invuln_flicker_time)
 
 func on_kill(reward):
 	if reward == 0:
@@ -256,7 +253,7 @@ func on_kill(reward):
 	did_persisted_props_change = true
 
 func _on_InvulnTimer_timeout():
-	$InvulnFlickerTimer.stop()
+	InvulnFlickerTimer.stop()
 	invulnerable = false
 	show()
 	take_damage(active_damage)
