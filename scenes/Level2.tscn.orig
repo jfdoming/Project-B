@@ -230,10 +230,31 @@ __meta__ = {
 "_edit_vertical_guides_": [ 2363.02 ]
 }
 
+<<<<<<< HEAD
+[node name="Goal" parent="." instance=ExtResource( 4 )]
+position = Vector2( 2510.28, 429.705 )
+=======
 [node name="Sidescroller" parent="." instance=ExtResource( 2 )]
 position = Vector2( -373.596, 177.384 )
 objectives = [ "Shoot", "Kill the Enemy" ]
 level_name = "Level2"
+
+[node name="Player" parent="Sidescroller" index="0"]
+collision_layer = 8
+
+[node name="HealthBar" parent="Sidescroller/Player" index="0"]
+margin_left = -0.291428
+margin_right = -0.291428
+
+[node name="Camera2D" parent="Sidescroller/Player" index="2"]
+limit_left = 0
+limit_top = 0
+limit_right = 2100
+limit_bottom = 1017
+
+[node name="CheckpointLabel" parent="Sidescroller/HUD" index="1"]
+visible = true
+>>>>>>> master
 
 [node name="Gregory" parent="." instance=ExtResource( 5 )]
 position = Vector2( 1896.96, 409.205 )
