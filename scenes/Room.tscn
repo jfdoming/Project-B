@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/Stalingrad/Room.png" type="Texture" id=2]
+[ext_resource path="res://scenes/Room.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 300, 10 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 155.697 )
+
+[node name="Room" type="Node2D"]
+scale = Vector2( 3.22952, 3.22952 )
+script = ExtResource( 3 )
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2( 300, 299.835 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2( 0, -3.05176e-05 )
+shape = SubResource( 1 )
+
+[node name="Walls" type="StaticBody2D" parent="."]
+position = Vector2( 300, 299.835 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2( 307.483, -144.165 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2( -309.911, -144.165 )
+shape = SubResource( 2 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 526.188, 194.885 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 300, 147.039 )
+current = true
+zoom = Vector2( 1.85, 1.85 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+offset = Vector2( 299.687, 149.835 )
+__meta__ = {
+"_editor_description_": ""
+}
