@@ -86,6 +86,7 @@ shape = SubResource( 4 )
 [node name="JumpTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
 [connection signal="health" from="." to="HealthBar" method="_on_Player_health"]
 [connection signal="screen_entered" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_entered"]
 [connection signal="screen_exited" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_exited"]

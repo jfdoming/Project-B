@@ -1,0 +1,163 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://LevelSelectBox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://LevelSelectBoxSpacing.tscn" type="PackedScene" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends ColorRect
+
+var size 
+
+func _on_GridContainer_need_more_space(levels):
+	size = Vector2(1024, ceil(float(levels) / 4.0) * 600)
+	set_size(size)
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Camera2D
+
+func _on_VSlider_value_changed(value):
+	position.y = value
+"
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends MarginContainer
+
+var size
+
+func _on_GridContainer_need_more_space(levels):
+	size = Vector2(1024, ceil(float(levels) / 4.0) * 600)
+	set_size(size)
+
+"
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends GridContainer
+
+var level_buttons = {}
+var index = 0
+var level_count
+
+signal need_more_space(pages)
+
+export (PackedScene) var Space_Creator
+
+func _enter_tree():
+	level_count = get_child_count()
+	emit_signal(\"need_more_space\", level_count)
+	if(level_count % 4 != 0):
+		for _i in range(4 - (level_count % 4)):
+			var space_creator = Space_Creator.instance()
+			add_child(space_creator)
+	for i in get_children():
+		if i.is_in_group(\"LevelSelectBox\"):
+			level_buttons[index] = i
+			i.self_index = index
+			index += 1
+	
+func open_next_level(boxindex):
+	if boxindex + 1 in level_buttons:
+		level_buttons[boxindex + 1].is_unlocked = true
+
+"
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends VSlider
+
+func _on_GridContainer_need_more_space(pages):
+	max_value = (ceil(float(pages) / 4.0) * 600) - 600
+"
+
+[node name="ColorRect" type="ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1024, 600 )
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+limit_smoothed = true
+script = SubResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 304.0
+margin_bottom = 204.0
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+script = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 1278.0
+margin_bottom = 754.0
+size_flags_stretch_ratio = 0.0
+columns = 2
+script = SubResource( 4 )
+Space_Creator = ExtResource( 2 )
+
+[node name="Control" parent="MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_right = 612.0
+margin_bottom = 232.0
+level_name = "Level2"
+level_box_name = "level 2"
+cutscene_name = "CutsceneTest"
+play_cutscene_at_start = true
+is_unlocked = true
+
+[node name="Control2" parent="MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_left = 616.0
+margin_right = 1228.0
+margin_bottom = 232.0
+level_name = "TestingLevel"
+level_box_name = "testinglevel"
+
+[node name="Control3" parent="MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_top = 236.0
+margin_right = 612.0
+margin_bottom = 468.0
+level_box_name = "dummy button"
+
+[node name="Control4" parent="MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_left = 616.0
+margin_top = 236.0
+margin_right = 1228.0
+margin_bottom = 468.0
+level_box_name = "dummy button"
+
+[node name="MarginCreator" parent="MarginContainer/GridContainer" instance=ExtResource( 1 )]
+margin_top = 472.0
+margin_right = 612.0
+margin_bottom = 704.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VSlider" type="VSlider" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -15.9999
+margin_top = 225.0
+margin_bottom = 694.0
+rect_scale = Vector2( 1, -1 )
+step = 10.0
+script = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="need_more_space" from="MarginContainer/GridContainer" to="MarginContainer" method="_on_GridContainer_need_more_space"]
+[connection signal="need_more_space" from="MarginContainer/GridContainer" to="." method="_on_GridContainer_need_more_space"]
+[connection signal="need_more_space" from="MarginContainer/GridContainer" to="CanvasLayer/VSlider" method="_on_GridContainer_need_more_space"]
+[connection signal="value_changed" from="CanvasLayer/VSlider" to="Camera2D" method="_on_VSlider_value_changed"]

@@ -34,7 +34,7 @@ func idle()->void:
 	if timerActive == false:# && timerDisabled == false:
 		$Timer.start()
 		timerActive = true
-	
+
 func rotate_axe():
 	rotation_degrees = 0
 	if (player_path.global_position.x - global_position.x) > 0 :
@@ -43,13 +43,13 @@ func rotate_axe():
 	else:
 		#Player is on left side
 		flip_left()
-		
+
 func flip_right():
 	$Sprite.flip_h = true
 
 func flip_left():
 	$Sprite.flip_h = false
-	
+
 func fly(delta:float)->void:
 	pos += velocity*delta #variable for disconnecting from parent movement
 	global_position = pos
@@ -70,7 +70,6 @@ func stick(delta:float)->void:
 
 func throw()->void:
 	state = FLY
-	#$Timer.start()
 	velocity = (player_path.global_position - global_position).normalized()*throw_speed
 	pos = global_position #variable for disconnecting from parent movement
 

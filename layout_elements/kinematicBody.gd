@@ -7,6 +7,7 @@ export (float) var invuln_time = 3.5
 var invulnerable = false
 export (int) var health = 0
 export (int) var max_health = 100
+
 var active_damage = 0
 var InvulnTimer = Timer.new()
 var InvulnFlickerTimer = Timer.new()
@@ -41,8 +42,7 @@ func take_damage(damage):
 	invulnerable = true
 	InvulnTimer.start(invuln_time)
 	InvulnFlickerTimer.start(invuln_flicker_time)
-	
-	
+
 func die():
 	pass
 		

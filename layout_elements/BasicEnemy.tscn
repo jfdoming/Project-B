@@ -113,8 +113,10 @@ shape = SubResource( 10 )
 modulate = Color( 0.0705882, 0.0705882, 0.0705882, 1 )
 position = Vector2( -1.83623, 5 )
 shape = SubResource( 11 )
+
 [connection signal="screen_entered" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_entered"]
 [connection signal="screen_exited" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
 [connection signal="body_entered" from="BodyDamageDetector" to="." method="_on_BodyDamageDetector_body_entered"]
+

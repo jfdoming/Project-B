@@ -22,6 +22,7 @@ func _on_StompDetector_body_entered(body):
 				die()
 			else:
 				body.take_damage(body.basic_enemy_damage)
+
 				
 #This function executes in a loop all the time, updating the enemy's position & movements
 func _physics_process(delta):

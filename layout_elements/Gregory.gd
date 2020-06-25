@@ -15,6 +15,7 @@ export var speed: = Vector2(100.0,800.0)
 #Vector increases by this factor 
 export var gravity: = 2
 
+
 var isDead = false
 var isOnScreen = false
 
@@ -57,14 +58,14 @@ func _physics_process(delta):
 		# We dont do _velocity = move_and_slide(..) , because _velocity.x
 		# would restart to 0, and we don't want that. We want to be able to
 		# control _velocity.x manually.
+
 		_velocity.y += gravity * delta * 1000
-		_velocity.y = move_and_slide(_velocity,FLOOR_NORMAL).y
-		
-					
+		_velocity.y = move_and_slide(_velocity,FLOOR_NORMAL).y	
 		
 func rotate_gregory():
 	rotation_degrees = 0
 	if (player_node.global_position.x - global_position.x) > 0 :
+
 		#Player is on left side
 		flip_left()
 	else:
@@ -101,6 +102,7 @@ func die():
 
 func _on_VisibilityEnabler2D_screen_exited():
 	isOnScreen=false
+
 	if isDead == false && has_node("Boomerang"):
 		$Boomerang.set_stick()
 
@@ -116,3 +118,4 @@ func _on_JumpTimer_timeout():
 	#Jump!
 	JumpTimerActive = false
 	_velocity.y = -speed.y - jump_bonus * abs(_velocity.x)	
+
