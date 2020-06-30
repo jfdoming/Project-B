@@ -128,7 +128,7 @@ func calculate_velocity(delta):
 	if crouch:
 		if jumping and not smashing:
 			smashing = true
-			velocity.y = smash_speed	
+			velocity.y = smash_speed
 		$HeadCollisionShape.set_disabled(true)	
 		$MustCrouchCheck.get_node("CrouchCheckCollider").set_disabled(false)
 	elif must_crouch == false:
@@ -140,7 +140,7 @@ func calculate_velocity(delta):
 		velocity.y = -jump_speed - jump_bonus * abs(velocity.x)	
 	if right and not left:
 		velocity.x += run_speed_increment_fraction * max_walk_speed * delta * 60
-		if sprinting:
+		if sprinting and not crouch:
 			velocity.x = clamp(velocity.x, -max_sprint_speed, max_sprint_speed)
 		else:
 			velocity.x = clamp(velocity.x, -max_walk_speed, max_walk_speed)
@@ -152,7 +152,7 @@ func calculate_velocity(delta):
 		
 	if left and not right:
 		velocity.x -= run_speed_increment_fraction * max_walk_speed * delta * 60
-		if sprinting:
+		if sprinting and not crouch:
 			velocity.x = clamp(velocity.x, -max_sprint_speed, max_sprint_speed)
 		else:
 			velocity.x = clamp(velocity.x, -max_walk_speed, max_walk_speed)
@@ -183,7 +183,10 @@ func calculate_velocity(delta):
 		self._show_anim($KneeAttackAnimation)
 	elif not freeze:
 		if crouch or must_crouch == true:
-			_show_anim($CrouchAnimation)
+			if sprinting:
+				_show_anim($SlideAnimation)
+			else:
+				_show_anim($CrouchAnimation)
 		elif jumping:
 			_show_anim($JumpAnimation)
 		elif walking and not sprinting:
