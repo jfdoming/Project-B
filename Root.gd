@@ -5,6 +5,7 @@ extends Node
 
 signal load_progress
 
+const save_dir = "user://saves/"
 var loader
 var wait_frames
 var time_max = 100
@@ -22,6 +23,9 @@ func reset_layout():
 	get_tree().call_group("ResetOnRespawn", "reset")
 
 func save_game(filename = "default"):
+	var d = Directory.new()
+	if not d.dir_exists(save_dir):
+		d.make_dir(save_dir)
 	var save_game = File.new()
 	var persisted_nodes = get_tree().get_nodes_in_group("Persist")
 	
@@ -34,7 +38,7 @@ func save_game(filename = "default"):
 		return
 	
 	print("Saving...")
-	var path = "user://saves/" + filename + ".save"
+	var path = save_dir + filename + ".save"
 	var flags = File.READ_WRITE if save_game.file_exists(path) else File.WRITE
 	save_game.open(path, flags)
 	
@@ -50,13 +54,13 @@ func save_game(filename = "default"):
 
 func load_game(filename = "default"):
 	var save_game = File.new()
-	if not save_game.file_exists("user://saves/" + filename + ".save"):
+	if not save_game.file_exists(save_dir + filename + ".save"):
 		return
 	
 	var persisted_nodes = get_tree().get_nodes_in_group("Persist")
 	var index = 0
 	
-	save_game.open("user://saves/" + filename + ".save", File.READ)
+	save_game.open(save_dir + filename + ".save", File.READ)
 	while save_game.get_position() < save_game.get_len():
 		var persisted_node = persisted_nodes[index]
 		index += 1
@@ -71,7 +75,7 @@ func load_game(filename = "default"):
 
 func delete_game(filename = "default"):
 	var save_game = Directory.new()
-	save_game.remove("user://saves/" + filename + ".save")
+	save_game.remove(save_dir + filename + ".save")
 
 func goto_scene(path, params = null):
 	# This function will usually be called from a signal callback,

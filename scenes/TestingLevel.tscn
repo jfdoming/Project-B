@@ -234,9 +234,6 @@ position = Vector2( -373.596, 177.384 )
 objectives = [ "Shoot" ]
 level_name = "TestingLevel"
 
-[node name="Player" parent="Sidescroller" index="0"]
-collision_layer = 8
-
 [node name="HealthBar" parent="Sidescroller/Player" index="0"]
 margin_left = -0.291428
 margin_right = -0.291428
@@ -246,15 +243,6 @@ limit_left = 0
 limit_top = 0
 limit_right = 2100
 limit_bottom = 1017
-
-[node name="CheckpointLabel" parent="Sidescroller/HUD" index="1"]
-visible = true
-
-[node name="HealthLabel" parent="Sidescroller/HUD" index="2"]
-visible = true
-
-[node name="XPLabel" parent="Sidescroller/HUD" index="3"]
-visible = true
 
 [node name="BasicEnemy" parent="." instance=ExtResource( 2 )]
 position = Vector2( 432.376, 544.736 )
