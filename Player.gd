@@ -10,7 +10,8 @@ export (PackedScene) var Bullet
 # Physics-related options.
 export (bool) var may_move = true
 export (bool) var obey_physics = true
-export (int) var max_run_speed = 250
+export (int) var max_walk_speed = 250
+export (int) var max_sprint_speed = 500
 export (float) var run_speed_increment_fraction = 1.0 / 10.0
 export (int) var jump_speed = 800
 export (int) var smash_speed = 1200
@@ -113,6 +114,7 @@ func calculate_velocity(delta):
 	var crouch = not freeze and Input.is_action_pressed('ui_down')
 	var fire = not freeze and Input.is_action_just_pressed("fire")
 	var walking = left != right
+	var sprinting = Input.is_action_pressed('sprint') and walking
 
 	if fire:
 		var instance = Bullet.instance()
@@ -137,8 +139,11 @@ func calculate_velocity(delta):
 		just_jumped = true
 		velocity.y = -jump_speed - jump_bonus * abs(velocity.x)	
 	if right and not left:
-		velocity.x += run_speed_increment_fraction * max_run_speed * delta * 60
-		velocity.x = clamp(velocity.x, -max_run_speed, max_run_speed)
+		velocity.x += run_speed_increment_fraction * max_walk_speed * delta * 60
+		if sprinting:
+			velocity.x = clamp(velocity.x, -max_sprint_speed, max_sprint_speed)
+		else:
+			velocity.x = clamp(velocity.x, -max_walk_speed, max_walk_speed)
 		if direction != RIGHT:
 			direction = RIGHT
 			scale.x = -1
@@ -146,8 +151,11 @@ func calculate_velocity(delta):
 		emit_signal("flip_health_bar","RIGHT")
 		
 	if left and not right:
-		velocity.x -= run_speed_increment_fraction * max_run_speed * delta * 60
-		velocity.x = clamp(velocity.x, -max_run_speed, max_run_speed)
+		velocity.x -= run_speed_increment_fraction * max_walk_speed * delta * 60
+		if sprinting:
+			velocity.x = clamp(velocity.x, -max_sprint_speed, max_sprint_speed)
+		else:
+			velocity.x = clamp(velocity.x, -max_walk_speed, max_walk_speed)
 		if direction != LEFT:
 			direction = LEFT
 			scale.x = -1
@@ -178,8 +186,10 @@ func calculate_velocity(delta):
 			_show_anim($CrouchAnimation)
 		elif jumping:
 			_show_anim($JumpAnimation)
-		elif walking:
+		elif walking and not sprinting:
 			_show_anim($WalkAnimation)
+		elif sprinting:
+			_show_anim($SprintAnimation)
 		else:
 			_show_anim($StandAnimation)
 
