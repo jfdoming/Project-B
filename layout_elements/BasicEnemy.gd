@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends "res://layout_elements/kinematicBody.gd"
 
 export var killExp = 10
 
@@ -18,12 +18,11 @@ func _ready():
 func _on_StompDetector_body_entered(body):
 	if isDead == false:
 		if "Player" in body.name:
-			if body.global_position.y < get_node("StompDetector").global_position.y:
-				isDead = true
-				get_node("CollisionShape2D").disabled = true
-				$AnimatedSprite.play("dead")
-				$Timer.start() #After this time, enemy vanishes
-				body.on_kill(killExp)
+			if body.jumping ==true  && body.global_position.y < get_node("StompDetector").global_position.y:
+				die()
+			else:
+				body.take_damage(body.basic_enemy_damage)
+
 				
 #This function executes in a loop all the time, updating the enemy's position & movements
 func _physics_process(delta):
@@ -52,3 +51,14 @@ func _on_VisibilityEnabler2D_screen_exited():
 
 func _on_VisibilityEnabler2D_screen_entered():
 		set_physics_process(true)
+
+func _on_BodyDamageDetector_body_entered(body):
+	if body.name == "Bullet":
+		die()
+		
+func die():
+	isDead = true
+	player_node.on_kill(killExp)
+	get_node("CollisionShape2D").disabled = true
+	$AnimatedSprite.play("dead")
+	$Timer.start() #After this time, enemy vanishes

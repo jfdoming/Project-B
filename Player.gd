@@ -54,7 +54,6 @@ export var basic_enemy_damage = 15
 export var boomerang_enemy_damage = 10
 
 func _ready():
-	max_health = 100
 	health = max_health
 	
 	spawn_location = position
@@ -221,7 +220,6 @@ func _physics_process(delta):
 		just_jumped = false
 	velocity = move_and_slide(velocity, Vector2(0, -1))
 	
-	
 func obtain_checkpoint(id, new_spawn_location):
 	# Mark if we have something to save.
 	if checkpoint != id or spawn_location != new_spawn_location:
@@ -255,39 +253,25 @@ func end_damage(damage):
 	
 	active_damage -= damage
 	
-	invulnerable = true
-	InvulnTimer.start(invuln_time)
-	InvulnFlickerTimer.start(invuln_flicker_time)
-
 func on_kill(reward):
 	if reward == 0:
 		return
 	xp += reward
 	did_persisted_props_change = true
-
-func _on_InvulnTimer_timeout():
-	InvulnFlickerTimer.stop()
-	invulnerable = false
-	show()
-	take_damage(active_damage)
-
-func _on_InvulnFlickerTimer_timeout():
-	if visible:
-		hide()
-	else:
-		show()
 		
 func die():
 	respawn()
 
 func respawn():
-	Root.reset_layout()
+	#get_tree().reload_current_scene() - possibly use this line instead?
 	
+	Root.reset_layout()
+
 	health = max_health
 	emit_signal("health",health,max_health)
-	
+
 	xp = spawn_xp
-	
+
 	position.x = spawn_location.x
 	position.y = spawn_location.y
 	velocity.x = 0
@@ -332,6 +316,9 @@ func _on_FireChestAnimation_frame_changed():
 		if $FireChestAnimation.get_frame() == i:
 			chest_shoot()
 
+func take_damage(damage):
+	.take_damage(damage)
+	
 # MARK: - Punch
 
 func _on_PunchAnimation_animation_finished():

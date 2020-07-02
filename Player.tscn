@@ -649,17 +649,16 @@ shape = SubResource( 97 )
 [node name="EnemyDetector" type="Area2D" parent="."]
 position = Vector2( -127.925, 125.434 )
 collision_layer = 8
-collision_mask = 37
 
 [node name="HeadCollisionShape" type="CollisionShape2D" parent="EnemyDetector"]
 modulate = Color( 0.0862745, 0.368627, 0.121569, 1 )
-position = Vector2( 130.811, -217.685 )
-shape = SubResource( 98 )
+position = Vector2( 128.811, -210.685 )
+shape = SubResource( 46 )
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="EnemyDetector"]
 modulate = Color( 0.0509804, 0.372549, 0.0509804, 1 )
-position = Vector2( 125.92, -115.619 )
-shape = SubResource( 99 )
+position = Vector2( 124.92, -111.619 )
+shape = SubResource( 47 )
 
 [node name="RegularFirePoint" type="Position2D" parent="."]
 position = Vector2( 0, -55 )

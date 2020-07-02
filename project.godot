@@ -115,11 +115,13 @@ sprint={
 [layer_names]
 
 2d_physics/layer_1="Solid"
-2d_physics/layer_2="Regions"
+2d_physics/layer_2="Player Regions"
 2d_physics/layer_3="Damage enemies"
 2d_physics/layer_4="Damage player"
 2d_physics/layer_5="No collision"
 2d_physics/layer_6="Enemy Weapons"
+2d_physics/layer_7="Enemy Regions"
+2d_physics/layer_8="Player Weapons"
 
 [rendering]
 
