@@ -4,10 +4,13 @@ extends Node2D
 export var objectives = []
 #set this to the scene name, for example if level file is Level2.tscn name it Level2
 export var level_name = ""
+export var play_cutscene_at_end = false
+#same format as level_name
+export var cutscene_name = ""
 var is_objective_complete = {}
 var objectives_count 
 var level_complete = false
-var cutscene_index = 0
+var checkpoint_index = 0
 
 func _enter_tree():
 	if objectives.empty() == true:
@@ -31,6 +34,7 @@ func _on_Player_win(next_scene, hide_mouse):
 	win_params.xp = $Player.xp
 	win_params.next_scene = next_scene
 	win_params.hide_mouse = hide_mouse
+	win_params.play_cutscene = play_cutscene_at_end
 	
 	$WinTimer.start()
 
@@ -53,6 +57,9 @@ func objective_complete(objective_name):
 		$Pause/ObjectiveLabel.update_objective_text(true)
 		level_complete = true
 		CheckLevelUnlocked.are_levels_complete[level_name] = level_complete
-		$Player.obtain_goal("scenes/LevelSelection")
-	$Player.obtain_checkpoint(cutscene_index, $Player.position)
-	cutscene_index += 1
+		if play_cutscene_at_end == true:
+			$Player.obtain_goal("scenes/" + cutscene_name)
+		else:
+			$Player.obtain_goal("scenes/LevelSelection")
+	$Player.obtain_checkpoint(checkpoint_index, $Player.position)
+	checkpoint_index += 1
