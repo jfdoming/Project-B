@@ -67,13 +67,16 @@ animations = [ {
 extents = Vector2( 38.603, 18.0036 )
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 46.4335, 33.7455 )
+extents = Vector2( 50.1965, 38.9267 )
 
 [node name="BasicEnemy" type="KinematicBody2D"]
 position = Vector2( 1.13205, -2.64147 )
 collision_layer = 4
 collision_mask = 201
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -35.9863 ]
+}
 speed = Vector2( 100, 800 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -111,12 +114,10 @@ shape = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyDamageDetector"]
 modulate = Color( 0.0705882, 0.0705882, 0.0705882, 1 )
-position = Vector2( -1.83623, 5 )
+position = Vector2( -1.83623, 6 )
 shape = SubResource( 11 )
-
 [connection signal="screen_entered" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_entered"]
 [connection signal="screen_exited" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
 [connection signal="body_entered" from="BodyDamageDetector" to="." method="_on_BodyDamageDetector_body_entered"]
-

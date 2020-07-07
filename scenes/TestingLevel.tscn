@@ -244,6 +244,12 @@ limit_top = 0
 limit_right = 2100
 limit_bottom = 1017
 
+[node name="HeadCollisionShape" parent="Sidescroller/Player/EnemyDetector" index="0"]
+shape = null
+
+[node name="BodyCollisionShape" parent="Sidescroller/Player/EnemyDetector" index="1"]
+shape = null
+
 [node name="BasicEnemy" parent="." instance=ExtResource( 2 )]
 position = Vector2( 432.376, 544.736 )
 z_index = 1

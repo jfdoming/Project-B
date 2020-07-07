@@ -22,9 +22,11 @@ export (float) var air_resistance = 0.05
 
 # Gameplay-related options.
 
-export (int) var smash_damage = 50
-export (int) var bullet_damage = 10
+export (int) var smash_damage = 30 
+export (float) var jump_damage = 10 #Jump damage without smashing down onto the enemy
+export (int) var bullet_damage = 15
 export (float) var bullet_speed = 1000
+
 const LEFT = 0
 const RIGHT = 1
 
@@ -129,9 +131,11 @@ func calculate_velocity(delta):
 			smashing = true
 			velocity.y = smash_speed
 		$HeadCollisionShape.set_disabled(true)	
+		$EnemyDetector/HeadCollisionShape.set_disabled(true)
 		$MustCrouchCheck.get_node("CrouchCheckCollider").set_disabled(false)
 	elif must_crouch == false:
 		$HeadCollisionShape.set_disabled(false)	
+		$EnemyDetector/HeadCollisionShape.set_disabled(false)
 		$MustCrouchCheck.get_node("CrouchCheckCollider").set_disabled(true)
 	if jump and is_on_floor():
 		jumping = true
@@ -305,7 +309,6 @@ func _on_FireChestAnimation_animation_finished():
 	
 #This happens when an object of type enemy touches the player
 func _on_EnemyDetector_body_entered(body):
-	print(body.name)
 	if "BasicEnemy" in body.name and body.isDead == false:
 		take_damage(basic_enemy_damage)
 	if "Boomerang" in body.name and body.isDead == false:

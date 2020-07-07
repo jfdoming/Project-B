@@ -1,12 +1,15 @@
 extends KinematicBody2D
 
-onready var player_node = get_parent().get_node("Sidescroller/Player")
+
 
 export (float) var invuln_flicker_time = 0.1
-export (float) var invuln_time = 3.5
+export (float) var invuln_time = 3.0
 var invulnerable = false
 export (int) var health = 0
 export (int) var max_health = 100
+const FLOOR_NORMAL: = Vector2.UP
+
+var isDead = false
 
 var active_damage = 0
 var InvulnTimer = Timer.new()
