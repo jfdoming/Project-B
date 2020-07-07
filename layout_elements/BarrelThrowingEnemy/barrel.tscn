@@ -1,0 +1,184 @@
+[gd_scene load_steps=33 format=2]
+
+[ext_resource path="res://assets/BarrelThrowingEnemy/barrelRollRight.png" type="Texture" id=1]
+[ext_resource path="res://assets/BarrelThrowingEnemy/barrelRoll_Right.png" type="Texture" id=2]
+[ext_resource path="res://assets/BarrelThrowingEnemy/barrelRoll_Left.png" type="Texture" id=3]
+[ext_resource path="res://layout_elements/BarrelThrowingEnemy/barrel.gd" type="Script" id=4]
+[ext_resource path="res://assets/BarrelThrowingEnemy/explosion.png" type="Texture" id=5]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 80, 53 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 80, 0, 80, 53 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 160, 0, 80, 53 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 240, 0, 80, 53 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 80, 53 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 80, 0, 80, 53 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 160, 0, 80, 53 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 240, 0, 80, 53 )
+
+[sub_resource type="AtlasTexture" id=9]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 80, 53 )
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 80, 0, 80, 53 )
+
+[sub_resource type="AtlasTexture" id=11]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 160, 0, 80, 53 )
+
+[sub_resource type="AtlasTexture" id=12]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 240, 0, 80, 53 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 5 )
+region = Rect2( 64, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 5 )
+region = Rect2( 128, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 5 )
+region = Rect2( 192, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 5 )
+region = Rect2( 256, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 5 )
+region = Rect2( 320, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 5 )
+region = Rect2( 384, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 5 )
+region = Rect2( 448, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 5 )
+region = Rect2( 512, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 5 )
+region = Rect2( 576, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 5 )
+region = Rect2( 640, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 5 )
+region = Rect2( 704, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 51, 13 )
+
+[sub_resource type="SpriteFrames" id=13]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "rollLeft",
+"speed": 8.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
+"loop": true,
+"name": "rollRight",
+"speed": 8.0
+}, {
+"frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
+"loop": false,
+"name": "explode",
+"speed": 13.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=29]
+extents = Vector2( 31.7678, 26.4614 )
+
+[node name="barrel" type="KinematicBody2D"]
+position = Vector2( 0.814514, 0.814514 )
+collision_layer = 32
+collision_mask = 41
+script = ExtResource( 4 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 1.30091, -1.0039 )
+scale = Vector2( 1.10299, 1.10299 )
+frames = SubResource( 13 )
+animation = "rollLeft"
+frame = 7
+playing = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( -0.139849, 1.61734 )
+scale = Vector2( 0.965278, 1.0296 )
+polygon = PoolVector2Array( -16.5848, -25.8626, -30.6546, -17.077, -35.6542, -4.42085, -34.6437, 1.73663, -31.6299, 12.6712, -18.9504, 23.4, 5.92104, 28.7645, 27.6276, 24.2302, 38.1544, 13.0025, 42.4967, 2.91769, 36.6446, -14.6386, 23.4169, -24.5671, 14.5744, -28.0218, 2.78443, -28.8854, -4.79482, -29.3173, -10.6599, -27.8058 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+modulate = Color( 0.27451, 0.733333, 0.0862745, 1 )
+position = Vector2( -1.67988, 0.728227 )
+scale = Vector2( 0.990183, 0.986889 )
+polygon = PoolVector2Array( -29.1916, -24.8798, -36.9944, -16.1016, -43.8218, -3.90975, -42.8465, 7.79445, -36.019, 20.9617, -26.2655, 27.7891, -12.6106, 32.6659, 0.068924, 34.6166, 14.6992, 34.6166, 30.7924, 30.7152, 41.5213, 19.9863, 46.3981, 8.7698, 49.3241, -4.8851, 44.935, -16.1016, 37.6199, -23.4168, 24.9404, -29.7565, 10.7978, -33.6579, -1.3941, -35.121, -14.5613, -32.6826 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="StompDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StompDetector"]
+modulate = Color( 0.517647, 0.145098, 0.145098, 1 )
+position = Vector2( 2.92604, -42.7968 )
+shape = SubResource( 29 )
+
+[node name="LiveTimer" type="Timer" parent="."]
+wait_time = 5.0
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
+[connection signal="timeout" from="LiveTimer" to="." method="_on_LiveTimer_timeout"]

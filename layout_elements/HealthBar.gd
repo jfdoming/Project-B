@@ -4,7 +4,7 @@ onready var update_tween = $UpdateTween
 onready var health_over = $HealthBarOver
 onready var health_under = $HealthBarUnder
 	
-#Health of player is updated.
+#Health of player OR enemy is updated.
 # health may be 0, or amount may be 0.
 func _on_Player_health(setHealth,maxHealth):
 	var percentage_health = health_bar_value_Update(setHealth,maxHealth) #Sets value

@@ -2,9 +2,10 @@ extends "res://layout_elements/kinematicBody.gd"
 
 signal health
 
+onready var player_node = get_parent().get_node("Sidescroller/Player")
+
 export var killExp = 100
 
-const FLOOR_NORMAL: = Vector2.UP
 
 #Starting velocity - value will fluctuate
 var _velocity: = Vector2.ZERO
@@ -15,8 +16,6 @@ export var speed: = Vector2(100.0,800.0)
 #Vector increases by this factor 
 export var gravity: = 2
 
-
-var isDead = false
 var isOnScreen = false
 
 #Damage that the player causes when jumping on Gregory
@@ -51,7 +50,6 @@ func _physics_process(delta):
 			if !JumpTimerActive:
 				var randomNum = rand_range(0.0,5.0)
 				$JumpTimer.wait_time = randomNum
-				print(randomNum)
 				$JumpTimer.start()
 				JumpTimerActive = true
 		
@@ -89,7 +87,11 @@ func _on_StompDetector_body_entered(body):
 			var bodyHeight = body.get_node("BodyCollisionShape").shape.get_extents().y + body.get_node("HeadCollisionShape").shape.get_extents().y
 			
 			if ((body.global_position.y + bodyHeight) < get_node("StompDetector").global_position.y):
-				take_damage(jumpDamage)
+				if player_node.smashing:
+					take_damage(player_node.smash_damage)
+				else:
+					take_damage(player_node.jump_damage)
+				
 
 func die():
 	player_node.on_kill(killExp)
