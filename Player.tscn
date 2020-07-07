@@ -1,0 +1,361 @@
+[gd_scene load_steps=57 format=2]
+
+[ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://assets/smash3.png" type="Texture" id=2]
+[ext_resource path="res://assets/smash1.png" type="Texture" id=3]
+[ext_resource path="res://assets/smash2.png" type="Texture" id=4]
+[ext_resource path="res://Smash.gd" type="Script" id=5]
+[ext_resource path="res://assets/smash4.png" type="Texture" id=6]
+[ext_resource path="res://assets/Stroheim-Sheet.png" type="Texture" id=7]
+[ext_resource path="res://assets/Stroheim-Sheet-gun.png" type="Texture" id=8]
+[ext_resource path="res://layout_elements/HealthBar.tscn" type="PackedScene" id=9]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 6 ) ],
+"loop": false,
+"name": "default",
+"speed": 30.0
+} ]
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 100, 0, 100, 100 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 4.0
+} ]
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 200, 0, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 0, 100, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 100, 100, 100, 100 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 200, 100, 100, 100 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="AtlasTexture" id=10]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 100, 200, 100, 100 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ SubResource( 10 ) ],
+"loop": false,
+"name": "default",
+"speed": 2.0
+} ]
+
+[sub_resource type="AtlasTexture" id=12]
+flags = 4
+atlas = ExtResource( 7 )
+region = Rect2( 0, 200, 100, 100 )
+
+[sub_resource type="SpriteFrames" id=13]
+animations = [ {
+"frames": [ SubResource( 12 ) ],
+"loop": false,
+"name": "default",
+"speed": 2.0
+} ]
+
+[sub_resource type="AtlasTexture" id=14]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=15]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 100, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=16]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 200, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=17]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 300, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=18]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 400, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=19]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 500, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=20]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 600, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=21]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 700, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=22]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 800, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=23]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 900, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=24]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1000, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=25]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1100, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=26]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1200, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=27]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1300, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=28]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1400, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=29]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1500, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=30]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1600, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=31]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1700, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=32]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1800, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=33]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 1900, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=34]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2000, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=35]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2100, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=36]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2200, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=37]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2300, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=38]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2400, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=39]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2500, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=40]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2600, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=41]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2700, 0, 100, 120 )
+
+[sub_resource type="AtlasTexture" id=42]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 2800, 0, 100, 120 )
+
+[sub_resource type="SpriteFrames" id=43]
+animations = [ {
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ) ],
+"loop": false,
+"name": "default",
+"speed": 15.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=44]
+extents = Vector2( 10.9741, 9.35257 )
+
+[sub_resource type="RectangleShape2D" id=45]
+extents = Vector2( 24, 40.9254 )
+
+[sub_resource type="RectangleShape2D" id=46]
+extents = Vector2( 22.4718, 17.4706 )
+
+[sub_resource type="RectangleShape2D" id=47]
+extents = Vector2( 49.6902, 84.6758 )
+
+[node name="Player" type="KinematicBody2D" groups=[
+"Persist",
+]]
+z_index = 1000
+collision_layer = 9
+collision_mask = 3
+script = ExtResource( 1 )
+jump_speed = 900
+
+[node name="HealthBar" parent="." instance=ExtResource( 9 )]
+margin_left = 0.708572
+margin_top = -128.298
+margin_right = 0.708572
+margin_bottom = -128.298
+
+[node name="Smash" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( -2, 76 )
+scale = Vector2( 0.226562, 0.226562 )
+frames = SubResource( 1 )
+script = ExtResource( 5 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+visible = false
+current = true
+zoom = Vector2( 2, 2 )
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+drag_margin_top = 0.0
+drag_margin_bottom = 0.0
+
+[node name="InvulnTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="InvulnFlickerTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="StandAnimation" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -7.30167 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 4 )
+frame = 1
+
+[node name="WalkAnimation" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -8 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 9 )
+
+[node name="JumpAnimation" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -8 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 11 )
+
+[node name="CrouchAnimation" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -8 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 13 )
+
+[node name="FireChestAnimation" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0, -27 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 43 )
+frame = 1
+
+[node name="HeadCollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2( 2.59303, -89.4856 )
+scale = Vector2( 2, 2 )
+shape = SubResource( 44 )
+
+[node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2( -1, 7 )
+scale = Vector2( 2, 2 )
+shape = SubResource( 45 )
+
+[node name="EnemyDetector" type="Area2D" parent="."]
+position = Vector2( -127.925, 125.434 )
+
+[node name="HeadCollisionShape" type="CollisionShape2D" parent="EnemyDetector"]
+modulate = Color( 0.0862745, 0.368627, 0.121569, 1 )
+position = Vector2( 130.811, -217.685 )
+shape = SubResource( 46 )
+
+[node name="BodyCollisionShape" type="CollisionShape2D" parent="EnemyDetector"]
+modulate = Color( 0.0509804, 0.372549, 0.0509804, 1 )
+position = Vector2( 125.92, -115.619 )
+shape = SubResource( 47 )
+
+[node name="RegularFirePoint" type="Position2D" parent="."]
+position = Vector2( 0, -55 )
+[connection signal="flip_health_bar" from="." to="HealthBar" method="_on_Player_flip_health_bar"]
+[connection signal="health" from="." to="HealthBar" method="_on_Player_health"]
+[connection signal="smash_land" from="." to="Smash" method="_on_Player_smash_land"]
+[connection signal="animation_finished" from="Smash" to="Smash" method="_on_Smash_animation_finished"]
+[connection signal="timeout" from="InvulnTimer" to="." method="_on_InvulnTimer_timeout"]
+[connection signal="timeout" from="InvulnFlickerTimer" to="." method="_on_InvulnFlickerTimer_timeout"]
+[connection signal="animation_finished" from="FireChestAnimation" to="." method="_on_FireChestAnimation_animation_finished"]
+[connection signal="frame_changed" from="FireChestAnimation" to="." method="_on_FireChestAnimation_frame_changed"]
+[connection signal="body_entered" from="EnemyDetector" to="." method="_on_EnemyDetector_body_entered"]

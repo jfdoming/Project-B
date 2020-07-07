@@ -1,0 +1,4 @@
+* text eol=lf
+assets/**/* binary
+.import/**/* binary
+*.png binary
