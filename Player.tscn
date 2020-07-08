@@ -529,7 +529,7 @@ extents = Vector2( 22.2146, 25.0097 )
 "Persist",
 ]]
 z_index = 1000
-collision_layer = 8
+collision_layer = 264
 collision_mask = 39
 script = ExtResource( 1 )
 jump_speed = 900
@@ -662,9 +662,8 @@ position = Vector2( 56.8788, -27.3068 )
 collision_layer = 0
 
 [node name="CrouchCheckCollider" type="CollisionShape2D" parent="MustCrouchCheck"]
-position = Vector2( 2.94298, -99.4351 )
+position = Vector2( 0.938448, -99.4351 )
 shape = SubResource( 98 )
-disabled = true
 [connection signal="flip_health_bar" from="." to="HealthBar" method="_on_Player_flip_health_bar"]
 [connection signal="health" from="." to="HealthBar" method="_on_Player_health"]
 [connection signal="smash_land" from="." to="Smash" method="_on_Player_smash_land"]

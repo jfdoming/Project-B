@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-onready var player_node = get_parent().get_node("Sidescroller/Player")
+var player_node
 
 export (float) var invuln_flicker_time = 0.1
 export (float) var invuln_time = 3.5
@@ -12,6 +12,11 @@ var active_damage = 0
 var InvulnTimer = Timer.new()
 var InvulnFlickerTimer = Timer.new()
 
+func _enter_tree():
+	if name == "Player":
+		player_node = self
+	else:
+		player_node = get_parent().get_node("Sidescroller/Player")
 func _ready():
 	#Setting up flicker timers programatically
 	InvulnTimer.set_one_shot(true)

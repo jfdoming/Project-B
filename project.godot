@@ -122,6 +122,7 @@ sprint={
 2d_physics/layer_6="Enemy Weapons"
 2d_physics/layer_7="Enemy Regions"
 2d_physics/layer_8="Player Weapons"
+2d_physics/layer_9="Player"
 
 [rendering]
 
