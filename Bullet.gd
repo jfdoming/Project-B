@@ -2,7 +2,7 @@ extends RigidBody2D
 
 signal kill_obtained
 
-export (int) var damage = 0
+export (int) var damage = 0 #Gets updated by Player node
 
 func _on_Timer_timeout():
 	queue_free()
@@ -14,5 +14,3 @@ func on_enemy_entered(body):
 func on_kill(reward):
 	emit_signal("kill_obtained", reward)
 
-
-	

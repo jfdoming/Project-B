@@ -18,10 +18,12 @@ extents = Vector2( 32.5197, 4.17865 )
 
 [node name="Boomerang" type="KinematicBody2D"]
 collision_layer = 32
-collision_mask = 8
+collision_mask = 32
 script = ExtResource( 1 )
 
 [node name="CollisionDetection" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionDetection"]
 position = Vector2( -11.3445, 16.3865 )
@@ -58,22 +60,22 @@ rotation = 0.785398
 scale = Vector2( 0.312819, 0.306097 )
 
 [node name="visibilityNode8" type="VisibilityNotifier2D" parent="."]
-position = Vector2( 43.8958, 3.42958 )
+position = Vector2( 40.8958, 5.42958 )
 rotation = 0.785398
 scale = Vector2( 0.312819, 0.306097 )
 
 [node name="visibilityNode9" type="VisibilityNotifier2D" parent="."]
-position = Vector2( 14.0829, -41.0762 )
+position = Vector2( 13.0074, -37.4913 )
 rotation = 0.785398
 scale = Vector2( 0.312819, 0.306097 )
 
 [node name="visibilityNode10" type="VisibilityNotifier2D" parent="."]
-position = Vector2( 34.2171, -21.234 )
+position = Vector2( 32.4247, -19.4416 )
 rotation = 0.785398
 scale = Vector2( 0.312819, 0.306097 )
 
 [node name="visibilityNode11" type="VisibilityNotifier2D" parent="."]
-position = Vector2( -11.6063, -40.3499 )
+position = Vector2( -10.5308, -37.482 )
 rotation = 0.785398
 scale = Vector2( 0.312819, 0.306097 )
 
@@ -94,7 +96,7 @@ z_index = 4096
 texture = ExtResource( 2 )
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-position = Vector2( 1.85966e-05, 5.29902 )
+position = Vector2( 1.07547, 6.51488 )
 scale = Vector2( 1.69327, 1.54151 )
 [connection signal="body_entered" from="CollisionDetection" to="." method="_on_CollisionDetection_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

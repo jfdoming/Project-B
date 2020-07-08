@@ -26,12 +26,10 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=2]
-flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 0, 0, 100, 100 )
 
 [sub_resource type="AtlasTexture" id=3]
-flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 100, 0, 100, 100 )
 
@@ -44,22 +42,18 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=5]
-flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 200, 0, 100, 100 )
 
 [sub_resource type="AtlasTexture" id=6]
-flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 0, 100, 100, 100 )
 
 [sub_resource type="AtlasTexture" id=7]
-flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 100, 100, 100, 100 )
 
 [sub_resource type="AtlasTexture" id=8]
-flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 200, 100, 100, 100 )
 
@@ -72,7 +66,6 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=10]
-flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 100, 200, 100, 100 )
 
@@ -85,7 +78,6 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=12]
-flags = 4
 atlas = ExtResource( 7 )
 region = Rect2( 0, 200, 100, 100 )
 
@@ -390,45 +382,38 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=70]
-flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 0, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=71]
-flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 100, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=72]
-flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 200, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=73]
-flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 300, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=74]
-flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 400, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=75]
-flags = 4
 atlas = ExtResource( 13 )
 region = Rect2( 500, 0, 100, 120 )
 
 [sub_resource type="SpriteFrames" id=76]
 animations = [ {
 "frames": [ SubResource( 70 ), SubResource( 71 ), SubResource( 72 ), SubResource( 73 ), SubResource( 74 ), SubResource( 75 ) ],
-"loop": false,
+"loop": true,
 "name": "default",
 "speed": 10.0
 } ]
 
 [sub_resource type="AtlasTexture" id=77]
-flags = 4
 atlas = ExtResource( 14 )
 region = Rect2( 0, 0, 100, 120 )
 
@@ -664,17 +649,16 @@ shape = SubResource( 97 )
 [node name="EnemyDetector" type="Area2D" parent="."]
 position = Vector2( -127.925, 125.434 )
 collision_layer = 8
-collision_mask = 37
 
 [node name="HeadCollisionShape" type="CollisionShape2D" parent="EnemyDetector"]
 modulate = Color( 0.0862745, 0.368627, 0.121569, 1 )
-position = Vector2( 130.811, -217.685 )
-shape = SubResource( 98 )
+position = Vector2( 128.811, -210.685 )
+shape = SubResource( 46 )
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="EnemyDetector"]
 modulate = Color( 0.0509804, 0.372549, 0.0509804, 1 )
-position = Vector2( 125.92, -115.619 )
-shape = SubResource( 99 )
+position = Vector2( 124.92, -111.619 )
+shape = SubResource( 47 )
 
 [node name="RegularFirePoint" type="Position2D" parent="."]
 position = Vector2( 0, -55 )
