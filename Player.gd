@@ -94,6 +94,9 @@ func _show_anim(anim):
 	anim.frame = 0
 	anim.play()
 
+func shake_camera():
+	$Camera2D.shake(0.2, 30, 8)
+
 func calculate_velocity(delta):
 	var fire_chest = may_move and Input.is_action_just_pressed("fire_chest")
 	firing_chest = firing_chest or fire_chest
@@ -117,12 +120,13 @@ func calculate_velocity(delta):
 
 	if fire:
 		var instance = Bullet.instance()
+		get_parent().add_child(instance)
 		instance.position = $RegularFirePoint.global_position
-		instance.look_at(get_global_mouse_position())	
+		instance.look_at(get_global_mouse_position())
 		instance.linear_velocity = Vector2(bullet_speed, 0).rotated(instance.rotation)
 		instance.damage = bullet_damage		
-		get_parent().add_child(instance)
-		instance.connect("kill_obtained", self, "on_kill")	
+		instance.connect("kill_obtained", self, "on_kill")
+		instance.connect("impact", self, "shake_camera")
 
 	if crouch:
 		if jumping and not smashing:
@@ -206,7 +210,7 @@ func chest_shoot():
 		chest_bullet.linear_velocity = Vector2(-1000, 0)
 		chest_bullet.scale.x = -1
 	chest_bullet.damage = bullet_damage
-	chest_bullet.connect("kill_obtained", self, "on_kill")	
+	chest_bullet.connect("kill_obtained", self, "on_kill")
 
 func _physics_process(delta):
 		
