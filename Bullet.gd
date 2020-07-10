@@ -21,4 +21,7 @@ func _on_Bullet_body_entered(body: PhysicsBody2D) -> void:
 	$BulletSprite.hide()
 	$ImpactParticle.emitting = true
 	$ImpactParticle.show()
+	for N in $ImpactParticle.get_children():
+		N.emitting = true
+		N.show()
 	emit_signal("impact")
