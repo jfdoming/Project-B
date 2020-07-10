@@ -7,22 +7,25 @@ script/source = "extends StaticBody2D
 func _on_Player_Check_body_entered(body):
 	if body.name == \"Player\":
 		set_collision_mask_bit(8, false)
-		print($Collider.disabled)
 
 
 func _on_Player_Check_body_exited(body):
 	if body.name == \"Player\":
 		set_collision_mask_bit(8, true)
-		print($Collider.disabled)
+
+
+
 "
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 250, 4.21516 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 250, 35.8872 )
+extents = Vector2( 292.308, 26.4685 )
 
-[node name="Platform" type="StaticBody2D"]
+[node name="Platform" type="StaticBody2D" groups=[
+"Platform",
+]]
 collision_layer = 2147483648
 collision_mask = 2147483908
 script = SubResource( 1 )
@@ -43,17 +46,18 @@ margin_left = -250.0
 margin_top = -39.0
 margin_right = 250.0
 margin_bottom = -30.0
-color = Color( 0.215686, 0.529412, 0.219608, 0.501961 )
+color = Color( 0.215686, 0.529412, 0.219608, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Player Check" type="Area2D" parent="."]
+[node name="Under Player Check" type="Area2D" parent="."]
 collision_mask = 2147483648
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player Check"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Under Player Check"]
 visible = false
-position = Vector2( 0, 5 )
+position = Vector2( 0, -5 )
 shape = SubResource( 3 )
-[connection signal="body_entered" from="Player Check" to="." method="_on_Player_Check_body_entered"]
-[connection signal="body_exited" from="Player Check" to="." method="_on_Player_Check_body_exited"]
+disabled = true
+[connection signal="body_entered" from="Under Player Check" to="." method="_on_Player_Check_body_entered"]
+[connection signal="body_exited" from="Under Player Check" to="." method="_on_Player_Check_body_exited"]

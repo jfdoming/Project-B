@@ -40,6 +40,7 @@ var hamon_punching = false
 var double_punching = false
 var knee_attacking = false
 var must_crouch = false
+var platform = false
 
 # If the list of persisted props continues to grow, perhaps we can store it in
 # an inner class instead, as a way of containing all persisted values.
@@ -123,11 +124,12 @@ func calculate_velocity(delta):
 		instance.damage = bullet_damage		
 		get_parent().add_child(instance)
 		instance.connect("kill_obtained", self, "on_kill")	
-
 	if crouch:
 		if jumping and not smashing:
 			smashing = true
 			velocity.y = smash_speed
+		if platform:
+			platform.set_collision_mask_bit(8, false)
 		$HeadCollisionShape.set_disabled(true)	
 		$MustCrouchCheck.get_node("CrouchCheckCollider").set_disabled(false)
 	elif must_crouch == false:
@@ -339,8 +341,17 @@ func _on_DoublePunchAnimation_animation_finished():
 func _on_KneeAttackAnimation_animation_finished():
 	self.knee_attacking = false
 
-func _on_MustCrouchCheck_body_entered(body):
+func _on_MustCrouchCheck_body_entered(_body):
 	must_crouch = true
 
-func _on_MustCrouchCheck_body_exited(body):
+func _on_MustCrouchCheck_body_exited(_body):
 	must_crouch = false
+
+func _on_PlatformCheck_body_entered(body):
+	if body.is_in_group("Platform"):
+		platform = body
+
+func _on_PlatformCheck_body_exited(body):
+	if body.is_in_group("Platform"):
+		body.set_collision_mask_bit(8, true)
+		platform = false
