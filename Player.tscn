@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=2]
+[gd_scene load_steps=124 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/smash3.png" type="Texture" id=2]
@@ -472,10 +472,10 @@ region = Rect2( 560, 0, 140, 120 )
 
 [sub_resource type="SpriteFrames" id=101]
 animations = [ {
-"frames": [ SubResource( 96 ), SubResource( 97 ), SubResource( 98 ), SubResource( 99 ), SubResource( 100 ) ],
-"loop": true,
+"frames": [ SubResource( 96 ), SubResource( 97 ), SubResource( 98 ), SubResource( 98 ), SubResource( 99 ), SubResource( 100 ) ],
+"loop": false,
 "name": "default",
-"speed": 5.0
+"speed": 15.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=102]
@@ -489,6 +489,9 @@ extents = Vector2( 22.2146, 25.0097 )
 
 [sub_resource type="RectangleShape2D" id=105]
 extents = Vector2( 49.6474, 113.378 )
+
+[sub_resource type="RectangleShape2D" id=106]
+extents = Vector2( 14.7282, 11.654 )
 
 [node name="Player" type="KinematicBody2D" groups=[
 "Persist",
@@ -597,6 +600,8 @@ frames = SubResource( 95 )
 
 [node name="LedgeGrabAnimation" type="AnimatedSprite" parent="."]
 visible = false
+position = Vector2( 0, -25 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 101 )
 
 [node name="HeadCollisionShape" type="CollisionShape2D" parent="."]
@@ -641,6 +646,14 @@ collision_mask = 2147483648
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformCheck"]
 position = Vector2( -3.55106, -15.8278 )
 shape = SubResource( 105 )
+
+[node name="GrabCheck" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabCheck"]
+position = Vector2( 38.9519, -117.596 )
+shape = SubResource( 106 )
 [connection signal="flip_health_bar" from="." to="HealthBar" method="_on_Player_flip_health_bar"]
 [connection signal="health" from="." to="HealthBar" method="_on_Player_health"]
 [connection signal="smash_land" from="." to="Smash" method="_on_Player_smash_land"]
@@ -651,8 +664,11 @@ shape = SubResource( 105 )
 [connection signal="animation_finished" from="HamonPunchAnimation" to="." method="_on_HamonPunchAnimation_animation_finished"]
 [connection signal="animation_finished" from="DoublePunchAnimation" to="." method="_on_DoublePunchAnimation_animation_finished"]
 [connection signal="animation_finished" from="KneeAttackAnimation" to="." method="_on_KneeAttackAnimation_animation_finished"]
+[connection signal="animation_finished" from="LedgeGrabAnimation" to="." method="_on_LedgeGrabAnimation_animation_finished"]
+[connection signal="frame_changed" from="LedgeGrabAnimation" to="." method="_on_LedgeGrabAnimation_frame_changed"]
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_EnemyDetector_body_entered"]
 [connection signal="body_entered" from="MustCrouchCheck" to="." method="_on_MustCrouchCheck_body_entered"]
 [connection signal="body_exited" from="MustCrouchCheck" to="." method="_on_MustCrouchCheck_body_exited"]
 [connection signal="body_entered" from="PlatformCheck" to="." method="_on_PlatformCheck_body_entered"]
 [connection signal="body_exited" from="PlatformCheck" to="." method="_on_PlatformCheck_body_exited"]
+[connection signal="area_entered" from="GrabCheck" to="." method="_on_GrabCheck_area_entered"]

@@ -41,6 +41,8 @@ var double_punching = false
 var knee_attacking = false
 var must_crouch = false
 var platform = false
+var grabbing = false
+var past_gravity = gravity
 
 # If the list of persisted props continues to grow, perhaps we can store it in
 # an inner class instead, as a way of containing all persisted values.
@@ -76,6 +78,7 @@ func _stop_all_anim():
 		$SlideAnimation,
 		$DoublePunchAnimation,
 		$KneeAttackAnimation,
+		$LedgeGrabAnimation
 	]
 	for anim in animations:
 		self._stop_anim(anim)
@@ -131,10 +134,12 @@ func calculate_velocity(delta):
 		if platform:
 			platform.set_collision_mask_bit(8, false)
 		$HeadCollisionShape.set_disabled(true)	
-		$MustCrouchCheck.get_node("CrouchCheckCollider").set_disabled(false)
+		$MustCrouchCheck/CrouchCheckCollider.set_disabled(false)
+		$GrabCheck/CollisionShape2D.set_disabled(true)
 	elif must_crouch == false:
 		$HeadCollisionShape.set_disabled(false)	
-		$MustCrouchCheck.get_node("CrouchCheckCollider").set_disabled(true)
+		$MustCrouchCheck/CrouchCheckCollider.set_disabled(true)
+		$GrabCheck/CollisionShape2D.set_disabled(false)
 	if jump and is_on_floor():
 		jumping = true
 		just_jumped = true
@@ -148,9 +153,8 @@ func calculate_velocity(delta):
 		if direction != RIGHT:
 			direction = RIGHT
 			scale.x = -1
-			
+	
 		emit_signal("flip_health_bar","RIGHT")
-		
 	if left and not right:
 		velocity.x -= run_speed_increment_fraction * max_walk_speed * delta * 60
 		if sprinting and not crouch:
@@ -172,8 +176,10 @@ func calculate_velocity(delta):
 		velocity.x = 0
 		velocity.y = 0
 	
-	if fire_chest:
-		_show_anim($FireChestAnimation)
+	if self.grabbing:
+		self._show_anim($LedgeGrabAnimation)
+	elif fire_chest:
+		self._show_anim($FireChestAnimation)
 	elif self.punching:
 		self._show_anim($PunchAnimation)
 	elif self.hamon_punching:
@@ -352,6 +358,40 @@ func _on_PlatformCheck_body_entered(body):
 		platform = body
 
 func _on_PlatformCheck_body_exited(body):
-	if body.is_in_group("Platform"):
+	if body.is_in_group("Platform") and not grabbing:
 		body.set_collision_mask_bit(8, true)
 		platform = false
+
+
+func _on_LedgeGrabAnimation_animation_finished():	
+	self.grabbing = false
+	self.may_move = true
+	gravity = past_gravity
+	$GrabCheck/CollisionShape2D.set_disabled(false)
+	if direction == LEFT:
+		velocity.x -= 500
+	else:
+		velocity.x += 500
+
+func _on_GrabCheck_area_entered(area):
+	if area.name == "GrabCheck":
+		var colliders = area.get_children()
+		if position.x < colliders[0].global_position.x or position.x > colliders[1].global_position.x:
+			platform = area.get_parent()
+			platform.set_collision_mask_bit(8, false)
+			grabbing = true
+			may_move = false
+			firing_chest = false
+			$GrabCheck/CollisionShape2D.set_disabled(true)
+			gravity = 0
+			velocity.y = 0
+		
+func _on_LedgeGrabAnimation_frame_changed():
+	var frame = $LedgeGrabAnimation.get_frame()
+	if frame == 4:
+		velocity.y -= 100
+	elif frame == 5:
+		velocity.y -= 500
+
+		
+		

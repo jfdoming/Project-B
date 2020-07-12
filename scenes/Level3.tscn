@@ -8,8 +8,8 @@
 script/source = "extends Node2D
 
 
-func _ready():
-	$Sidescroller/Player.jump_bonus = 1
+#func _ready():
+	#$Sidescroller/Player.jump_bonus = 1
 "
 
 [node name="Node2D" type="Node2D"]
@@ -24,7 +24,7 @@ position = Vector2( 507.285, 420.355 )
 scale = Vector2( 2, 0.5 )
 
 [node name="Platform" parent="." instance=ExtResource( 3 )]
-position = Vector2( -240, 170 )
+position = Vector2( -40.6905, 192.996 )
 
 [node name="Platform2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 1250, 130 )

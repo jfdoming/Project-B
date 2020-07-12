@@ -13,7 +13,7 @@ var level_complete = false
 var checkpoint_index = 0
 
 func _enter_tree():
-	if objectives.empty() == true:
+	if objectives.empty():
 		objectives.append("None")
 	for i in objectives:
 		is_objective_complete[i] = false
@@ -48,16 +48,16 @@ func objective_complete(objective_name):
 	objectives.erase(objective_name)
 	var temp = true
 	for i in is_objective_complete.values():
-		if i == false:
+		if not i:
 			temp = false
 			break
-	if temp == false: 
+	if not temp: 
 		$Pause/ObjectiveLabel.update_objective_text()
 	else:
 		$Pause/ObjectiveLabel.update_objective_text(true)
 		level_complete = true
 		CheckLevelUnlocked.are_levels_complete[level_name] = level_complete
-		if play_cutscene_at_end == true:
+		if play_cutscene_at_end:
 			$Player.obtain_goal("scenes/" + cutscene_name)
 		else:
 			$Player.obtain_goal("scenes/LevelSelection")
