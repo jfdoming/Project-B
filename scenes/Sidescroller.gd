@@ -46,12 +46,12 @@ func _on_WinTimer_timeout():
 func objective_complete(objective_name):	
 	is_objective_complete[objective_name] = true
 	objectives.erase(objective_name)
-	var temp = true
+	var all_completed = true
 	for i in is_objective_complete.values():
 		if not i:
-			temp = false
+			all_completed = false
 			break
-	if not temp: 
+	if not all_completed: 
 		$Pause/ObjectiveLabel.update_objective_text()
 	else:
 		$Pause/ObjectiveLabel.update_objective_text(true)

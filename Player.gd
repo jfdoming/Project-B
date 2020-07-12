@@ -42,7 +42,7 @@ var knee_attacking = false
 var must_crouch = false
 var platform = false
 var grabbing = false
-var past_gravity = gravity
+var original_gravity = gravity
 
 # If the list of persisted props continues to grow, perhaps we can store it in
 # an inner class instead, as a way of containing all persisted values.
@@ -366,7 +366,7 @@ func _on_PlatformCheck_body_exited(body):
 func _on_LedgeGrabAnimation_animation_finished():	
 	self.grabbing = false
 	self.may_move = true
-	gravity = past_gravity
+	gravity = original_gravity
 	$GrabCheck/CollisionShape2D.set_disabled(false)
 	if direction == LEFT:
 		velocity.x -= 500
