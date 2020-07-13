@@ -34,8 +34,10 @@ func die():
 	isDead = true
 	_movement = Vector2(0,0) #Stops moving
 	$AnimatedSprite.play("explode")
-	#$CollisionPolygon2D.set_disabled(true)
-	$Area2D/CollisionPolygon2D.set_disabled(true)
+	_gravity = 0 #Barrell won't fall due to disabling collision shapes
+	$CollisionPolygon2D.queue_free()
+	$Area2D/CollisionPolygon2D.queue_free()#set_disabled(true)
+	$StompDetector/CollisionShape2D.queue_free()#set_disabled(true)
 	$Timer.start()
 	
 	

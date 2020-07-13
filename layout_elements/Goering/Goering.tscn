@@ -1,0 +1,242 @@
+[gd_scene load_steps=43 format=2]
+
+[ext_resource path="res://layout_elements/HealthBar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://layout_elements/Goering/Goering.gd" type="Script" id=2]
+[ext_resource path="res://assets/Goering/stand/stand.png" type="Texture" id=3]
+[ext_resource path="res://assets/Goering/throwRight/throwRight.png" type="Texture" id=4]
+[ext_resource path="res://assets/Goering/throwLeft/throwLeft.png" type="Texture" id=5]
+[ext_resource path="res://layout_elements/Goering/barrel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/Goering/explosion.png" type="Texture" id=7]
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 7 )
+region = Rect2( 64, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 7 )
+region = Rect2( 128, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 7 )
+region = Rect2( 192, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 7 )
+region = Rect2( 256, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 7 )
+region = Rect2( 320, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 7 )
+region = Rect2( 384, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 7 )
+region = Rect2( 448, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 7 )
+region = Rect2( 512, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 7 )
+region = Rect2( 576, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 7 )
+region = Rect2( 640, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 7 )
+region = Rect2( 704, 0, 64, 65 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 96, 100 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 3 )
+region = Rect2( 96, 0, 96, 100 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 5 )
+region = Rect2( 752, 0, 94, 99 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 5 )
+region = Rect2( 658, 0, 94, 99 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 5 )
+region = Rect2( 564, 0, 94, 99 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 5 )
+region = Rect2( 470, 0, 94, 99 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 5 )
+region = Rect2( 376, 0, 94, 99 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 91, 101 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 4 )
+region = Rect2( 91, 0, 91, 101 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 4 )
+region = Rect2( 182, 0, 91, 101 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 4 )
+region = Rect2( 273, 0, 91, 101 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 4 )
+region = Rect2( 364, 0, 91, 101 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 5 )
+region = Rect2( 282, 0, 94, 99 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 5 )
+region = Rect2( 188, 0, 94, 99 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 5 )
+region = Rect2( 94, 0, 94, 99 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 94, 99 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 4 )
+region = Rect2( 455, 0, 91, 101 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 4 )
+region = Rect2( 546, 0, 91, 101 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 4 )
+region = Rect2( 637, 0, 91, 101 )
+
+[sub_resource type="SpriteFrames" id=12]
+animations = [ {
+"frames": [ SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
+"loop": false,
+"name": "die",
+"speed": 9.0
+}, {
+"frames": [ SubResource( 16 ), SubResource( 17 ) ],
+"loop": true,
+"name": "stand",
+"speed": 3.0
+}, {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"loop": false,
+"name": "throwLeft",
+"speed": 9.0
+}, {
+"frames": [ SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
+"loop": false,
+"name": "throwRight",
+"speed": 9.0
+}, {
+"frames": [ SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ) ],
+"loop": false,
+"name": "goBackLeft",
+"speed": 9.0
+}, {
+"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ) ],
+"loop": false,
+"name": "goBackRight",
+"speed": 9.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 61.9467, 101.648 )
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 74.7021, 115.58 )
+
+[sub_resource type="RectangleShape2D" id=15]
+extents = Vector2( 61, 27 )
+
+[node name="Goering" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 73
+script = ExtResource( 2 )
+barrel_scene = ExtResource( 6 )
+barrel_spawn_path_left = NodePath("barrel_spawn_left")
+barrel_spawn_path_right = NodePath("barrel_spawn_right")
+barrel_angle = 180.0
+
+[node name="HealthBar" parent="." instance=ExtResource( 1 )]
+margin_left = 6.0
+margin_top = -131.022
+margin_right = 6.0
+margin_bottom = -131.022
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 8.86395, -4.76837e-07 )
+scale = Vector2( 2.22232, 2.22232 )
+frames = SubResource( 12 )
+animation = "stand"
+playing = true
+offset = Vector2( -0.468745, 0.847518 )
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+visible = false
+modulate = Color( 0.337255, 0.27451, 0.368627, 1 )
+position = Vector2( -8.06337, 16.8731 )
+scale = Vector2( 4.72826, 8.40837 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, 9.8094 )
+shape = SubResource( 13 )
+
+[node name="barrel_spawn_left" type="Position2D" parent="."]
+position = Vector2( -98.8989, 82.2259 )
+
+[node name="barrel_spawn_right" type="Position2D" parent="."]
+position = Vector2( 110.195, 79.5221 )
+
+[node name="BarrelTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+
+[node name="DamageDetection" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageDetection"]
+position = Vector2( 0, 9.8094 )
+shape = SubResource( 14 )
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="LeftDeathCollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( -62, 61 )
+shape = SubResource( 15 )
+disabled = true
+[connection signal="health" from="." to="HealthBar" method="_on_Player_health"]
+[connection signal="screen_entered" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_exited"]
+[connection signal="timeout" from="BarrelTimer" to="." method="_on_BarrelTimeout_timeout"]
+[connection signal="body_entered" from="DamageDetection" to="." method="_on_DamageDetection_body_entered"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
