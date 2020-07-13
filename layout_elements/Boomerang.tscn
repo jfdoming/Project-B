@@ -46,7 +46,7 @@ rotation = -0.733038
 shape = SubResource( 4 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.001
 one_shot = true
 
 [node name="visibilityNode4" type="VisibilityNotifier2D" parent="."]

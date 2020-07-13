@@ -6,6 +6,16 @@ onready var player_node = get_parent().get_node("Sidescroller/Player")
 
 export var killExp = 100
 
+#Boomerang scene itself
+export (PackedScene) var boomerang_scene
+
+#Barrel spawning
+export (NodePath) var boomerang_spawn_path_left
+export (NodePath) var boomerang_spawn_path_right
+export (NodePath) var catch_point
+onready var boomerang_spawn_left = get_node(boomerang_spawn_path_left)
+onready var boomerang_spawn_right = get_node(boomerang_spawn_path_right)
+onready var catch_point_path = get_node(catch_point)
 
 #Starting velocity - value will fluctuate
 var _velocity: = Vector2.ZERO
@@ -17,6 +27,9 @@ export var speed: = Vector2(100.0,800.0)
 export var gravity: = 2
 
 var isOnScreen = false
+
+var boomerang_active = false
+var boomerang_timer_active = false
 
 #Damage that the player causes when jumping on Gregory
 export var jumpDamage = 20 
@@ -30,12 +43,16 @@ func _ready():
 	health = max_health
 	
 	emit_signal("health",max_health,max_health)
-	set_physics_process(false)
 	_velocity.x = -speed.x
 	$Animation.play("stand")
+	set_physics_process(false)
 	
 	#This function executes in a loop all the time, updating the enemy's position & movements
 func _physics_process(delta):
+	
+	if boomerang_timer_active == false && boomerang_active == false:
+		boomerang_timer_active = true
+		$BoomerangTimer.start()	
 	
 	if isDead == false:
 		rotate_gregory()
@@ -72,10 +89,11 @@ func rotate_gregory():
 		
 func flip_right():
 	$Animation.flip_h = true
+	facing_direction = "left"
 
 func flip_left():
 	$Animation.flip_h = false
-
+	facing_direction = "right"
 	
 func _on_VisibilityEnabler2D_screen_entered():
 	isOnScreen = true
@@ -100,7 +118,7 @@ func die():
 	$Boomerang.queue_free()
 	$StompDetector.queue_free()
 	$Animation.play("die")
-	$Timer.start()
+	$Death_Timer.start()
 
 func _on_VisibilityEnabler2D_screen_exited():
 	isOnScreen=false
@@ -108,7 +126,7 @@ func _on_VisibilityEnabler2D_screen_exited():
 	if isDead == false && has_node("Boomerang"):
 		$Boomerang.set_stick()
 
-func _on_Timer_timeout():
+func _on_Death_Timer_timeout():
 	queue_free()
 	
 func _on_BodyDamageDetector_body_entered(body):
@@ -121,3 +139,10 @@ func _on_JumpTimer_timeout():
 	JumpTimerActive = false
 	_velocity.y = -speed.y - jump_bonus * abs(_velocity.x)	
 
+
+func _on_BoomerangTimer_timeout():
+	boomerang_timer_active = false
+	boomerang_active = true
+	#Instance boomerang scene
+	var boomerang = boomerang_scene.instance() 
+	add_child(boomerang)

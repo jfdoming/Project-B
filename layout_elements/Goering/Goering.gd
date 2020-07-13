@@ -20,8 +20,6 @@ export (int) var barrel_speed = 400
 export (float) var barrel_angle = 350
 var directional_force = Vector2()
 
-var facing_direction = "left"
-
 var timerActive = false
 
 # Called when the node enters the scene tree for the first time.
@@ -53,11 +51,9 @@ func rotate_goering():
 		flip_right()
 		
 func flip_right():
-	print("flipping right")
 	facing_direction = "right"
 
 func flip_left():
-	print("flipping left")
 	facing_direction = "left"
 	
 func throw():

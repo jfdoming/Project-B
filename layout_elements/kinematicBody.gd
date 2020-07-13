@@ -9,6 +9,8 @@ export (int) var health = 0
 export (int) var max_health = 100
 const FLOOR_NORMAL: = Vector2.UP
 
+var facing_direction = "left"
+
 var isDead = false
 
 var active_damage = 0

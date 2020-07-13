@@ -40,6 +40,10 @@ extents = Vector2( 32.4193, 98.1056 )
 collision_layer = 4
 collision_mask = 73
 script = ExtResource( 10 )
+boomerang_scene = ExtResource( 11 )
+boomerang_spawn_path_left = NodePath("boomerang_spawn_left")
+boomerang_spawn_path_right = NodePath("boomerang_spawn_right")
+catch_point = NodePath("catch_point")
 
 [node name="HealthBar" parent="." instance=ExtResource( 12 )]
 margin_left = 3.0
@@ -61,9 +65,6 @@ shape = SubResource( 2 )
 position = Vector2( 3.18478, 12.0304 )
 scale = Vector2( 1.2748, 8.94484 )
 
-[node name="Boomerang" parent="." instance=ExtResource( 11 )]
-position = Vector2( 3, 0 )
-
 [node name="StompDetector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StompDetector"]
@@ -72,7 +73,7 @@ position = Vector2( 3, -87.92 )
 shape = SubResource( 3 )
 one_way_collision = true
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Death_Timer" type="Timer" parent="."]
 wait_time = 3.322
 one_shot = true
 
@@ -86,10 +87,24 @@ shape = SubResource( 4 )
 [node name="JumpTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="boomerang_spawn_right" type="Position2D" parent="."]
+position = Vector2( 119.743, -70 )
+
+[node name="boomerang_spawn_left" type="Position2D" parent="."]
+position = Vector2( -122.774, -70 )
+
+[node name="catch_point" type="Position2D" parent="."]
+position = Vector2( 1, -118 )
+
+[node name="BoomerangTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
 [connection signal="health" from="." to="HealthBar" method="_on_Player_health"]
 [connection signal="screen_entered" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_entered"]
 [connection signal="screen_exited" from="VisibilityEnabler2D" to="." method="_on_VisibilityEnabler2D_screen_exited"]
 [connection signal="body_entered" from="StompDetector" to="." method="_on_StompDetector_body_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Death_Timer" to="." method="_on_Death_Timer_timeout"]
 [connection signal="body_entered" from="BodyDamageDetector" to="." method="_on_BodyDamageDetector_body_entered"]
 [connection signal="timeout" from="JumpTimer" to="." method="_on_JumpTimer_timeout"]
+[connection signal="timeout" from="BoomerangTimer" to="." method="_on_BoomerangTimer_timeout"]

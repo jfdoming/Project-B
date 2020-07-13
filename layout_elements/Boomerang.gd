@@ -6,7 +6,8 @@ extends Node2D
 enum {IDLE, FLY, STICK}
 export (float) var throw_speed = 2 * 200
 onready var parent: = get_parent()
-var state: int = IDLE
+#var state: int = IDLE
+var state: int = FLY
 var velocity: = Vector2.ZERO
 var pos: = Vector2.ZERO
 var spin_speed: float = 4*220
@@ -30,6 +31,8 @@ func _physics_process(delta):
 			stick(delta)
 
 func idle()->void:
+	#queue_free()
+	
 	rotate_axe()
 	if timerActive == false:# && timerDisabled == false:
 		$Timer.start()
@@ -61,7 +64,8 @@ func stick(delta:float)->void:
 	var target: = get_target()
 	var dist = global_position.distance_to(target)
 	if dist < throw_speed * delta:
-		idle_position()
+		die()
+		#idle_position()
 	else:
 		pos = pos.linear_interpolate(target, (throw_speed * delta)/dist)
 		global_position = pos
@@ -71,16 +75,25 @@ func stick(delta:float)->void:
 func throw()->void:
 	state = FLY
 	velocity = (player_path.global_position - global_position).normalized()*throw_speed
-	pos = global_position #variable for disconnecting from parent movement
-
+	#pos = global_position #variable for disconnecting from parent movement
+	
+	print(parent.facing_direction)
+	if parent.facing_direction == "left" :
+		pos = parent.boomerang_spawn_left.get_global_position() 
+	else:
+		pos = parent.boomerang_spawn_right.get_global_position() 
+		
 #Position of axe in the hands of Gregory
 func idle_position()->void:
+	#queue_free()
+	
 	state = IDLE
 	global_position = get_target()
 
-#Returns position of Gregory
+#Returns position of Gregory's boomerang catch point
 func get_target()->Vector2:
-	return parent.global_position + Vector2(0,-2)
+	return parent.catch_point_path.get_global_position() 
+	#return parent.global_position + Vector2(0,-2)
 
 #When timeout happens, axe flies back to Gregory
 func _on_Timer_timeout()->void:
@@ -105,5 +118,9 @@ func _on_VisibilityEnabler2D_screen_exited():
 
 func set_stick():
 	state=STICK
+	
+func die():
+	parent.boomerang_active = false
+	queue_free()
 
 
