@@ -707,7 +707,7 @@ collision_layer = 0
 
 [node name="CrouchCheckCollider" type="CollisionShape2D" parent="MustCrouchCheck"]
 position = Vector2( 2.94298, -99.4351 )
-shape = SubResource( 106 )
+shape = SubResource( 98 )
 disabled = true
 [connection signal="flip_health_bar" from="." to="HealthBar" method="_on_Player_flip_health_bar"]
 [connection signal="health" from="." to="HealthBar" method="_on_Player_health"]
