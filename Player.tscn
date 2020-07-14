@@ -6,18 +6,18 @@
 [ext_resource path="res://assets/smash2.png" type="Texture" id=4]
 [ext_resource path="res://Smash.gd" type="Script" id=5]
 [ext_resource path="res://assets/smash4.png" type="Texture" id=6]
-[ext_resource path="res://assets/Stroheim-Sheet.png" type="Texture" id=7]
-[ext_resource path="res://assets/Stroheim-Sheet-gun.png" type="Texture" id=8]
+[ext_resource path="res://assets/Stroheim/Stroheim-Sheet.png" type="Texture" id=7]
+[ext_resource path="res://assets/Stroheim/Stroheim-Sheet-gun.png" type="Texture" id=8]
 [ext_resource path="res://layout_elements/HealthBar.tscn" type="PackedScene" id=9]
-[ext_resource path="res://assets/Stroheim-Regular-Punch.png" type="Texture" id=10]
-[ext_resource path="res://assets/Stroheim-Hamon-Punch.png" type="Texture" id=11]
-[ext_resource path="res://assets/Stroheim-LaserEye-Movement.png" type="Texture" id=12]
-[ext_resource path="res://assets/Stroheim-Sprint.png" type="Texture" id=13]
-[ext_resource path="res://assets/Stroheim-Sliding.png" type="Texture" id=14]
-[ext_resource path="res://assets/Stroheim-Double-Punch.png" type="Texture" id=15]
-[ext_resource path="res://assets/Stroheim-Knee-Attack.png" type="Texture" id=16]
+[ext_resource path="res://assets/Stroheim/Stroheim-Regular-Punch.png" type="Texture" id=10]
+[ext_resource path="res://assets/Stroheim/Stroheim-Hamon-Punch.png" type="Texture" id=11]
+[ext_resource path="res://assets/Stroheim/Stroheim-LaserEye-Movement.png" type="Texture" id=12]
+[ext_resource path="res://assets/Stroheim/Stroheim-Sprint.png" type="Texture" id=13]
+[ext_resource path="res://assets/Stroheim/Stroheim-Sliding.png" type="Texture" id=14]
+[ext_resource path="res://assets/Stroheim/Stroheim-Double-Punch.png" type="Texture" id=15]
+[ext_resource path="res://assets/Stroheim/Stroheim-Knee-Attack.png" type="Texture" id=16]
 [ext_resource path="res://Camera2D.gd" type="Script" id=17]
-[ext_resource path="res://Stroheim-Death.png" type="Texture" id=18]
+[ext_resource path="res://assets/Stroheim/Stroheim-Death.png" type="Texture" id=18]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -128,118 +128,147 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=22]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=23]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 100, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=24]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 200, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=25]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 300, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=26]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 400, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=27]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 500, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=28]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 600, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=29]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 700, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=30]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 800, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=31]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 900, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=32]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 1000, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=33]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 1100, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=34]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 1200, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=35]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 1300, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=36]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 1400, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=37]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 1500, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=38]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 1600, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=39]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 1700, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=40]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 1800, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=41]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 1900, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=42]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 2000, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=43]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 2100, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=44]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 2200, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=45]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 2300, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=46]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 2400, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=47]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 2500, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=48]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 2600, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=49]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 2700, 0, 100, 120 )
 
 [sub_resource type="AtlasTexture" id=50]
+flags = 4
 atlas = ExtResource( 8 )
 region = Rect2( 2800, 0, 100, 120 )
 
@@ -651,8 +680,8 @@ scale = Vector2( 2, 2 )
 shape = SubResource( 104 )
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2( -3, 13 )
-scale = Vector2( 2, 2 )
+position = Vector2( -3, 10.956 )
+scale = Vector2( 2.002, 1.998 )
 shape = SubResource( 105 )
 
 [node name="EnemyDetector" type="Area2D" parent="."]

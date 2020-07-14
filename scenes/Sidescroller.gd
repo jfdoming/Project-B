@@ -17,7 +17,8 @@ func _enter_tree():
 	CheckLevelUnlocked.are_levels_complete[level_name] = level_complete
 
 func _ready():
-	$HUD/CrosshairAnimation.play("Crosshair")
+	if not $Player.in_cutscene:
+		$HUD/CrosshairAnimation.play("Crosshair")
 	Root.load_game()
 	objectives_count = objectives.size()
 	

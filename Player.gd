@@ -4,6 +4,7 @@ signal smash_land
 signal win
 signal health
 signal flip_health_bar
+signal collided
 
 export (PackedScene) var Bullet
 
@@ -25,6 +26,7 @@ export (float) var air_resistance = 0.05
 export (int) var smash_damage = 50
 export (int) var bullet_damage = 10
 export (float) var bullet_speed = 1000
+export (bool) var in_cutscene = false
 const LEFT = 0
 const RIGHT = 1
 
@@ -114,7 +116,7 @@ func calculate_velocity(delta):
 	var left = not freeze and Input.is_action_pressed('ui_left')
 	var jump = not freeze and not must_crouch and (Input.is_action_just_pressed('ui_select') or Input.is_action_just_pressed('ui_up'))
 	var crouch = not freeze and Input.is_action_pressed('ui_down')
-	var fire = not freeze and Input.is_action_just_pressed("fire")
+	var fire = not freeze and not in_cutscene and Input.is_action_just_pressed("fire")
 	var walking = left != right
 	var sprinting = Input.is_action_pressed('sprint') and walking
 
@@ -223,6 +225,8 @@ func _physics_process(delta):
 	if just_jumped:
 		just_jumped = false
 	velocity = move_and_slide(velocity, Vector2(0, -1))
+	for i in get_slide_count():
+		emit_signal("collided", get_slide_collision(i))
 	
 func obtain_checkpoint(id, new_spawn_location):
 	# Mark if we have something to save.
