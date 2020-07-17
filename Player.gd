@@ -217,7 +217,6 @@ func chest_shoot():
 	chest_bullet.connect("kill_obtained", self, "on_kill")	
 
 func _physics_process(delta):
-		
 	calculate_velocity(delta)
 	if smashing and is_on_floor():
 		smashing = false

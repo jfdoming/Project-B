@@ -7,6 +7,7 @@ script/source = "extends StaticBody2D
 func _on_Player_Check_body_entered(body):
 	if body.name == \"Player\":
 		set_collision_mask_bit(8, false)
+	
 
 
 func _on_Player_Check_body_exited(body):
@@ -18,7 +19,7 @@ func _on_Player_Check_body_exited(body):
 "
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 250, 4.21516 )
+extents = Vector2( 250, 19.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 292.308, 26.4685 )
@@ -34,7 +35,7 @@ collision_mask = 2147483908
 script = SubResource( 1 )
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -35 )
+position = Vector2( 0, -20 )
 shape = SubResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]

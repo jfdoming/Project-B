@@ -488,7 +488,7 @@ extents = Vector2( 24, 40.9254 )
 extents = Vector2( 22.2146, 25.0097 )
 
 [sub_resource type="RectangleShape2D" id=105]
-extents = Vector2( 49.6474, 113.378 )
+extents = Vector2( 49.6474, 110.783 )
 
 [sub_resource type="RectangleShape2D" id=106]
 extents = Vector2( 14.7282, 11.654 )
@@ -644,7 +644,7 @@ collision_layer = 256
 collision_mask = 2147483648
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformCheck"]
-position = Vector2( -3.55106, -15.8278 )
+position = Vector2( -3.551, -15 )
 shape = SubResource( 105 )
 
 [node name="GrabCheck" type="Area2D" parent="."]
