@@ -8,6 +8,9 @@ var invulnerable = false
 export (int) var health = 0
 export (int) var max_health = 100
 
+const LEFT = 0
+const RIGHT = 1
+
 var active_damage = 0
 var InvulnTimer = Timer.new()
 var InvulnFlickerTimer = Timer.new()

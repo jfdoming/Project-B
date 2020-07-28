@@ -23,7 +23,7 @@ func _ready():
 	$HUD/CrosshairAnimation.play("Crosshair")
 	Root.load_game()
 	objectives_count = objectives.size()
-	
+
 func _process(_delta):
 	if Input.is_action_pressed("pause"):
 		$Pause.pause()
@@ -41,7 +41,16 @@ func _on_Player_win(next_scene, hide_mouse):
 func _on_WinTimer_timeout():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	Root.goto_scene("scenes/Win", win_params)
-	
+
+func check_all_enemies_dead():
+	var enemy_exists = false
+	for child in get_parent().get_children():
+		if child.is_in_group("Enemy"):
+			if child.health > 0:
+				enemy_exists = true
+				break
+	return !enemy_exists
+		
 #call with objective name to complete that objective
 func objective_complete(objective_name):	
 	is_objective_complete[objective_name] = true

@@ -69,7 +69,9 @@ extents = Vector2( 38.603, 18.0036 )
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 46.4335, 33.7455 )
 
-[node name="BasicEnemy" type="KinematicBody2D"]
+[node name="BasicEnemy" type="KinematicBody2D" groups=[
+"Enemy",
+]]
 position = Vector2( 1.13205, -2.64147 )
 collision_layer = 4
 collision_mask = 201

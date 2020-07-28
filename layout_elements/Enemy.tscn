@@ -6,6 +6,7 @@
 extents = Vector2( 16, 16 )
 
 [node name="Enemy" type="Area2D" groups=[
+"Enemy",
 "ResetOnRespawn",
 ]]
 collision_layer = 4

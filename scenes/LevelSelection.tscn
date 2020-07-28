@@ -127,7 +127,8 @@ level_box_name = "testinglevel"
 margin_top = 236.0
 margin_right = 612.0
 margin_bottom = 468.0
-level_box_name = "dummy button"
+level_name = "Level3"
+level_box_name = "Level 3"
 
 [node name="Control4" parent="MarginContainer/GridContainer" instance=ExtResource( 1 )]
 margin_left = 616.0
@@ -157,7 +158,7 @@ script = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="need_more_space" from="MarginContainer/GridContainer" to="." method="_on_GridContainer_need_more_space"]
 [connection signal="need_more_space" from="MarginContainer/GridContainer" to="MarginContainer" method="_on_GridContainer_need_more_space"]
+[connection signal="need_more_space" from="MarginContainer/GridContainer" to="." method="_on_GridContainer_need_more_space"]
 [connection signal="need_more_space" from="MarginContainer/GridContainer" to="CanvasLayer/VSlider" method="_on_GridContainer_need_more_space"]
 [connection signal="value_changed" from="CanvasLayer/VSlider" to="Camera2D" method="_on_VSlider_value_changed"]

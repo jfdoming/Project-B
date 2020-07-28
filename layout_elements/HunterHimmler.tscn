@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://layout_elements/HealthBar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/HunterHimmler/hunterhimmleridle.png" type="Texture" id=2]
 [ext_resource path="res://layout_elements/HunterHimmler.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 202.455, 197.351 )
+extents = Vector2( 194.355, 197.351 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
@@ -27,23 +27,161 @@ region = Rect2( 2085, 0, 695, 417 )
 animations = [ {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
+"name": "Idle",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 200.007, 203.786 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 128.347, 159.284 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 526.434, 73.8218 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 65.4432, 267.726 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 417.335, 76.4619 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 64.2959, 253.059 )
+
+[sub_resource type="RectangleShape2D" id=18]
+extents = Vector2( 122.461, 128.471 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 695, 417 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 2 )
+region = Rect2( 695, 0, 695, 417 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 2 )
+region = Rect2( 1390, 0, 695, 417 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 2 )
+region = Rect2( 2085, 0, 695, 417 )
+
+[sub_resource type="SpriteFrames" id=17]
+animations = [ {
+"frames": [ SubResource( 13 ), null, null, null, SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"loop": false,
 "name": "default",
 "speed": 5.0
 } ]
 
-[node name="HunterHimmler" type="KinematicBody2D"]
+[node name="HunterHimmler" type="KinematicBody2D" groups=[
+"Enemy",
+]]
+scale = Vector2( 0.8, 0.8 )
 collision_layer = 4
 collision_mask = 73
 script = ExtResource( 3 )
 
 [node name="BodyCollision" type="CollisionShape2D" parent="."]
-position = Vector2( -119.082, -13.4696 )
+position = Vector2( -127.406, -11.0912 )
 shape = SubResource( 1 )
 
 [node name="HealthBar" parent="." instance=ExtResource( 1 )]
+margin_left = -127.406
+margin_top = -250.0
+margin_right = -127.406
+margin_bottom = -250.0
+rect_scale = Vector2( 2, 1 )
 
-[node name="Animations" type="AnimatedSprite" parent="."]
+[node name="Idle" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
+animation = "Idle"
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="BodyDamageDetector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BodyDamageDetector"]
+position = Vector2( -127.406, -11.091 )
+shape = SubResource( 7 )
+
+[node name="PlayerAboveCheck" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAboveCheck"]
+position = Vector2( -127.406, -330 )
+shape = SubResource( 8 )
+
+[node name="GroundSweepCheck" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundSweepCheck"]
+position = Vector2( 596.498, 114.295 )
+shape = SubResource( 9 )
+
+[node name="UpperCutCheck" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpperCutCheck"]
+position = Vector2( 135.957, -74.7739 )
+shape = SubResource( 10 )
+
+[node name="GroundSweepHitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundSweepHitbox"]
+position = Vector2( 489.123, 115.434 )
+shape = SubResource( 11 )
+disabled = true
+
+[node name="UpperCutHitbox" type="Area2D" parent="."]
+scale = Vector2( 1, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpperCutHitbox"]
+position = Vector2( 135.461, -63.1629 )
+shape = SubResource( 12 )
+disabled = true
+
+[node name="AboveHitBox" type="Area2D" parent="."]
+scale = Vector2( 1, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AboveHitBox"]
+position = Vector2( -126.358, -354.586 )
+shape = SubResource( 18 )
+disabled = true
+
+[node name="SweepAttackTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="AttackUptimeTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="SweepCharge" type="AnimatedSprite" parent="."]
+frames = SubResource( 17 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="UpCutCharge" type="AnimatedSprite" parent="."]
+frames = SubResource( 17 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="UpCharge" type="AnimatedSprite" parent="."]
+frames = SubResource( 17 )
+__meta__ = {
+"_edit_lock_": true
+}
+[connection signal="health" from="." to="HealthBar" method="_on_Player_health"]
+[connection signal="body_entered" from="BodyDamageDetector" to="." method="_on_BodyDamageDetector_body_entered"]
+[connection signal="body_entered" from="PlayerAboveCheck" to="." method="_on_PlayerAboveCheck_body_entered"]
+[connection signal="body_entered" from="GroundSweepCheck" to="." method="_on_GroundSweepCheck_body_entered"]
+[connection signal="body_entered" from="UpperCutCheck" to="." method="_on_UppercutCheck_body_entered"]
+[connection signal="body_entered" from="GroundSweepHitbox" to="." method="_on_GroundSweepHitbox_body_entered"]
+[connection signal="body_entered" from="UpperCutHitbox" to="." method="_on_UpperCutHitbox_body_entered"]
+[connection signal="body_entered" from="AboveHitBox" to="." method="_on_AboveHitBox_body_entered"]
+[connection signal="timeout" from="SweepAttackTimer" to="." method="_on_SweepAttackTimer_timeout"]
+[connection signal="timeout" from="AttackUptimeTimer" to="." method="_on_AttackUptimeTimer_timeout"]
+[connection signal="animation_finished" from="SweepCharge" to="." method="_on_SweepCharge_animation_finished"]
+[connection signal="animation_finished" from="UpCutCharge" to="." method="_on_UpCutCharge_animation_finished"]
+[connection signal="animation_finished" from="UpCharge" to="." method="_on_UpCharge_animation_finished"]

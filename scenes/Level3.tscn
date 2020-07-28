@@ -4,34 +4,37 @@
 [ext_resource path="res://layout_elements/Ground.tscn" type="PackedScene" id=2]
 [ext_resource path="res://layout_elements/Platform.tscn" type="PackedScene" id=3]
 [ext_resource path="res://layout_elements/HunterHimmler.tscn" type="PackedScene" id=4]
+[ext_resource path="res://layout_elements/enemyLimit.tscn" type="PackedScene" id=5]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends Node2D
-
-
-#func _ready():
-	#$Sidescroller/Player.jump_bonus = 1
-"
-
-[node name="Node2D" type="Node2D"]
-script = SubResource( 1 )
+[node name="Level3" type="Node2D"]
 
 [node name="Sidescroller" parent="." instance=ExtResource( 1 )]
-objectives = [ "Kill [bossname]" ]
+objectives = [ "Kill Himmler" ]
 level_name = "Level3"
+
+[node name="Player" parent="Sidescroller" index="0"]
+position = Vector2( 486.919, -524.538 )
 
 [node name="Ground" parent="." instance=ExtResource( 2 )]
 position = Vector2( 505, 420.355 )
 scale = Vector2( 2, 0.5 )
 
 [node name="Platform" parent="." instance=ExtResource( 3 )]
-position = Vector2( -230, 80 )
+position = Vector2( -230, 60 )
 
 [node name="Platform2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1240, 80 )
+position = Vector2( 1240, 60 )
 
 [node name="Platform3" parent="." instance=ExtResource( 3 )]
 position = Vector2( 505, -100 )
 
 [node name="HunterHimmler" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1256.52, -404.715 )
+position = Vector2( 931.85, 209.379 )
+
+[node name="enemyLimit" parent="." instance=ExtResource( 5 )]
+position = Vector2( -541.716, -48.4473 )
+
+[node name="enemyLimit2" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1552.42, -48.474 )
+
+[editable path="Sidescroller"]

@@ -25,8 +25,6 @@ export (float) var air_resistance = 0.05
 export (int) var smash_damage = 50
 export (int) var bullet_damage = 10
 export (float) var bullet_speed = 1000
-const LEFT = 0
-const RIGHT = 1
 
 # State
 var velocity = Vector2()
@@ -265,7 +263,7 @@ func on_kill(reward):
 		return
 	xp += reward
 	did_persisted_props_change = true
-		
+	
 func die():
 	respawn()
 
@@ -325,7 +323,10 @@ func _on_FireChestAnimation_frame_changed():
 
 func take_damage(damage):
 	.take_damage(damage)
-	
+
+func take_knockback(knockback):
+	velocity = Vector2(0, 0)
+	velocity -= knockback
 # MARK: - Punch
 
 func _on_PunchAnimation_animation_finished():
@@ -375,7 +376,7 @@ func _on_LedgeGrabAnimation_animation_finished():
 func _on_GrabCheck_area_entered(area):
 	if area.name == "GrabCheck":
 		var colliders = area.get_children()
-		if position.x < colliders[0].global_position.x or position.x > colliders[1].global_position.x:
+		if global_position.x < colliders[0].global_position.x or global_position.x > colliders[1].global_position.x:
 			platform = area.get_parent()
 			platform.set_collision_mask_bit(8, false)
 			grabbing = true

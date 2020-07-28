@@ -36,3 +36,6 @@ func _on_Player_flip_health_bar(direction):
 		set_scale(Vector2(1,1))
 	else:
 		set_scale(Vector2(-1,1))
+
+
+

@@ -110,7 +110,7 @@ func _on_Timer_timeout():
 	queue_free()
 	
 func _on_BodyDamageDetector_body_entered(body):
-	if body.name == "Bullet" && isOnScreen: #We can only damage gregory if he is visible on screen
+	if body.name == "Bullet" and isOnScreen and not isDead: #We can only damage gregory if he is visible on screen
 		take_damage(body.damage)#Bullet has own damage variable
 
 
