@@ -1,4 +1,41 @@
 {
-    "001" : {"name":"Godette", "expression": "neutral", "text":"You found something." },
-    "002" : {"name":"Robi", "expression": "neutral", "text":"I don't know what that is, but at least it's something!" }
+  "001": {
+    "name": "Stroheim",
+    "expression": "neutral",
+    "text": "hey Zoller, spell ICUP"
+  },
+  "002": {
+    "name": "Zoller",
+    "expression": "neutral",
+    "text": "Ok Major Stroheim!"
+  },
+  "003": {
+    "name": "Zoller",
+    "expression": "neutral",
+    "text": "I.C.U.P"
+  },
+  "004": {
+    "name": "Stroheim",
+    "expression": "neutral",
+    "text": "Ha! You saw me peeing!"
+  },
+
+  "005": {
+    "name": "Zoller",
+    "expression": "neutral",
+    "text": "What? Nein!"
+  },
+
+  "006": {
+    "name": "Zoller",
+    "expression": "neutral",
+    "text": "Grrr. You got me good Major!"
+  },
+
+  "007": {
+    "name": "Stroheim",
+    "expression": "neutral",
+    "text": "Hahaha!"
+  }
+
 }

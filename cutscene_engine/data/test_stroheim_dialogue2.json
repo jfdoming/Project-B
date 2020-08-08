@@ -1,0 +1,25 @@
+{
+  "001": {
+    "name": "Stroheim",
+    "expression": "neutral",
+    "text": "Hey Zoller, say ICUP"
+  },
+  "002": {
+    "name": "Zoller",
+    "expression": "neutral",
+    "text": "ok. I C U P"
+  },
+
+  "003": {
+    "name": "Stroheim",
+    "expression": "neutral",
+    "text": "HAHAHA. MADE YOU SAY ICUP"
+  },
+
+  "004": {
+    "name": "Zoller",
+    "expression": "neutral",
+    "text": "Sheise Stroheim, you fooled me again"
+  },
+
+
