@@ -1,0 +1,31 @@
+[gd_resource type="Resource" load_steps=12 format=2]
+
+[ext_resource path="res://cutscene_engine/characters/Character.gd" type="Script" id=1]
+[ext_resource path="res://cutscene_engine/cutscene_assets/stroheim_portraits/stroheim_neutral.png" type="Texture" id=2]
+[ext_resource path="res://cutscene_engine/cutscene_assets/stroheim_portraits/stroheim_angry1.png" type="Texture" id=3]
+[ext_resource path="res://cutscene_engine/cutscene_assets/stroheim_portraits/stroheim_angry2.png" type="Texture" id=4]
+[ext_resource path="res://cutscene_engine/cutscene_assets/stroheim_portraits/stroheim_happySmiling.png" type="Texture" id=5]
+[ext_resource path="res://cutscene_engine/cutscene_assets/stroheim_portraits/stroheim_crying.png" type="Texture" id=6]
+[ext_resource path="res://cutscene_engine/cutscene_assets/stroheim_portraits/stroheim_angryCrying2.png" type="Texture" id=7]
+[ext_resource path="res://cutscene_engine/cutscene_assets/stroheim_portraits/stroheim_laughing.png" type="Texture" id=8]
+[ext_resource path="res://cutscene_engine/cutscene_assets/stroheim_portraits/stroheim_angry3.png" type="Texture" id=9]
+[ext_resource path="res://cutscene_engine/cutscene_assets/stroheim_portraits/stroheim_angryCrying1.png" type="Texture" id=10]
+[ext_resource path="res://cutscene_engine/cutscene_assets/stroheim_portraits/stroheim_sad.png" type="Texture" id=11]
+
+[resource]
+script = ExtResource( 1 )
+display_name = ""
+backstory = "Stroheim
+"
+expressions = {
+"angry1": ExtResource( 3 ),
+"angry2": ExtResource( 4 ),
+"angry3": ExtResource( 9 ),
+"angrycrying1": ExtResource( 10 ),
+"angrycrying2": ExtResource( 7 ),
+"crying": ExtResource( 6 ),
+"happysmiling": ExtResource( 5 ),
+"laughing": ExtResource( 8 ),
+"neutral": ExtResource( 2 ),
+"sad": ExtResource( 11 )
+}
