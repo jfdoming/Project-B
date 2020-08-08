@@ -1,0 +1,30 @@
+[gd_resource type="Resource" load_steps=12 format=2]
+
+[ext_resource path="res://cutscene_engine/characters/Character.gd" type="Script" id=1]
+[ext_resource path="res://cutscene_engine/cutscene_assets/zoller_portraits/zoller_neutral.png" type="Texture" id=2]
+[ext_resource path="res://cutscene_engine/cutscene_assets/zoller_portraits/zoller_angry1.png" type="Texture" id=3]
+[ext_resource path="res://cutscene_engine/cutscene_assets/zoller_portraits/zoller_angry2.png" type="Texture" id=4]
+[ext_resource path="res://cutscene_engine/cutscene_assets/zoller_portraits/zoller_crying2.png" type="Texture" id=5]
+[ext_resource path="res://cutscene_engine/cutscene_assets/zoller_portraits/zoller_angry3.png" type="Texture" id=6]
+[ext_resource path="res://cutscene_engine/cutscene_assets/zoller_portraits/zoller_crying1.png" type="Texture" id=7]
+[ext_resource path="res://cutscene_engine/cutscene_assets/zoller_portraits/zoller_happy.png" type="Texture" id=8]
+[ext_resource path="res://cutscene_engine/cutscene_assets/zoller_portraits/zoller_happySmiling.png" type="Texture" id=9]
+[ext_resource path="res://cutscene_engine/cutscene_assets/zoller_portraits/zoller_angryCrying.png" type="Texture" id=10]
+[ext_resource path="res://cutscene_engine/cutscene_assets/zoller_portraits/zoller_sad.png" type="Texture" id=11]
+
+[resource]
+script = ExtResource( 1 )
+display_name = ""
+backstory = "Zoller"
+expressions = {
+"angry1": ExtResource( 3 ),
+"angry2": ExtResource( 4 ),
+"angry3": ExtResource( 6 ),
+"angrycrying": ExtResource( 10 ),
+"crying1": ExtResource( 7 ),
+"crying2": ExtResource( 5 ),
+"happy": ExtResource( 8 ),
+"happysmiling": ExtResource( 9 ),
+"neutral": ExtResource( 2 ),
+"sad": ExtResource( 11 )
+}

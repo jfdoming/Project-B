@@ -1,0 +1,54 @@
+{
+  "key1": {
+    "001": {
+      "name": "Matilda",
+      "expression": "sad1",
+      "text": "Please stop saying dumbass things!"
+    },
+    "002": {
+      "name": "Matilda",
+      "expression": "crying",
+      "text": "you're not even making any sense!"
+    },
+    "003": {
+      "name": "Stroheim",
+      "expression": "laughing",
+      "text": "So his friend replies 'only a spoonful!' "
+    },
+    "004": {
+      "name": "Stroheim",
+      "expression": "happysmiling",
+      "text": "This leads to king back pulling out a comically large spoon!"
+    }
+
+  },
+  
+
+  "key2": 
+  {
+    "001": {
+      "name": "Stroheim",
+      "expression": "happysmiling",
+      "text": "Hey Zoller, say ICUP"
+    },
+
+    "002": {
+      "name": "Zoller",
+      "expression": "happy",
+      "text": "ok. I C U P"
+    },
+
+    "003": {
+      "name": "Stroheim",
+      "expression": "laughing",
+      "text": "HAHAHA. MADE YOU SAY ICUP"
+    },
+
+    "004": {
+      "name": "Zoller",
+      "expression": "angry1",
+      "text": "Sheise Stroheim, you fooled me again"
+    }
+  }
+  
+}

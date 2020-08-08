@@ -1,0 +1,95 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://cutscene_engine/custom_fonts/SF Fedora.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://cutscene_engine/cutscene_assets/menacing_next_indicator.png" type="Texture" id=2]
+[ext_resource path="res://cutscene_engine/cutscene_assets/stroheim_profile_ph.png" type="Texture" id=3]
+[ext_resource path="res://cutscene_engine/cutscene_assets/stroheim_dialogue_box.png" type="Texture" id=4]
+[ext_resource path="res://cutscene_engine/cutscene_scripts/DialogueBox.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "IDLE"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 684.903, 111.977 ), Vector2( 684.903, 125 ) ]
+}
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DialogueBox" type="Control" parent="."]
+anchor_left = 0.513
+anchor_top = 0.963
+anchor_right = 0.513
+anchor_bottom = 0.963
+margin_left = -382.312
+margin_top = -145.8
+margin_right = 337.688
+margin_bottom = 0.199951
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="DialogueBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DialogueBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 25.0
+margin_top = 25.0
+margin_right = -25.0
+margin_bottom = -25.0
+rect_clip_content = false
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "Sieg Heil! This is Stroheim!"
+text = "Sieg Heil! This is Stroheim!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menacing_next_indicator" type="Sprite" parent="DialogueBox"]
+visible = false
+position = Vector2( 684.903, 111.977 )
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 2 )
+
+[node name="AnPl_next_indicator" type="AnimationPlayer" parent="DialogueBox/menacing_next_indicator"]
+autoplay = "IDLE"
+anims/IDLE = SubResource( 2 )
+
+[node name="stroheim_profile_ph" type="Sprite" parent="DialogueBox"]
+position = Vector2( 367.679, -192.859 )
+scale = Vector2( 0.114877, 0.0978034 )
+texture = ExtResource( 3 )
+
+[node name="Tween_text" type="Tween" parent="DialogueBox"]
+
+[node name="Tween_profile" type="Tween" parent="DialogueBox"]
+[connection signal="tween_completed" from="DialogueBox/Tween_text" to="DialogueBox" method="_on_Tween_tween_completed"]

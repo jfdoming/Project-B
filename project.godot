@@ -8,15 +8,32 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Control",
+"class": "DialogueBox",
+"language": "GDScript",
+"path": "res://cutscene_engine/cutscene_scripts/DialogueBox.gd"
+}, {
+"base": "Node",
+"class": "DialoguePlayer",
+"language": "GDScript",
+"path": "res://cutscene_engine/cutscene_scripts/DialoguePlayer.gd"
+}, {
+"base": "Node",
+"class": "DialogueStarter",
+"language": "GDScript",
+"path": "res://cutscene_engine/cutscene_scripts/DialogueStarter.gd"
+} ]
 _global_script_class_icons={
-
+"DialogueBox": "",
+"DialoguePlayer": "",
+"DialogueStarter": ""
 }
 
 [application]
 
 config/name="Sidescroller"
-run/main_scene="res://scenes/Start.tscn"
+run/main_scene="res://cutscene_engine/cutscene_scenes/cutscene_test.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -24,6 +41,7 @@ config/icon="res://icon.png"
 Root="*res://Root.gd"
 Loading="*res://scenes/Loading.tscn"
 CheckLevelUnlocked="*res://CheckLevelUnlocked.gd"
+DialogueDatabase="*res://cutscene_engine/cutscene_scripts/DialogueDatabase.gd"
 
 [display]
 
