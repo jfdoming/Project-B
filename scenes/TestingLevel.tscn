@@ -247,6 +247,12 @@ limit_bottom = 1017
 [node name="BasicEnemy" parent="." instance=ExtResource( 2 )]
 position = Vector2( 432.376, 544.736 )
 z_index = 1
+invuln_flicker_time = null
+invuln_time = null
+health = null
+max_health = null
+killExp = null
+gravity = null
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 10 )

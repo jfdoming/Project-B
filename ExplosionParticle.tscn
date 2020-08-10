@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="CanvasItemMaterial" id=2]
+blend_mode = 1
+
+[sub_resource type="Curve" id=3]
+min_value = -200.0
+max_value = 400.0
+_data = [ Vector2( 0, 400 ), 0.0, -1139.69, 0, 0, Vector2( 0.610272, 185.909 ), -1354.09, -1354.09, 0, 0, Vector2( 1, -185 ), -138.881, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 9.4
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.55
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 100.0
+linear_accel_random = 0.2
+linear_accel_curve = SubResource( 4 )
+scale = 5.0
+scale_random = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="Environment" id=6]
+resource_local_to_scene = true
+background_mode = 4
+glow_enabled = true
+glow_intensity = 1.07
+glow_strength = 0.61
+glow_bloom = 0.08
+glow_blend_mode = 0
+
+[node name="ImpactParticle" type="Particles2D"]
+material = SubResource( 2 )
+emitting = false
+amount = 600
+lifetime = 0.5
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource( 5 )
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 6 )
