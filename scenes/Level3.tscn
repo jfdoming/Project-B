@@ -13,7 +13,7 @@ objectives = [ "Kill Himmler" ]
 level_name = "Level3"
 
 [node name="Player" parent="Sidescroller" index="0"]
-position = Vector2( 486.919, -524.538 )
+position = Vector2( -172.067, 280.654 )
 
 [node name="Ground" parent="." instance=ExtResource( 2 )]
 position = Vector2( 505, 420.355 )

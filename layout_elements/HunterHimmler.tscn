@@ -1,76 +1,93 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://layout_elements/HealthBar.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/HunterHimmler/hunterhimmleridle.png" type="Texture" id=2]
 [ext_resource path="res://layout_elements/HunterHimmler.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 194.355, 197.351 )
+extents = Vector2( 194.355, 153.103 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 51.8674, 47.6862 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 200.007, 157.919 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 58.0889, 54.8263 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 183.893, 198.874 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 351.594, 73.8218 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 47.7337, 307.788 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 417.335, 76.4619 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 64.2959, 253.059 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 193.101, 167.688 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 49.6573, 2771.82 )
+
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 695, 417 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 2 )
 region = Rect2( 695, 0, 695, 417 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 2 )
 region = Rect2( 1390, 0, 695, 417 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 2 )
 region = Rect2( 2085, 0, 695, 417 )
 
-[sub_resource type="SpriteFrames" id=6]
+[sub_resource type="SpriteFrames" id=16]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ) ],
 "loop": true,
 "name": "Idle",
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 200.007, 203.786 )
-
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 128.347, 159.284 )
-
-[sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 526.434, 73.8218 )
-
-[sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 65.4432, 267.726 )
-
-[sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 417.335, 76.4619 )
-
-[sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 64.2959, 253.059 )
-
-[sub_resource type="RectangleShape2D" id=18]
-extents = Vector2( 122.461, 128.471 )
-
-[sub_resource type="AtlasTexture" id=13]
+[sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 695, 417 )
 
-[sub_resource type="AtlasTexture" id=14]
+[sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 2 )
 region = Rect2( 695, 0, 695, 417 )
 
-[sub_resource type="AtlasTexture" id=15]
+[sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 2 )
 region = Rect2( 1390, 0, 695, 417 )
 
-[sub_resource type="AtlasTexture" id=16]
+[sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 2 )
 region = Rect2( 2085, 0, 695, 417 )
 
-[sub_resource type="SpriteFrames" id=17]
+[sub_resource type="SpriteFrames" id=21]
 animations = [ {
-"frames": [ SubResource( 13 ), null, null, null, SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"frames": [ SubResource( 17 ), null, null, null, SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"loop": false,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=22]
+animations = [ {
+"frames": [ SubResource( 17 ), null, null, null, null, null, null, null, SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
 "loop": false,
 "name": "default",
 "speed": 5.0
@@ -85,8 +102,12 @@ collision_mask = 73
 script = ExtResource( 3 )
 
 [node name="BodyCollision" type="CollisionShape2D" parent="."]
-position = Vector2( -127.406, -11.0912 )
+position = Vector2( -134.351, 31.5702 )
 shape = SubResource( 1 )
+
+[node name="HeadCollision" type="CollisionShape2D" parent="."]
+position = Vector2( -179.148, -168.418 )
+shape = SubResource( 2 )
 
 [node name="HealthBar" parent="." instance=ExtResource( 1 )]
 margin_left = -127.406
@@ -95,93 +116,144 @@ margin_right = -127.406
 margin_bottom = -250.0
 rect_scale = Vector2( 2, 1 )
 
-[node name="Idle" type="AnimatedSprite" parent="."]
-frames = SubResource( 6 )
-animation = "Idle"
-__meta__ = {
-"_edit_lock_": true
-}
-
 [node name="BodyDamageDetector" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BodyDamageDetector"]
-position = Vector2( -127.406, -11.091 )
-shape = SubResource( 7 )
+position = Vector2( -134.351, 32.4179 )
+shape = SubResource( 3 )
 
-[node name="PlayerAboveCheck" type="Area2D" parent="."]
+[node name="HeadDamageDetector" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAboveCheck"]
-position = Vector2( -127.406, -330 )
-shape = SubResource( 8 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeadDamageDetector"]
+position = Vector2( -177.694, -166.063 )
+shape = SubResource( 4 )
+
+[node name="PlayerAboveAttackCheck" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAboveAttackCheck"]
+position = Vector2( -134.351, -342.5 )
+shape = SubResource( 5 )
 
 [node name="GroundSweepCheck" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GroundSweepCheck"]
-position = Vector2( 596.498, 114.295 )
-shape = SubResource( 9 )
+position = Vector2( 553.402, 116.397 )
+shape = SubResource( 6 )
 
-[node name="UpperCutCheck" type="Area2D" parent="."]
+[node name="UppercutCheck" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UpperCutCheck"]
-position = Vector2( 135.957, -74.7739 )
-shape = SubResource( 10 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UppercutCheck"]
+position = Vector2( 139.294, -114.819 )
+shape = SubResource( 7 )
 
 [node name="GroundSweepHitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GroundSweepHitbox"]
 position = Vector2( 489.123, 115.434 )
-shape = SubResource( 11 )
+shape = SubResource( 8 )
 disabled = true
 
-[node name="UpperCutHitbox" type="Area2D" parent="."]
-scale = Vector2( 1, 1 )
+[node name="UppercutHitbox" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UpperCutHitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UppercutHitbox"]
 position = Vector2( 135.461, -63.1629 )
-shape = SubResource( 12 )
+shape = SubResource( 9 )
 disabled = true
 
 [node name="AboveHitBox" type="Area2D" parent="."]
-scale = Vector2( 1, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AboveHitBox"]
-position = Vector2( -126.358, -354.586 )
-shape = SubResource( 18 )
+position = Vector2( -134.351, -300.437 )
+shape = SubResource( 10 )
+disabled = true
+
+[node name="TentaclePivot" type="Position2D" parent="."]
+position = Vector2( -200, 20 )
+rotation = -6.28319
+scale = Vector2( 1.25, 1.25 )
+
+[node name="TentacleHitBox" type="Area2D" parent="TentaclePivot"]
+scale = Vector2( 0.8, 0.8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TentaclePivot/TentacleHitBox"]
+position = Vector2( 2725, 0 )
+rotation = 1.5708
+shape = SubResource( 11 )
 disabled = true
 
 [node name="SweepAttackTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 1.5
+one_shot = true
+
+[node name="UppercutTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AboveTimer" type="Timer" parent="."]
+wait_time = 0.268
+one_shot = true
+
+[node name="TentacleTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="TentacleFollowTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="AttackUptimeTimer" type="Timer" parent="."]
 wait_time = 0.1
+one_shot = true
+
+[node name="Idle" type="AnimatedSprite" parent="."]
+frames = SubResource( 16 )
+animation = "Idle"
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="SweepCharge" type="AnimatedSprite" parent="."]
-frames = SubResource( 17 )
+frames = SubResource( 21 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="UpCutCharge" type="AnimatedSprite" parent="."]
-frames = SubResource( 17 )
+frames = SubResource( 21 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="UpCharge" type="AnimatedSprite" parent="."]
-frames = SubResource( 17 )
+frames = SubResource( 21 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TentacleCharge" type="AnimatedSprite" parent="."]
+frames = SubResource( 22 )
 __meta__ = {
 "_edit_lock_": true
 }
 [connection signal="health" from="." to="HealthBar" method="_on_Player_health"]
 [connection signal="body_entered" from="BodyDamageDetector" to="." method="_on_BodyDamageDetector_body_entered"]
-[connection signal="body_entered" from="PlayerAboveCheck" to="." method="_on_PlayerAboveCheck_body_entered"]
+[connection signal="body_entered" from="HeadDamageDetector" to="." method="_on_BodyDamageDetector_body_entered"]
+[connection signal="body_entered" from="PlayerAboveAttackCheck" to="." method="_on_PlayerAboveAttackCheck_body_entered"]
+[connection signal="body_exited" from="PlayerAboveAttackCheck" to="." method="_on_PlayerAboveAttackCheck_body_exited"]
 [connection signal="body_entered" from="GroundSweepCheck" to="." method="_on_GroundSweepCheck_body_entered"]
-[connection signal="body_entered" from="UpperCutCheck" to="." method="_on_UppercutCheck_body_entered"]
+[connection signal="body_exited" from="GroundSweepCheck" to="." method="_on_GroundSweepCheck_body_exited"]
+[connection signal="body_entered" from="UppercutCheck" to="." method="_on_UppercutCheck_body_entered"]
+[connection signal="body_exited" from="UppercutCheck" to="." method="_on_UppercutCheck_body_exited"]
 [connection signal="body_entered" from="GroundSweepHitbox" to="." method="_on_GroundSweepHitbox_body_entered"]
-[connection signal="body_entered" from="UpperCutHitbox" to="." method="_on_UpperCutHitbox_body_entered"]
+[connection signal="body_entered" from="UppercutHitbox" to="." method="_on_UppercutHitbox_body_entered"]
 [connection signal="body_entered" from="AboveHitBox" to="." method="_on_AboveHitBox_body_entered"]
+[connection signal="body_entered" from="TentaclePivot/TentacleHitBox" to="." method="_on_TentacleHitBox_body_entered"]
 [connection signal="timeout" from="SweepAttackTimer" to="." method="_on_SweepAttackTimer_timeout"]
+[connection signal="timeout" from="UppercutTimer" to="." method="_on_UppercutTimer_timeout"]
+[connection signal="timeout" from="AboveTimer" to="." method="_on_AboveTimer_timeout"]
+[connection signal="timeout" from="TentacleTimer" to="." method="_on_TentacleTimer_timeout"]
+[connection signal="timeout" from="TentacleFollowTimer" to="." method="_on_TentacleFollowTimer_timeout"]
 [connection signal="timeout" from="AttackUptimeTimer" to="." method="_on_AttackUptimeTimer_timeout"]
 [connection signal="animation_finished" from="SweepCharge" to="." method="_on_SweepCharge_animation_finished"]
 [connection signal="animation_finished" from="UpCutCharge" to="." method="_on_UpCutCharge_animation_finished"]
 [connection signal="animation_finished" from="UpCharge" to="." method="_on_UpCharge_animation_finished"]
+[connection signal="animation_finished" from="TentacleCharge" to="." method="_on_TentacleCharge_animation_finished"]
