@@ -97,3 +97,4 @@ freeze = true
 hide_mouse_in_next_scene = false
 
 [node name="Sidescroller" parent="." instance=ExtResource( 7 )]
+position = Vector2( -4.42603, 0 )

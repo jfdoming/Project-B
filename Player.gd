@@ -1,17 +1,18 @@
-extends KinematicBody2D
+extends "res://layout_elements/kinematicBody.gd"
 
 signal smash_land
 signal win
+signal health
+signal flip_health_bar
+signal collided
 
 export (PackedScene) var Bullet
-
-# Cosmetic-related options.
-export (int) var invuln_flicker_time = 0.1
 
 # Physics-related options.
 export (bool) var may_move = true
 export (bool) var obey_physics = true
-export (int) var max_run_speed = 250
+export (int) var max_walk_speed = 250
+export (int) var max_sprint_speed = 500
 export (float) var run_speed_increment_fraction = 1.0 / 10.0
 export (int) var jump_speed = 800
 export (int) var smash_speed = 1200
@@ -21,23 +22,26 @@ export (float) var friction = 0.2
 export (float) var air_resistance = 0.05
 
 # Gameplay-related options.
-export (int) var max_health = 100
-export (float) var invuln_time = 1
+
 export (int) var smash_damage = 50
 export (int) var bullet_damage = 10
-
+export (float) var bullet_speed = 1000
+export (bool) var in_cutscene = false
 const LEFT = 0
 const RIGHT = 1
 
+# State
 var velocity = Vector2()
 var direction = RIGHT
 var jumping = false
 var just_jumped = false
 var smashing = false
 var firing_chest = false
-var health = max_health
-var active_damage = 0
-var invulnerable = false
+var punching = false
+var hamon_punching = false
+var double_punching = false
+var knee_attacking = false
+var must_crouch = false
 
 # If the list of persisted props continues to grow, perhaps we can store it in
 # an inner class instead, as a way of containing all persisted values.
@@ -47,21 +51,39 @@ var spawn_xp = 0
 var checkpoint = -1
 var spawn_location = Vector2()
 
+#How much damage enemies do to do player
+export var basic_enemy_damage = 15
+export var boomerang_enemy_damage = 10
+
 func _ready():
+	health = max_health
+	
 	spawn_location = position
 	_show_anim($StandAnimation)
-
+	emit_signal("health",max_health,max_health)
+	$MustCrouchCheck.get_node("CrouchCheckCollider").set_disabled(true)
+	
 func _stop_all_anim():
-	$StandAnimation.visible = false
-	$StandAnimation.stop()
-	$WalkAnimation.visible = false
-	$WalkAnimation.stop()
-	$JumpAnimation.visible = false
-	$JumpAnimation.stop()
-	$CrouchAnimation.visible = false
-	$CrouchAnimation.stop()
-	$FireChestAnimation.visible = false
-	$FireChestAnimation.stop()
+	var animations = [
+		$StandAnimation, 
+		$WalkAnimation, 
+		$JumpAnimation, 
+		$CrouchAnimation, 
+		$FireChestAnimation, 
+		$PunchAnimation,
+		$HamonPunchAnimation,
+		$LaserEyeAnimation,
+		$SprintAnimation,
+		$SlideAnimation,
+		$DoublePunchAnimation,
+		$KneeAttackAnimation,
+	]
+	for anim in animations:
+		self._stop_anim(anim)
+	
+func _stop_anim(anim):
+	anim.visible = false
+	anim.stop()
 
 func _show_anim(anim):
 	if anim.visible:
@@ -74,52 +96,76 @@ func _show_anim(anim):
 	anim.frame = 0
 	anim.play()
 
+func shake_camera():
+	$Camera2D.shake(0.2, 30, 8)
+
 func calculate_velocity(delta):
 	var fire_chest = may_move and Input.is_action_just_pressed("fire_chest")
 	firing_chest = firing_chest or fire_chest
+	var punch = may_move and Input.is_action_just_pressed("punch")
+	self.punching = (self.punching or punch) and !self.firing_chest
+	var hamon_punch = may_move and Input.is_action_just_pressed("hamon_punch")
+	self.hamon_punching = (self.hamon_punching or hamon_punch) and !self.firing_chest and !self.punching
+	var double_punch = may_move and Input.is_action_just_pressed("double_punch")
+	self.double_punching = (self.double_punching or double_punch) and !self.firing_chest and !self.punching and !self.hamon_punching
+	var knee_attack = may_move and Input.is_action_just_pressed("knee_attack")
+	self.knee_attacking = (self.knee_attacking or knee_attack) and !self.firing_chest and !self.punching and !self.hamon_punching and !self.double_punching
 	
-	var freeze = (not may_move) or firing_chest
+	var freeze = (not may_move) or firing_chest or self.punching or self.hamon_punching or self.double_punching or self.knee_attacking
 	var right = not freeze and Input.is_action_pressed('ui_right')
 	var left = not freeze and Input.is_action_pressed('ui_left')
-	var jump = not freeze and (Input.is_action_just_pressed('ui_select') or Input.is_action_just_pressed('ui_up'))
+	var jump = not freeze and not must_crouch and (Input.is_action_just_pressed('ui_select') or Input.is_action_just_pressed('ui_up'))
 	var crouch = not freeze and Input.is_action_pressed('ui_down')
-	var fire = not freeze and Input.is_action_just_pressed("fire")
+	var fire = not freeze and not in_cutscene and Input.is_action_just_pressed("fire")
 	var walking = left != right
+	var sprinting = Input.is_action_pressed('sprint') and walking
 
 	if fire:
 		var instance = Bullet.instance()
-		add_child(instance)
+		get_parent().add_child(instance)
+		instance.position = $RegularFirePoint.global_position
 		instance.look_at(get_global_mouse_position())
-			
-		if direction == RIGHT:
-			instance.linear_velocity = Vector2(1000, 0).rotated(instance.rotation)
-			instance.damage = bullet_damage		
-			instance.connect("kill_obtained", self, "on_kill")
-		else:
-			instance.linear_velocity = Vector2(-1000, 0).rotated(-instance.rotation)
-			instance.damage = bullet_damage		
-			instance.connect("kill_obtained", self, "on_kill")
-			
+		instance.linear_velocity = Vector2(bullet_speed, 0).rotated(instance.rotation)
+		instance.damage = bullet_damage		
+		instance.connect("kill_obtained", self, "on_kill")
+		instance.connect("impact", self, "shake_camera")
+
 	if crouch:
 		if jumping and not smashing:
 			smashing = true
 			velocity.y = smash_speed
+		$HeadCollisionShape.set_disabled(true)	
+		$MustCrouchCheck.get_node("CrouchCheckCollider").set_disabled(false)
+	elif must_crouch == false:
+		$HeadCollisionShape.set_disabled(false)	
+		$MustCrouchCheck.get_node("CrouchCheckCollider").set_disabled(true)
 	if jump and is_on_floor():
 		jumping = true
 		just_jumped = true
-		velocity.y = -jump_speed - jump_bonus * abs(velocity.x)
+		velocity.y = -jump_speed - jump_bonus * abs(velocity.x)	
 	if right and not left:
-		velocity.x += run_speed_increment_fraction * max_run_speed * delta * 60
-		velocity.x = clamp(velocity.x, -max_run_speed, max_run_speed)
+		velocity.x += run_speed_increment_fraction * max_walk_speed * delta * 60
+		if sprinting and not crouch:
+			velocity.x = clamp(velocity.x, -max_sprint_speed, max_sprint_speed)
+		else:
+			velocity.x = clamp(velocity.x, -max_walk_speed, max_walk_speed)
 		if direction != RIGHT:
 			direction = RIGHT
 			scale.x = -1
+			
+		emit_signal("flip_health_bar","RIGHT")
+		
 	if left and not right:
-		velocity.x -= run_speed_increment_fraction * max_run_speed * delta * 60
-		velocity.x = clamp(velocity.x, -max_run_speed, max_run_speed)
+		velocity.x -= run_speed_increment_fraction * max_walk_speed * delta * 60
+		if sprinting and not crouch:
+			velocity.x = clamp(velocity.x, -max_sprint_speed, max_sprint_speed)
+		else:
+			velocity.x = clamp(velocity.x, -max_walk_speed, max_walk_speed)
 		if direction != LEFT:
 			direction = LEFT
 			scale.x = -1
+		
+		emit_signal("flip_health_bar","LEFT")
 	
 	if obey_physics:
 		if not walking:
@@ -132,17 +178,44 @@ func calculate_velocity(delta):
 	
 	if fire_chest:
 		_show_anim($FireChestAnimation)
+	elif self.punching:
+		self._show_anim($PunchAnimation)
+	elif self.hamon_punching:
+		self._show_anim($HamonPunchAnimation)
+	elif self.double_punching:
+		self._show_anim($DoublePunchAnimation)
+	elif self.knee_attacking:
+		self._show_anim($KneeAttackAnimation)
 	elif not freeze:
-		if crouch:
-			_show_anim($CrouchAnimation)
+		if crouch or must_crouch == true:
+			if sprinting:
+				_show_anim($SlideAnimation)
+			else:
+				_show_anim($CrouchAnimation)
 		elif jumping:
 			_show_anim($JumpAnimation)
-		elif walking:
+		elif walking and not sprinting:
 			_show_anim($WalkAnimation)
+		elif sprinting:
+			_show_anim($SprintAnimation)
 		else:
 			_show_anim($StandAnimation)
 
+func chest_shoot():
+	var chest_bullet = Bullet.instance()
+	get_parent().add_child(chest_bullet)
+	chest_bullet.position = $ChestFirePoint.global_position
+	
+	if direction == RIGHT:
+		chest_bullet.linear_velocity = Vector2(1000, 0)
+	else:
+		chest_bullet.linear_velocity = Vector2(-1000, 0)
+		chest_bullet.scale.x = -1
+	chest_bullet.damage = bullet_damage
+	chest_bullet.connect("kill_obtained", self, "on_kill")
+
 func _physics_process(delta):
+		
 	calculate_velocity(delta)
 	if smashing and is_on_floor():
 		smashing = false
@@ -152,7 +225,9 @@ func _physics_process(delta):
 	if just_jumped:
 		just_jumped = false
 	velocity = move_and_slide(velocity, Vector2(0, -1))
-
+	for i in get_slide_count():
+		emit_signal("collided", get_slide_collision(i))
+	
 func obtain_checkpoint(id, new_spawn_location):
 	# Mark if we have something to save.
 	if checkpoint != id or spawn_location != new_spawn_location:
@@ -163,7 +238,9 @@ func obtain_checkpoint(id, new_spawn_location):
 	
 	health = max_health
 	spawn_xp = xp
-
+	
+	Root.save_game()
+	
 func obtain_goal(next_scene, freeze = false, hide_mouse = true):
 	invulnerable = true
 	may_move = false
@@ -183,47 +260,26 @@ func end_damage(damage):
 		return
 	
 	active_damage -= damage
-
-func take_damage(damage):
-	if invulnerable or damage == 0:
-		return
 	
-	health = max(health - damage, 0)
-	if health == 0:
-		die()
-		return
-	
-	invulnerable = true
-	$InvulnTimer.start(invuln_time)
-	$InvulnFlickerTimer.start(invuln_flicker_time)
-
 func on_kill(reward):
 	if reward == 0:
 		return
 	xp += reward
 	did_persisted_props_change = true
-	
-func _on_InvulnTimer_timeout():
-	$InvulnFlickerTimer.stop()
-	invulnerable = false
-	show()
-	take_damage(active_damage)
-
-func _on_InvulnFlickerTimer_timeout():
-	if visible:
-		hide()
-	else:
-		show()
-
+		
 func die():
 	respawn()
 
 func respawn():
+	#get_tree().reload_current_scene() - possibly use this line instead?
+	
 	Root.reset_layout()
-	
+
 	health = max_health
+	emit_signal("health",health,max_health)
+
 	xp = spawn_xp
-	
+
 	position.x = spawn_location.x
 	position.y = spawn_location.y
 	velocity.x = 0
@@ -252,6 +308,47 @@ func restore(data):
 	
 	respawn()
 
-
 func _on_FireChestAnimation_animation_finished():
 	firing_chest = false
+	
+#This happens when an object of type enemy touches the player
+func _on_EnemyDetector_body_entered(body):
+	print(body.name)
+	if "BasicEnemy" in body.name and body.isDead == false:
+		take_damage(basic_enemy_damage)
+	if "Boomerang" in body.name and body.isDead == false:
+		take_damage(boomerang_enemy_damage)
+
+func _on_FireChestAnimation_frame_changed():
+	for i in range(9, 24, 2):
+		if $FireChestAnimation.get_frame() == i:
+			chest_shoot()
+
+func take_damage(damage):
+	.take_damage(damage)
+	
+# MARK: - Punch
+
+func _on_PunchAnimation_animation_finished():
+	self.punching = false
+
+# MARK: - Hamon Punch
+
+func _on_HamonPunchAnimation_animation_finished():
+	self.hamon_punching = false
+
+# MARK: - Double Punch
+
+func _on_DoublePunchAnimation_animation_finished():
+	self.double_punching = false
+
+# MARK: - Knee Attack
+
+func _on_KneeAttackAnimation_animation_finished():
+	self.knee_attacking = false
+
+func _on_MustCrouchCheck_body_entered(body):
+	must_crouch = true
+
+func _on_MustCrouchCheck_body_exited(body):
+	must_crouch = false

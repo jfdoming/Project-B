@@ -1,0 +1,11 @@
+[gd_scene format=2]
+
+[node name="SpacingCreator" type="Control"]
+margin_right = 100.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
